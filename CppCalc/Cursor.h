@@ -13,7 +13,7 @@ public:
     {
     }
     Cursor(const std::string &str)
-        : Cursor(str.c_str(), str.size())
+        : Cursor(str.c_str(), (uint32_t)str.size())
     {
         static_assert(std::is_convertible<T, char>::value, "Can't construct a cursor with that type parameter using (std::string&)");
     }

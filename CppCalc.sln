@@ -5,6 +5,13 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppCalc", "CppCalc\CppCalc.vcxproj", "{4FEA9E4F-816C-4FD2-859C-774B87EB2044}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppCalcTest", "CppCalcTest\CppCalcTest.vcxproj", "{03B565C0-076F-46B6-8748-BAAEEEDA2F85}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppAppCLI", "CppAppCLI\CppAppCLI.vcxproj", "{F9C1C6E6-5F6E-4DC1-BEAB-56E0E1A729A7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4FEA9E4F-816C-4FD2-859C-774B87EB2044} = {4FEA9E4F-816C-4FD2-859C-774B87EB2044}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +28,22 @@ Global
 		{4FEA9E4F-816C-4FD2-859C-774B87EB2044}.Release|x64.Build.0 = Release|x64
 		{4FEA9E4F-816C-4FD2-859C-774B87EB2044}.Release|x86.ActiveCfg = Release|Win32
 		{4FEA9E4F-816C-4FD2-859C-774B87EB2044}.Release|x86.Build.0 = Release|Win32
+		{03B565C0-076F-46B6-8748-BAAEEEDA2F85}.Debug|x64.ActiveCfg = Debug|x64
+		{03B565C0-076F-46B6-8748-BAAEEEDA2F85}.Debug|x64.Build.0 = Debug|x64
+		{03B565C0-076F-46B6-8748-BAAEEEDA2F85}.Debug|x86.ActiveCfg = Debug|Win32
+		{03B565C0-076F-46B6-8748-BAAEEEDA2F85}.Debug|x86.Build.0 = Debug|Win32
+		{03B565C0-076F-46B6-8748-BAAEEEDA2F85}.Release|x64.ActiveCfg = Release|x64
+		{03B565C0-076F-46B6-8748-BAAEEEDA2F85}.Release|x64.Build.0 = Release|x64
+		{03B565C0-076F-46B6-8748-BAAEEEDA2F85}.Release|x86.ActiveCfg = Release|Win32
+		{03B565C0-076F-46B6-8748-BAAEEEDA2F85}.Release|x86.Build.0 = Release|Win32
+		{F9C1C6E6-5F6E-4DC1-BEAB-56E0E1A729A7}.Debug|x64.ActiveCfg = Debug|x64
+		{F9C1C6E6-5F6E-4DC1-BEAB-56E0E1A729A7}.Debug|x64.Build.0 = Debug|x64
+		{F9C1C6E6-5F6E-4DC1-BEAB-56E0E1A729A7}.Debug|x86.ActiveCfg = Debug|Win32
+		{F9C1C6E6-5F6E-4DC1-BEAB-56E0E1A729A7}.Debug|x86.Build.0 = Debug|Win32
+		{F9C1C6E6-5F6E-4DC1-BEAB-56E0E1A729A7}.Release|x64.ActiveCfg = Release|x64
+		{F9C1C6E6-5F6E-4DC1-BEAB-56E0E1A729A7}.Release|x64.Build.0 = Release|x64
+		{F9C1C6E6-5F6E-4DC1-BEAB-56E0E1A729A7}.Release|x86.ActiveCfg = Release|Win32
+		{F9C1C6E6-5F6E-4DC1-BEAB-56E0E1A729A7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
