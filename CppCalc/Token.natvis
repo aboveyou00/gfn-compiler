@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="Token">
+    <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) (Token)</DisplayString>
+  </Type>
+  <Type Name="IntegerLiteralToken">
+    <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) "{m_value}"</DisplayString>
+  </Type>
+  <Type Name="OperatorToken">
+    <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) {m_op}</DisplayString>
+  </Type>
+  <Type Name="EndOfFileToken">
+    <DisplayString>[{m_startIndex}) (EOF)</DisplayString>
+  </Type>
+</AutoVisualizer>
