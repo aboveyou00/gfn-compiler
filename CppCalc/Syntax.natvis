@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="Syntax">
+    <DisplayString>(Syntax)</DisplayString>
+  </Type>
+  <Type Name="PrimaryExpressionSyntax">
+    <DisplayString Condition="m_type == 1">{m_intLiteralValue}</DisplayString>
+  </Type>
+  <Type Name="UnaryExpressionSyntax">
+    <DisplayString>{m_op,sb}{m_expr,na}</DisplayString>
+    <Expand>
+      <Item Name="Inner Expression">m_expr</Item>
+      <Item Name="Operator">m_op</Item>
+    </Expand>
+  </Type>
+  <Type Name="BinaryExpressionSyntax">
+    <DisplayString>{m_lhs,na} {m_op,sb} {m_rhs,na}</DisplayString>
+    <Expand>
+      <Item Name="Left">m_lhs,na</Item>
+      <Item Name="Right">m_rhs,na</Item>
+      <Item Name="Operator">m_op</Item>
+    </Expand>
+  </Type>
+</AutoVisualizer>

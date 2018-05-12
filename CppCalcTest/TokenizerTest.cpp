@@ -26,6 +26,15 @@ TEST(Tokenizer_tokenize, IsolatedOperator) {
     EXPECT_NO_MORE_TOKENS();
 }
 
+TEST(Tokenizer_tokenize, IsolatedModulusOperator) {
+    TOKENIZE_SOURCE("%"s);
+
+    EXPECT_OPERATOR("%"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
 TEST(Tokenizer_tokenize, NegativeIntegerLiteral) {
     TOKENIZE_SOURCE("-42"s);
 

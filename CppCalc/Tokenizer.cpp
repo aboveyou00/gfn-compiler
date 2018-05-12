@@ -107,6 +107,7 @@ OperatorToken *Tokenizer::tryCollectOperatorToken(Cursor<char> &cursor)
     case '-':
     case '*':
     case '/':
+    case '%':
     case '(':
     case ')':
         cursor.next();

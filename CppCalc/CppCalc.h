@@ -9,5 +9,5 @@ public:
     CppCalc();
     ~CppCalc();
 
-    int64_t Calculate(const std::string &src);
+    int64_t eval(const std::string &src);
 };
