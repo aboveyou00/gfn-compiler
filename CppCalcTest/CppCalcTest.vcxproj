@@ -38,6 +38,7 @@
     <ClInclude Include="TokenizerMacros.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CppCalcTest.cpp" />
     <ClCompile Include="SyntaxTreeParserTest.cpp" />
     <ClCompile Include="TokenizerTest.cpp" />
     <ClCompile Include="pch.cpp">

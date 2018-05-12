@@ -26,6 +26,27 @@ ExpressionSyntax *AdditiveExpressionSyntax::tryParse(Cursor<Token*> &cursor)
     }
 }
 
+void AdditiveExpressionSyntax::eval(std::stack<int32_t> &stack) const
+{
+    this->lhs()->eval(stack);
+    this->rhs()->eval(stack);
+
+    auto rightResult = stack.top();
+    stack.pop();
+    auto leftResult = stack.top();
+    stack.pop();
+
+    if (this->op() == "+"s)
+    {
+        stack.push(leftResult + rightResult);
+    }
+    else if (this->op() == "-"s)
+    {
+        stack.push(leftResult - rightResult);
+    }
+    else throw std::logic_error("Invalid additive expression operation: " + this->op());
+}
+
 AdditiveExpressionSyntax *AdditiveExpressionSyntax::tryParseRhs(Cursor<Token*> &cursor, ExpressionSyntax *lhs)
 {
     if (!cursor.current()->isOperator()) return nullptr;

@@ -2,6 +2,8 @@
 
 #include "Syntax.h"
 
+#include <stack>
+
 class Token;
 
 class ExpressionSyntax
@@ -12,6 +14,8 @@ public:
     ~ExpressionSyntax();
 
     static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
+
+    virtual void eval(std::stack<int32_t> &stack) const = 0;
 };
 
 template <typename T>

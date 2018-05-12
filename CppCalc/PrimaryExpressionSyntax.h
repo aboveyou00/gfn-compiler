@@ -15,11 +15,13 @@ public:
     PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, uint64_t intLiteralValue);
     ~PrimaryExpressionSyntax();
 
+    static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
+
     PrimaryExpressionType type() const;
 
     uint64_t intLiteralValue() const;
 
-    static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
+    virtual void eval(std::stack<int32_t> &stack) const override;
 
     virtual void repr(std::stringstream &stream) const;
 

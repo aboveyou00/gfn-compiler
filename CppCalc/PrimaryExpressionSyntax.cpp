@@ -17,17 +17,6 @@ PrimaryExpressionSyntax::~PrimaryExpressionSyntax()
 {
 }
 
-PrimaryExpressionType PrimaryExpressionSyntax::type() const
-{
-    return this->m_type;
-}
-
-uint64_t PrimaryExpressionSyntax::intLiteralValue() const
-{
-    if (this->type() != PrimaryExpressionType::IntegerLiteral) throw std::logic_error("Can't get int literal value. This primary expression is not an integer literal!"s);
-    return this->m_intLiteralValue;
-}
-
 ExpressionSyntax *PrimaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
     auto startIndex = cursor.snapshot();
@@ -56,6 +45,35 @@ ExpressionSyntax *PrimaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
     }
 
     return nullptr;
+}
+
+PrimaryExpressionType PrimaryExpressionSyntax::type() const
+{
+    return this->m_type;
+}
+
+uint64_t PrimaryExpressionSyntax::intLiteralValue() const
+{
+    if (this->type() != PrimaryExpressionType::IntegerLiteral) throw std::logic_error("Can't get int literal value. This primary expression is not an integer literal!"s);
+    return this->m_intLiteralValue;
+}
+
+void PrimaryExpressionSyntax::eval(std::stack<int32_t> &stack) const
+{
+    switch (this->type())
+    {
+    case PrimaryExpressionType::IntegerLiteral:
+        {
+            auto val = this->intLiteralValue();
+            //Note: negative integer literals are handled in a special case in UnaryExpressionSyntax when op == "-"
+            if (val > std::numeric_limits<uint32_t>::max()) throw std::logic_error("Integer literal does not fit in uint32_t.");
+            stack.push((uint32_t)val);
+        }
+        break;
+
+    default:
+        throw std::logic_error("Can't repr primary expression syntax. Unknown primary expression type"s);
+    }
 }
 
 void PrimaryExpressionSyntax::repr(std::stringstream &stream) const

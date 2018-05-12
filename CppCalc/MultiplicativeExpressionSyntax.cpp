@@ -26,6 +26,31 @@ ExpressionSyntax *MultiplicativeExpressionSyntax::tryParse(Cursor<Token*> &curso
     }
 }
 
+void MultiplicativeExpressionSyntax::eval(std::stack<int32_t> &stack) const
+{
+    this->lhs()->eval(stack);
+    this->rhs()->eval(stack);
+
+    auto rightResult = stack.top();
+    stack.pop();
+    auto leftResult = stack.top();
+    stack.pop();
+
+    if (this->op() == "*"s)
+    {
+        stack.push(leftResult * rightResult);
+    }
+    else if (this->op() == "/"s)
+    {
+        stack.push(leftResult / rightResult);
+    }
+    else if (this->op() == "%"s)
+    {
+        stack.push(leftResult % rightResult);
+    }
+    else throw std::logic_error("Invalid multiplicative expression operation: " + this->op());
+}
+
 MultiplicativeExpressionSyntax *MultiplicativeExpressionSyntax::tryParseRhs(Cursor<Token*> &cursor, ExpressionSyntax *lhs)
 {
     if (!cursor.current()->isOperator()) return nullptr;
