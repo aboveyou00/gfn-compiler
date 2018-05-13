@@ -1,9 +1,9 @@
 #include "stdafx.h"
 
-#include "UnaryExpressionSyntax.h"
+#include "Parser/UnaryExpressionSyntax.h"
 
-#include "PrimaryExpressionSyntax.h"
-#include "Token.h"
+#include "Parser/PrimaryExpressionSyntax.h"
+#include "Tokenizer/Token.h"
 
 UnaryExpressionSyntax::UnaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr, const std::string op)
     : ExpressionSyntax(startIndex, length), m_expr(expr), m_op(op)

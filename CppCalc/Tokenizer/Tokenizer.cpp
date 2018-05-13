@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include <cctype>
 
-#include "Tokenizer.h"
+#include "Tokenizer/Tokenizer.h"
 
-#include "Cursor.h"
-#include "IntegerLiteralToken.h"
-#include "OperatorToken.h"
-#include "EndOfFileToken.h"
+#include "Util/Cursor.h"
+#include "Tokenizer/IntegerLiteralToken.h"
+#include "Tokenizer/OperatorToken.h"
+#include "Tokenizer/EndOfFileToken.h"
 
 Tokenizer::Tokenizer()
 {

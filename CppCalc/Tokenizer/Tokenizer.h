@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "Cursor.h"
+#include "Util/Cursor.h"
 
 class Token;
 class IntegerLiteralToken;

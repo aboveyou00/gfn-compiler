@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "ExpressionSyntax.h"
-#include "AdditiveExpressionSyntax.h"
+#include "Parser/ExpressionSyntax.h"
+#include "Parser/AdditiveExpressionSyntax.h"
 
 ExpressionSyntax::ExpressionSyntax(uint32_t startIndex, uint32_t length)
     : Syntax(startIndex, length)

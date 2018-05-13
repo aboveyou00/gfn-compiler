@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "BinaryExpressionSyntax.h"
+#include "Parser/BinaryExpressionSyntax.h"
 
 BinaryExpressionSyntax::BinaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op)
     : ExpressionSyntax(startIndex, length), m_lhs(lhs), m_rhs(rhs), m_op(op)

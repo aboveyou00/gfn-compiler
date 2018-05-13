@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "EndOfFileToken.h"
+#include "Tokenizer/EndOfFileToken.h"
 
 EndOfFileToken::EndOfFileToken(uint32_t startIndex)
     : Token(startIndex, 0)

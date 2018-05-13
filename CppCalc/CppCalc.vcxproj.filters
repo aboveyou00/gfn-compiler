@@ -24,46 +24,46 @@
     <ClInclude Include="CppCalc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tokenizer.h">
+    <ClInclude Include="Tokenizer\Tokenizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Token.h">
+    <ClInclude Include="Tokenizer\Token.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IntegerLiteralToken.h">
+    <ClInclude Include="Tokenizer\EndOfFileToken.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OperatorToken.h">
+    <ClInclude Include="Tokenizer\IntegerLiteralToken.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SyntaxTreeParser.h">
+    <ClInclude Include="Tokenizer\OperatorToken.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cursor.h">
+    <ClInclude Include="Parser\AdditiveExpressionSyntax.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EndOfFileToken.h">
+    <ClInclude Include="Parser\BinaryExpressionSyntax.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Syntax.h">
+    <ClInclude Include="Parser\ExpressionSyntax.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExpressionSyntax.h">
+    <ClInclude Include="Parser\MultiplicativeExpressionSyntax.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AdditiveExpressionSyntax.h">
+    <ClInclude Include="Parser\PrimaryExpressionSyntax.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MultiplicativeExpressionSyntax.h">
+    <ClInclude Include="Parser\Syntax.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UnaryExpressionSyntax.h">
+    <ClInclude Include="Parser\SyntaxTreeParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BinaryExpressionSyntax.h">
+    <ClInclude Include="Parser\UnaryExpressionSyntax.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PrimaryExpressionSyntax.h">
+    <ClInclude Include="Util\Cursor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,48 +74,48 @@
     <ClCompile Include="CppCalc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tokenizer.cpp">
+    <ClCompile Include="Tokenizer\Tokenizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Token.cpp">
+    <ClCompile Include="Tokenizer\Token.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IntegerLiteralToken.cpp">
+    <ClCompile Include="Tokenizer\EndOfFileToken.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OperatorToken.cpp">
+    <ClCompile Include="Tokenizer\IntegerLiteralToken.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SyntaxTreeParser.cpp">
+    <ClCompile Include="Tokenizer\OperatorToken.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EndOfFileToken.cpp">
+    <ClCompile Include="Parser\AdditiveExpressionSyntax.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Syntax.cpp">
+    <ClCompile Include="Parser\BinaryExpressionSyntax.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExpressionSyntax.cpp">
+    <ClCompile Include="Parser\ExpressionSyntax.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AdditiveExpressionSyntax.cpp">
+    <ClCompile Include="Parser\MultiplicativeExpressionSyntax.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MultiplicativeExpressionSyntax.cpp">
+    <ClCompile Include="Parser\PrimaryExpressionSyntax.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UnaryExpressionSyntax.cpp">
+    <ClCompile Include="Parser\Syntax.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BinaryExpressionSyntax.cpp">
+    <ClCompile Include="Parser\SyntaxTreeParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PrimaryExpressionSyntax.cpp">
+    <ClCompile Include="Parser\UnaryExpressionSyntax.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="Token.natvis" />
-    <Natvis Include="Syntax.natvis" />
+    <Natvis Include="Tokenizer\Token.natvis" />
+    <Natvis Include="Parser\Syntax.natvis" />
   </ItemGroup>
 </Project>

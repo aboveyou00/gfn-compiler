@@ -1,9 +1,9 @@
 #include "stdafx.h"
 
-#include "MultiplicativeExpressionSyntax.h"
+#include "Parser/MultiplicativeExpressionSyntax.h"
 
-#include "UnaryExpressionSyntax.h"
-#include "Token.h"
+#include "Parser/UnaryExpressionSyntax.h"
+#include "Tokenizer/Token.h"
 
 MultiplicativeExpressionSyntax::MultiplicativeExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op)
     : BinaryExpressionSyntax(startIndex, length, lhs, rhs, op)

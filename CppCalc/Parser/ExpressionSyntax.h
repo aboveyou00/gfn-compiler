@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Syntax.h"
+#include "Parser/Syntax.h"
 
 #include <stack>
 

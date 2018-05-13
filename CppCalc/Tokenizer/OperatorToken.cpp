@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "OperatorToken.h"
+#include "Tokenizer/OperatorToken.h"
 
 OperatorToken::OperatorToken(uint32_t startIndex, uint32_t length, std::string op)
     : Token(startIndex, length), m_op(op)

@@ -1,9 +1,9 @@
 #include "stdafx.h"
 
-#include "SyntaxTreeParser.h"
+#include "Parser/SyntaxTreeParser.h"
 
-#include "Token.h"
-#include "ExpressionSyntax.h"
+#include "Parser/ExpressionSyntax.h"
+#include "Tokenizer/Token.h"
 
 SyntaxTreeParser::SyntaxTreeParser()
 {

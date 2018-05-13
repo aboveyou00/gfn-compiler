@@ -1,5 +1,5 @@
 #pragma once
-#include "BinaryExpressionSyntax.h"
+#include "Parser/BinaryExpressionSyntax.h"
 
 class AdditiveExpressionSyntax :
     public BinaryExpressionSyntax

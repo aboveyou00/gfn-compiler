@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "PrimaryExpressionSyntax.h"
+#include "Parser/PrimaryExpressionSyntax.h"
 
-#include "ExpressionSyntax.h"
-#include "Token.h"
+#include "Parser/ExpressionSyntax.h"
+#include "Tokenizer/Token.h"
 
 PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, PrimaryExpressionType type)
     : ExpressionSyntax(startIndex, length), m_type(type)

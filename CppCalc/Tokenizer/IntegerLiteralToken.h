@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Token.h"
+#include "Tokenizer/Token.h"
 
 class IntegerLiteralToken :
     public Token

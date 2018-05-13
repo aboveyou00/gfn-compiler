@@ -1,6 +1,6 @@
 #pragma once
-#include "Tokenizer.h"
-#include "Token.h"
+#include "Tokenizer/Tokenizer.h"
+#include "Tokenizer/Token.h"
 
 #define TOKENIZE_SOURCE(str)\
     Tokenizer tokenizer;\

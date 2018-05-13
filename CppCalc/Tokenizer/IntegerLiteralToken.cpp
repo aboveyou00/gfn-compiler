@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "IntegerLiteralToken.h"
+#include "Tokenizer/IntegerLiteralToken.h"
 
 IntegerLiteralToken::IntegerLiteralToken(uint32_t start, uint32_t size, uint64_t value)
     : Token(start, size), m_value(value)

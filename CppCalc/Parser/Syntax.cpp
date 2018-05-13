@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Syntax.h"
+#include "Parser/Syntax.h"
 
 Syntax::Syntax(uint32_t startIndex, uint32_t length)
     : m_startIndex(startIndex), m_length(length)

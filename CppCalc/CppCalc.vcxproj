@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)CppCalc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,49 +148,49 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AdditiveExpressionSyntax.h" />
-    <ClInclude Include="BinaryExpressionSyntax.h" />
+    <ClInclude Include="Parser\AdditiveExpressionSyntax.h" />
+    <ClInclude Include="Parser\BinaryExpressionSyntax.h" />
     <ClInclude Include="CppCalc.h" />
-    <ClInclude Include="Cursor.h" />
-    <ClInclude Include="EndOfFileToken.h" />
-    <ClInclude Include="ExpressionSyntax.h" />
-    <ClInclude Include="IntegerLiteralToken.h" />
-    <ClInclude Include="MultiplicativeExpressionSyntax.h" />
-    <ClInclude Include="OperatorToken.h" />
-    <ClInclude Include="PrimaryExpressionSyntax.h" />
+    <ClInclude Include="Util\Cursor.h" />
+    <ClInclude Include="Tokenizer\EndOfFileToken.h" />
+    <ClInclude Include="Parser\ExpressionSyntax.h" />
+    <ClInclude Include="Tokenizer\IntegerLiteralToken.h" />
+    <ClInclude Include="Parser\MultiplicativeExpressionSyntax.h" />
+    <ClInclude Include="Tokenizer\OperatorToken.h" />
+    <ClInclude Include="Parser\PrimaryExpressionSyntax.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Syntax.h" />
-    <ClInclude Include="SyntaxTreeParser.h" />
+    <ClInclude Include="Parser\Syntax.h" />
+    <ClInclude Include="Parser\SyntaxTreeParser.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Token.h" />
-    <ClInclude Include="Tokenizer.h" />
-    <ClInclude Include="UnaryExpressionSyntax.h" />
+    <ClInclude Include="Tokenizer\Token.h" />
+    <ClInclude Include="Tokenizer\Tokenizer.h" />
+    <ClInclude Include="Parser\UnaryExpressionSyntax.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AdditiveExpressionSyntax.cpp" />
-    <ClCompile Include="BinaryExpressionSyntax.cpp" />
+    <ClCompile Include="Parser\AdditiveExpressionSyntax.cpp" />
+    <ClCompile Include="Parser\BinaryExpressionSyntax.cpp" />
     <ClCompile Include="CppCalc.cpp" />
-    <ClCompile Include="EndOfFileToken.cpp" />
-    <ClCompile Include="ExpressionSyntax.cpp" />
-    <ClCompile Include="IntegerLiteralToken.cpp" />
-    <ClCompile Include="MultiplicativeExpressionSyntax.cpp" />
-    <ClCompile Include="OperatorToken.cpp" />
-    <ClCompile Include="PrimaryExpressionSyntax.cpp" />
+    <ClCompile Include="Tokenizer\EndOfFileToken.cpp" />
+    <ClCompile Include="Parser\ExpressionSyntax.cpp" />
+    <ClCompile Include="Tokenizer\IntegerLiteralToken.cpp" />
+    <ClCompile Include="Parser\MultiplicativeExpressionSyntax.cpp" />
+    <ClCompile Include="Tokenizer\OperatorToken.cpp" />
+    <ClCompile Include="Parser\PrimaryExpressionSyntax.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Syntax.cpp" />
-    <ClCompile Include="SyntaxTreeParser.cpp" />
-    <ClCompile Include="Token.cpp" />
-    <ClCompile Include="Tokenizer.cpp" />
-    <ClCompile Include="UnaryExpressionSyntax.cpp" />
+    <ClCompile Include="Parser\Syntax.cpp" />
+    <ClCompile Include="Parser\SyntaxTreeParser.cpp" />
+    <ClCompile Include="Tokenizer\Token.cpp" />
+    <ClCompile Include="Tokenizer\Tokenizer.cpp" />
+    <ClCompile Include="Parser\UnaryExpressionSyntax.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="Syntax.natvis" />
-    <Natvis Include="Token.natvis" />
+    <Natvis Include="Parser\Syntax.natvis" />
+    <Natvis Include="Tokenizer\Token.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

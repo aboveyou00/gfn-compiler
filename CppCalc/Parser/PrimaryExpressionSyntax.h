@@ -1,5 +1,5 @@
 #pragma once
-#include "ExpressionSyntax.h"
+#include "Parser/ExpressionSyntax.h"
 
 enum class PrimaryExpressionType
 {

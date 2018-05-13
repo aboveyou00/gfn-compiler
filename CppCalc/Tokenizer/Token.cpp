@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "Token.h"
+#include "Tokenizer/Token.h"
 
 Token::Token(uint32_t startIndex, uint32_t length)
     : m_startIndex(startIndex), m_length(length)

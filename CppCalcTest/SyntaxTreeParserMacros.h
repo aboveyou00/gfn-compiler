@@ -1,9 +1,9 @@
 #pragma once
-#include "Tokenizer.h"
-#include "SyntaxTreeParser.h"
-#include "BinaryExpressionSyntax.h"
-#include "UnaryExpressionSyntax.h"
-#include "PrimaryExpressionSyntax.h"
+#include "Tokenizer/Tokenizer.h"
+#include "Parser/SyntaxTreeParser.h"
+#include "Parser/BinaryExpressionSyntax.h"
+#include "Parser/UnaryExpressionSyntax.h"
+#include "Parser/PrimaryExpressionSyntax.h"
 
 #pragma warning (disable: 4456)
 
