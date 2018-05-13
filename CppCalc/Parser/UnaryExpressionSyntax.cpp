@@ -13,6 +13,7 @@ UnaryExpressionSyntax::UnaryExpressionSyntax(uint32_t startIndex, uint32_t lengt
 }
 UnaryExpressionSyntax::~UnaryExpressionSyntax()
 {
+    SafeDelete(this->m_expr);
 }
 
 ExpressionSyntax *UnaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)

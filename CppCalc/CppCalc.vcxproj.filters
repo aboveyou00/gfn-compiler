@@ -96,6 +96,9 @@
     <ClInclude Include="Emit\OpNeg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Util\SafeDelete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

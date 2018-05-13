@@ -7,6 +7,8 @@ BinaryExpressionSyntax::BinaryExpressionSyntax(uint32_t startIndex, uint32_t len
 }
 BinaryExpressionSyntax::~BinaryExpressionSyntax()
 {
+    SafeDelete(this->m_lhs);
+    SafeDelete(this->m_rhs);
 }
 
 ExpressionSyntax *BinaryExpressionSyntax::lhs() const

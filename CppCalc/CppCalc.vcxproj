@@ -175,6 +175,7 @@
     <ClInclude Include="Tokenizer\Token.h" />
     <ClInclude Include="Tokenizer\Tokenizer.h" />
     <ClInclude Include="Parser\UnaryExpressionSyntax.h" />
+    <ClInclude Include="Util\SafeDelete.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Emit\Opcode.cpp" />
