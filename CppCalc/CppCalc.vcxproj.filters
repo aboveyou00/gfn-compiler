@@ -66,6 +66,36 @@
     <ClInclude Include="Util\Cursor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Emit\Opcode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpAdd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Eval\EvalStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Eval\ExpressionEvaluator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpSub.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpMul.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpDiv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpMod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpLdcI4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpNeg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -111,6 +141,36 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Parser\UnaryExpressionSyntax.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\Opcode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpAdd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Eval\EvalStack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Eval\ExpressionEvaluator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpSub.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpMul.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpDiv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpMod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpLdcI4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpNeg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

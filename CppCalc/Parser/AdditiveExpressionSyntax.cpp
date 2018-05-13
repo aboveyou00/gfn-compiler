@@ -4,6 +4,8 @@
 
 #include "Parser/MultiplicativeExpressionSyntax.h"
 #include "Tokenizer/Token.h"
+#include "Emit/OpAdd.h"
+#include "Emit/OpSub.h"
 
 AdditiveExpressionSyntax::AdditiveExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op)
     : BinaryExpressionSyntax(startIndex, length, lhs, rhs, op)
@@ -26,24 +28,13 @@ ExpressionSyntax *AdditiveExpressionSyntax::tryParse(Cursor<Token*> &cursor)
     }
 }
 
-void AdditiveExpressionSyntax::eval(std::stack<int32_t> &stack) const
+void AdditiveExpressionSyntax::emit(std::vector<Opcode*> &ops) const
 {
-    this->lhs()->eval(stack);
-    this->rhs()->eval(stack);
+    this->lhs()->emit(ops);
+    this->rhs()->emit(ops);
 
-    auto rightResult = stack.top();
-    stack.pop();
-    auto leftResult = stack.top();
-    stack.pop();
-
-    if (this->op() == "+"s)
-    {
-        stack.push(leftResult + rightResult);
-    }
-    else if (this->op() == "-"s)
-    {
-        stack.push(leftResult - rightResult);
-    }
+    if (this->op() == "+"s) ops.push_back(new OpAdd());
+    else if (this->op() == "-"s) ops.push_back(new OpSub());
     else throw std::logic_error("Invalid additive expression operation: " + this->op());
 }
 

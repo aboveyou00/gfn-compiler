@@ -13,7 +13,7 @@ public:
     ExpressionSyntax *expr() const;
     const std::string op() const;
 
-    virtual void eval(std::stack<int32_t> &stack) const override;
+    virtual void emit(std::vector<Opcode*> &ops) const override;
 
     virtual void repr(std::stringstream &stream) const;
 

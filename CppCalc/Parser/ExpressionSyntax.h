@@ -5,6 +5,7 @@
 #include <stack>
 
 class Token;
+class Opcode;
 
 class ExpressionSyntax
     : public Syntax
@@ -15,7 +16,7 @@ public:
 
     static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
 
-    virtual void eval(std::stack<int32_t> &stack) const = 0;
+    virtual void emit(std::vector<Opcode*> &ops) const = 0;
 };
 
 template <typename T>

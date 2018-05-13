@@ -10,7 +10,7 @@ public:
 
     static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
 
-    virtual void eval(std::stack<int32_t> &stack) const override;
+    virtual void emit(std::vector<Opcode*> &ops) const override;
 
 private:
     static AdditiveExpressionSyntax *tryParseRhs(Cursor<Token*> &cursor, ExpressionSyntax *lhs);

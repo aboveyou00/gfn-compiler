@@ -3,6 +3,7 @@
 
 #include "Parser/ExpressionSyntax.h"
 #include "Tokenizer/Token.h"
+#include "Emit/OpLdcI4.h"
 
 PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, PrimaryExpressionType type)
     : ExpressionSyntax(startIndex, length), m_type(type)
@@ -58,7 +59,7 @@ uint64_t PrimaryExpressionSyntax::intLiteralValue() const
     return this->m_intLiteralValue;
 }
 
-void PrimaryExpressionSyntax::eval(std::stack<int32_t> &stack) const
+void PrimaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
 {
     switch (this->type())
     {
@@ -67,7 +68,7 @@ void PrimaryExpressionSyntax::eval(std::stack<int32_t> &stack) const
             auto val = this->intLiteralValue();
             //Note: negative integer literals are handled in a special case in UnaryExpressionSyntax when op == "-"
             if (val > std::numeric_limits<uint32_t>::max()) throw std::logic_error("Integer literal does not fit in uint32_t.");
-            stack.push((uint32_t)val);
+            ops.push_back(new OpLdcI4((uint32_t)val));
         }
         break;
 

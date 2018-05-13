@@ -21,7 +21,7 @@ public:
 
     uint64_t intLiteralValue() const;
 
-    virtual void eval(std::stack<int32_t> &stack) const override;
+    virtual void emit(std::vector<Opcode*> &ops) const override;
 
     virtual void repr(std::stringstream &stream) const;
 

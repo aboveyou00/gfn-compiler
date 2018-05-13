@@ -1,0 +1,16 @@
+#include "stdafx.h"
+#include "Emit/OpMod.h"
+
+OpMod::OpMod()
+{
+}
+OpMod::~OpMod()
+{
+}
+
+void OpMod::eval(EvalStack &stack) const
+{
+    int32_t lhs, rhs;
+    std::tie(lhs, rhs) = stack.pop2();
+    stack.push(lhs % rhs);
+}

@@ -4,6 +4,9 @@
 
 #include "Parser/UnaryExpressionSyntax.h"
 #include "Tokenizer/Token.h"
+#include "Emit/OpMul.h"
+#include "Emit/OpDiv.h"
+#include "Emit/OpMod.h"
 
 MultiplicativeExpressionSyntax::MultiplicativeExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op)
     : BinaryExpressionSyntax(startIndex, length, lhs, rhs, op)
@@ -26,28 +29,14 @@ ExpressionSyntax *MultiplicativeExpressionSyntax::tryParse(Cursor<Token*> &curso
     }
 }
 
-void MultiplicativeExpressionSyntax::eval(std::stack<int32_t> &stack) const
+void MultiplicativeExpressionSyntax::emit(std::vector<Opcode*> &ops) const
 {
-    this->lhs()->eval(stack);
-    this->rhs()->eval(stack);
+    this->lhs()->emit(ops);
+    this->rhs()->emit(ops);
 
-    auto rightResult = stack.top();
-    stack.pop();
-    auto leftResult = stack.top();
-    stack.pop();
-
-    if (this->op() == "*"s)
-    {
-        stack.push(leftResult * rightResult);
-    }
-    else if (this->op() == "/"s)
-    {
-        stack.push(leftResult / rightResult);
-    }
-    else if (this->op() == "%"s)
-    {
-        stack.push(leftResult % rightResult);
-    }
+    if (this->op() == "*"s) ops.push_back(new OpMul());
+    else if (this->op() == "/"s) ops.push_back(new OpDiv());
+    else if (this->op() == "%"s) ops.push_back(new OpMod());
     else throw std::logic_error("Invalid multiplicative expression operation: " + this->op());
 }
 

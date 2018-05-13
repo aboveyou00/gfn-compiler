@@ -148,6 +148,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Eval\EvalStack.h" />
+    <ClInclude Include="Emit\Opcode.h" />
+    <ClInclude Include="Emit\OpAdd.h" />
+    <ClInclude Include="Eval\ExpressionEvaluator.h" />
+    <ClInclude Include="Emit\OpSub.h" />
+    <ClInclude Include="Emit\OpMul.h" />
+    <ClInclude Include="Emit\OpDiv.h" />
+    <ClInclude Include="Emit\OpMod.h" />
+    <ClInclude Include="Emit\OpLdcI4.h" />
+    <ClInclude Include="Emit\OpNeg.h" />
     <ClInclude Include="Parser\AdditiveExpressionSyntax.h" />
     <ClInclude Include="Parser\BinaryExpressionSyntax.h" />
     <ClInclude Include="CppCalc.h" />
@@ -167,6 +177,16 @@
     <ClInclude Include="Parser\UnaryExpressionSyntax.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Emit\Opcode.cpp" />
+    <ClCompile Include="Eval\EvalStack.cpp" />
+    <ClCompile Include="Emit\OpAdd.cpp" />
+    <ClCompile Include="Eval\ExpressionEvaluator.cpp" />
+    <ClCompile Include="Emit\OpSub.cpp" />
+    <ClCompile Include="Emit\OpMul.cpp" />
+    <ClCompile Include="Emit\OpDiv.cpp" />
+    <ClCompile Include="Emit\OpMod.cpp" />
+    <ClCompile Include="Emit\OpLdcI4.cpp" />
+    <ClCompile Include="Emit\OpNeg.cpp" />
     <ClCompile Include="Parser\AdditiveExpressionSyntax.cpp" />
     <ClCompile Include="Parser\BinaryExpressionSyntax.cpp" />
     <ClCompile Include="CppCalc.cpp" />
