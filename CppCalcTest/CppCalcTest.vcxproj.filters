@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="CppCalcTest.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Emit\OpAddTest.cpp" />
+    <ClCompile Include="Parser\SyntaxTreeParserTest.cpp" />
+    <ClCompile Include="Tokenizer\TokenizerTest.cpp" />
+    <ClCompile Include="Emit\OpSubTest.cpp" />
+    <ClCompile Include="Emit\OpMulTest.cpp" />
+    <ClCompile Include="Emit\OpDivTest.cpp" />
+    <ClCompile Include="Emit\OpModTest.cpp" />
+    <ClCompile Include="Emit\OpNegTest.cpp" />
+    <ClCompile Include="Emit\OpLdcI4Test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Parser\SyntaxTreeParserMacros.h" />
+    <ClInclude Include="Tokenizer\TokenizerMacros.h" />
+    <ClInclude Include="Emit\OpMacros.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

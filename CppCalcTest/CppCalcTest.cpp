@@ -37,6 +37,12 @@ TEST(CppCalc_eval, SimpleAddition) {
     EXPECT_TRUE(result == 7);
 }
 
+TEST(CppCalc_eval, ComplexAddition) {
+    CppCalc calc;
+    auto result = calc.eval("1 + 2 + 3 + 4 + 5");
+    EXPECT_TRUE(result == 15);
+}
+
 TEST(CppCalc_eval, SimpleSubtraction) {
     CppCalc calc;
     auto result = calc.eval("20 - 16");

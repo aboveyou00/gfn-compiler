@@ -33,14 +33,22 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClInclude Include="Emit\OpMacros.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="SyntaxTreeParserMacros.h" />
-    <ClInclude Include="TokenizerMacros.h" />
+    <ClInclude Include="Parser\SyntaxTreeParserMacros.h" />
+    <ClInclude Include="Tokenizer\TokenizerMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCalcTest.cpp" />
-    <ClCompile Include="SyntaxTreeParserTest.cpp" />
-    <ClCompile Include="TokenizerTest.cpp" />
+    <ClCompile Include="Emit\OpAddTest.cpp" />
+    <ClCompile Include="Emit\OpSubTest.cpp" />
+    <ClCompile Include="Emit\OpMulTest.cpp" />
+    <ClCompile Include="Emit\OpDivTest.cpp" />
+    <ClCompile Include="Emit\OpModTest.cpp" />
+    <ClCompile Include="Emit\OpNegTest.cpp" />
+    <ClCompile Include="Emit\OpLdcI4Test.cpp" />
+    <ClCompile Include="Parser\SyntaxTreeParserTest.cpp" />
+    <ClCompile Include="Tokenizer\TokenizerTest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -87,7 +95,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalIncludeDirectories>$(SolutionDir)CppCalc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CppCalc\;$(SolutionDir)CppCalcTest\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
