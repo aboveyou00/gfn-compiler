@@ -23,11 +23,12 @@ ExpressionSyntax *UnaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
         auto op = cursor.current()->op();
         if (op == "+" || op == "-")
         {
-            auto beginIndex = cursor.snapshot();
+            auto startIndex = cursor.current()->startIndex();
+            auto snapshot = cursor.snapshot();
             cursor.next();
             ExpressionSyntax *rhs = tryParseSyntax<UnaryExpressionSyntax>(cursor);
-            if (rhs == nullptr) cursor.reset(beginIndex);
-            else return new UnaryExpressionSyntax(beginIndex, cursor.snapshot() - beginIndex, rhs, op);
+            if (rhs == nullptr) cursor.reset(snapshot);
+            else return new UnaryExpressionSyntax(startIndex, cursor.current()->startIndex() - startIndex, rhs, op);
         }
     }
 
@@ -46,14 +47,10 @@ const std::string UnaryExpressionSyntax::op() const
 void UnaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
 {
     //Note: this top part is to handle the special case of having the minimum value for uint32_t
-    if (this->op() == "-"s)
+    if (this->isNegativeNumericLimit())
     {
-        auto primaryExpr = dynamic_cast<PrimaryExpressionSyntax*>(this->expr());
-        if (primaryExpr != nullptr && primaryExpr->type() == PrimaryExpressionType::IntegerLiteral && primaryExpr->intLiteralValue() == (uint64_t)-(int64_t)std::numeric_limits<int32_t>::min())
-        {
-            ops.push_back(new OpLdcI4(std::numeric_limits<int32_t>::min()));
-            return;
-        }
+        ops.push_back(new OpLdcI4(std::numeric_limits<int32_t>::min()));
+        return;
     }
 
     this->expr()->emit(ops);
@@ -66,4 +63,14 @@ void UnaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
 void UnaryExpressionSyntax::repr(std::stringstream &stream) const
 {
     stream << this->op() << this->expr();
+}
+
+bool UnaryExpressionSyntax::isNegativeNumericLimit() const
+{
+    if (this->op() != "-"s) return false;
+    auto primaryExpr = dynamic_cast<PrimaryExpressionSyntax*>(this->expr());
+    if (primaryExpr == nullptr) return false;
+    if (primaryExpr->type() != PrimaryExpressionType::IntegerLiteral || primaryExpr->intLiteralValue() != (uint64_t)-(int64_t)std::numeric_limits<int32_t>::min()) return false;
+    if (primaryExpr->startIndex() != this->startIndex() + 1) return false;
+    return true;
 }

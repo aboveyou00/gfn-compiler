@@ -91,6 +91,10 @@ IntegerLiteralToken *Tokenizer::tryCollectIntegerLiteralToken(Cursor<char> &curs
 
     uint64_t value;
     buffer >> value;
+    if (buffer.fail()) {
+        auto str = buffer.str();
+        throw std::logic_error("Failed to parse integer literal token: "s + str);
+    }
     return new IntegerLiteralToken(beginIndex, cursor.snapshot() - beginIndex, value);
 }
 

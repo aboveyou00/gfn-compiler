@@ -46,7 +46,8 @@ An IntegerLiteralToken with a larger value is not permitted unless all of the fo
 
 1. The integer literal value is 2147483648
 2. The integer literal is immediately preceded by an OperatorToken (-)
-3. There is no whitespace between the '-' character of the OperatorToken and the first character in the IntegerLiteralToken
+3. There are no characters between the '-' character of the OperatorToken and
+   the first character in the IntegerLiteralToken
 4. The OperatorToken and IntegerLiteralToken would be interpreted by the parser as an UnaryExpressionSyntax.
 
 A few examples:
@@ -62,6 +63,8 @@ A few examples:
 
 An implementation is required to fail compilation if any of the invalid cases above are parsed,
 even if the expression could potentially be interpreted in a sensible way.
+However, an implementation can defer the error to a later stage in the compiler if necessary,
+rather than failing compilation speculatively.
 
 # Syntax:
 

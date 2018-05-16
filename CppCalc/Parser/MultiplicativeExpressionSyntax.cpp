@@ -56,5 +56,5 @@ MultiplicativeExpressionSyntax *MultiplicativeExpressionSyntax::tryParseRhs(Curs
     }
 
     auto startIndex = lhs->startIndex();
-    return new MultiplicativeExpressionSyntax(startIndex, cursor.snapshot() - startIndex, lhs, rhs, op);
+    return new MultiplicativeExpressionSyntax(startIndex, cursor.current()->startIndex() - startIndex, lhs, rhs, op);
 }

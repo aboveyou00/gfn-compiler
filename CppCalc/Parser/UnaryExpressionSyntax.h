@@ -20,4 +20,6 @@ public:
 private:
     ExpressionSyntax *m_expr;
     const std::string m_op;
+
+    bool isNegativeNumericLimit() const;
 };

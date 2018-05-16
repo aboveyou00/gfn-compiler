@@ -20,13 +20,13 @@ PrimaryExpressionSyntax::~PrimaryExpressionSyntax()
 
 ExpressionSyntax *PrimaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
-    auto startIndex = cursor.snapshot();
     auto current = cursor.current();
+    auto snapshot = cursor.snapshot();
     
     if (current->isIntLiteral())
     {
         cursor.next();
-        return new PrimaryExpressionSyntax(startIndex, 1, current->intLiteral());
+        return new PrimaryExpressionSyntax(current->startIndex(), current->length(), current->intLiteral());
     }
 
     if (current->isOperator() && current->op() == "("s)
@@ -40,7 +40,7 @@ ExpressionSyntax *PrimaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
         }
         else
         {
-            cursor.reset(startIndex);
+            cursor.reset(snapshot);
             delete expr;
         }
     }
@@ -67,7 +67,7 @@ void PrimaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
         {
             auto val = this->intLiteralValue();
             //Note: negative integer literals are handled in a special case in UnaryExpressionSyntax when op == "-"
-            if (val > std::numeric_limits<uint32_t>::max()) throw std::logic_error("Integer literal does not fit in uint32_t.");
+            if (val > std::numeric_limits<int32_t>::max()) throw std::logic_error("Integer literal does not fit in int32_t.");
             ops.push_back(new OpLdcI4((uint32_t)val));
         }
         break;

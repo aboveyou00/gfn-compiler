@@ -54,5 +54,5 @@ AdditiveExpressionSyntax *AdditiveExpressionSyntax::tryParseRhs(Cursor<Token*> &
     }
 
     auto startIndex = lhs->startIndex();
-    return new AdditiveExpressionSyntax(startIndex, cursor.snapshot() - startIndex, lhs, rhs, op);
+    return new AdditiveExpressionSyntax(startIndex, cursor.current()->startIndex() - startIndex, lhs, rhs, op);
 }
