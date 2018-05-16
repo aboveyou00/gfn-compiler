@@ -33,20 +33,20 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
-    <ClInclude Include="Emit\OpMacros.h" />
+    <ClInclude Include="Eval\EvalMacros.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Parser\SyntaxTreeParserMacros.h" />
     <ClInclude Include="Tokenizer\TokenizerMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCalcTest.cpp" />
-    <ClCompile Include="Emit\OpAddTest.cpp" />
-    <ClCompile Include="Emit\OpSubTest.cpp" />
-    <ClCompile Include="Emit\OpMulTest.cpp" />
-    <ClCompile Include="Emit\OpDivTest.cpp" />
-    <ClCompile Include="Emit\OpModTest.cpp" />
-    <ClCompile Include="Emit\OpNegTest.cpp" />
-    <ClCompile Include="Emit\OpLdcI4Test.cpp" />
+    <ClCompile Include="Eval\OpAddTest.cpp" />
+    <ClCompile Include="Eval\OpSubTest.cpp" />
+    <ClCompile Include="Eval\OpMulTest.cpp" />
+    <ClCompile Include="Eval\OpDivTest.cpp" />
+    <ClCompile Include="Eval\OpModTest.cpp" />
+    <ClCompile Include="Eval\OpNegTest.cpp" />
+    <ClCompile Include="Eval\OpLdcI4Test.cpp" />
     <ClCompile Include="Parser\SyntaxTreeParserTest.cpp" />
     <ClCompile Include="Tokenizer\TokenizerTest.cpp" />
     <ClCompile Include="pch.cpp">

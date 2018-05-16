@@ -1,8 +1,8 @@
 #include "pch.h"
-#include "Emit/OpMacros.h"
+#include "Eval/EvalMacros.h"
 #include "Emit/OpLdcI4.h"
 
-TEST(Emit_OpLdcI4_eval, Simple) {
+TEST(OpLdcI4_eval, Simple) {
     PREPARE_STACK();
 
     OpLdcI4 op(42);

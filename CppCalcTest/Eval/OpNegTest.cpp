@@ -1,8 +1,8 @@
 #include "pch.h"
-#include "Emit/OpMacros.h"
+#include "Eval/EvalMacros.h"
 #include "Emit/OpNeg.h"
 
-TEST(Emit_OpNeg_eval, Simple) {
+TEST(OpNeg_eval, Simple) {
     PREPARE_STACK(13);
 
     OpNeg op;
