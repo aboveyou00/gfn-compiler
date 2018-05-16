@@ -213,6 +213,9 @@
     <Natvis Include="Parser\Syntax.natvis" />
     <Natvis Include="Tokenizer\Token.natvis" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="LanguageSpec.md" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

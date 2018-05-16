@@ -181,4 +181,7 @@
     <Natvis Include="Tokenizer\Token.natvis" />
     <Natvis Include="Parser\Syntax.natvis" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="LanguageSpec.md" />
+  </ItemGroup>
 </Project>
