@@ -91,7 +91,7 @@ IntegerLiteralToken *Tokenizer::tryCollectIntegerLiteralToken(Cursor<char> &curs
 
     uint64_t value;
     buffer >> value;
-    if (buffer.fail()) {
+    if (buffer.fail() || value > 2147483648UL) {
         auto str = buffer.str();
         throw std::logic_error("Failed to parse integer literal token: "s + str);
     }
