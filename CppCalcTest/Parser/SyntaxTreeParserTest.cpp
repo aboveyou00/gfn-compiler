@@ -7,6 +7,12 @@ TEST(SyntaxTreeParser_parse, IntegerLiteral) {
     EXPECT_INTEGER_LITERAL(expr, 42);
 }
 
+TEST(SyntaxTreeParser_parse, BooleanLiteral) {
+    PARSE_SOURCE("true"s);
+
+    EXPECT_BOOLEAN_LITERAL(expr, true);
+}
+
 TEST(SyntaxTreeParser_parse, ParenthesizedIntegerLiteral) {
     PARSE_SOURCE("(285)"s);
 

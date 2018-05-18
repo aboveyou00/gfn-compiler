@@ -54,7 +54,17 @@
         EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::IntegerLiteral);\
     }
 
-#define EXPECT_STR(expected)\
+#define EXPECT_BOOLEAN_LITERAL(expr, val)\
     {\
-        EXPECT_TRUE(expected == "myStr"s);\
+        auto __myExpr = dynamic_cast<PrimaryExpressionSyntax*>(expr);\
+        EXPECT_TRUE(__myExpr != nullptr);\
+        EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::BooleanLiteral);\
+        EXPECT_TRUE(__myExpr->booleanLiteralValue() == val);\
+    }
+
+#define EXPECT_ANY_BOOLEAN_LITERAL(expr)\
+    {\
+        auto __myExpr = dynamic_cast<PrimaryExpressionSyntax*>(expr);\
+        EXPECT_TRUE(__myExpr != nullptr);\
+        EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::BooleanLiteral);\
     }

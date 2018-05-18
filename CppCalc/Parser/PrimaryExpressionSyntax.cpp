@@ -14,6 +14,11 @@ PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t l
 {
     this->m_intLiteralValue = intLiteralValue;
 }
+PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, bool booleanLiteralValue)
+    : PrimaryExpressionSyntax(startIndex, length, PrimaryExpressionType::BooleanLiteral)
+{
+    this->m_intLiteralValue = booleanLiteralValue ? 1 : 0;
+}
 PrimaryExpressionSyntax::~PrimaryExpressionSyntax()
 {
 }
@@ -22,11 +27,17 @@ ExpressionSyntax *PrimaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
     auto current = cursor.current();
     auto snapshot = cursor.snapshot();
-    
+
     if (current->isIntLiteral())
     {
         cursor.next();
         return new PrimaryExpressionSyntax(current->startIndex(), current->length(), current->intLiteral());
+    }
+
+    if (current->isBooleanLiteral())
+    {
+        cursor.next();
+        return new PrimaryExpressionSyntax(current->startIndex(), current->length(), current->booleanLiteral());
     }
 
     if (current->isOperator() && current->op() == "("s)
@@ -59,6 +70,12 @@ uint64_t PrimaryExpressionSyntax::intLiteralValue() const
     return this->m_intLiteralValue;
 }
 
+bool PrimaryExpressionSyntax::booleanLiteralValue() const
+{
+    if (this->type() != PrimaryExpressionType::BooleanLiteral) throw std::logic_error("Can't get boolean literal value. This primary expression is not a boolean literal!"s);
+    return this->m_intLiteralValue == 1;
+}
+
 void PrimaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
 {
     switch (this->type())
@@ -69,6 +86,13 @@ void PrimaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
             //Note: negative integer literals are handled in a special case in UnaryExpressionSyntax when op == "-"
             if (val > std::numeric_limits<int32_t>::max()) throw std::logic_error("Integer literal does not fit in int32_t.");
             ops.push_back(new OpLdcI4((int32_t)val));
+        }
+        break;
+        
+    case PrimaryExpressionType::BooleanLiteral:
+        {
+            auto val = this->booleanLiteralValue();
+            ops.push_back(new OpLdcI4(val ? 1 : 0));
         }
         break;
 
@@ -83,6 +107,10 @@ void PrimaryExpressionSyntax::repr(std::stringstream &stream) const
     {
     case PrimaryExpressionType::IntegerLiteral:
         stream << this->intLiteralValue();
+        return;
+
+    case PrimaryExpressionType::BooleanLiteral:
+        stream << this->booleanLiteralValue();
         return;
 
     default:

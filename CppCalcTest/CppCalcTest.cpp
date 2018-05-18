@@ -25,6 +25,18 @@ TEST(CppCalc_eval, MinIntegerLiteral) {
     EXPECT_TRUE(result == std::numeric_limits<int32_t>::min());
 }
 
+TEST(CppCalc_eval, BooleanLiteral_True) {
+    CppCalc calc;
+    auto result = calc.eval("true");
+    EXPECT_TRUE(result == 1);
+}
+
+TEST(CppCalc_eval, BooleanLiteral_False) {
+    CppCalc calc;
+    auto result = calc.eval("false");
+    EXPECT_TRUE(result == 0);
+}
+
 TEST(CppCalc_eval, SimpleNegation) {
     CppCalc calc;
     auto result = calc.eval("-45");

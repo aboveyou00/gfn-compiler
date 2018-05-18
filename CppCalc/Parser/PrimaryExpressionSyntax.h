@@ -3,7 +3,8 @@
 
 enum class PrimaryExpressionType
 {
-    IntegerLiteral = 1
+    IntegerLiteral = 1,
+    BooleanLiteral = 2
 };
 
 class PrimaryExpressionSyntax :
@@ -13,6 +14,7 @@ private:
     PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, PrimaryExpressionType type);
 public:
     PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, uint64_t intLiteralValue);
+    PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, bool booleanLiteralValue);
     ~PrimaryExpressionSyntax();
 
     static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
@@ -20,6 +22,7 @@ public:
     PrimaryExpressionType type() const;
 
     uint64_t intLiteralValue() const;
+    bool booleanLiteralValue() const;
 
     virtual void emit(std::vector<Opcode*> &ops) const override;
 
