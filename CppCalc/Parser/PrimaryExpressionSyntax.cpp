@@ -84,7 +84,7 @@ void PrimaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
         {
             auto val = this->intLiteralValue();
             //Note: negative integer literals are handled in a special case in UnaryExpressionSyntax when op == "-"
-            if (val > std::numeric_limits<int32_t>::max()) throw std::logic_error("Integer literal does not fit in int32_t.");
+            if (val > std::numeric_limits<int32_t>::max()) throw std::logic_error("Integer literal does not fit in int32_t."s);
             ops.push_back(new OpLdcI4((int32_t)val));
         }
         break;

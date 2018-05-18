@@ -1,6 +1,8 @@
 #pragma once
 #include "Parser/BinaryExpressionSyntax.h"
 
+#include <vector>
+
 class AdditiveExpressionSyntax :
     public BinaryExpressionSyntax
 {

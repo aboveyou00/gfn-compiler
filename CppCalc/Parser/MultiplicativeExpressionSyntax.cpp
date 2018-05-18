@@ -37,14 +37,14 @@ void MultiplicativeExpressionSyntax::emit(std::vector<Opcode*> &ops) const
     if (this->op() == "*"s) ops.push_back(new OpMul());
     else if (this->op() == "/"s) ops.push_back(new OpDiv());
     else if (this->op() == "%"s) ops.push_back(new OpMod());
-    else throw std::logic_error("Invalid multiplicative expression operation: " + this->op());
+    else throw std::logic_error("Invalid multiplicative expression operation: "s + this->op());
 }
 
 MultiplicativeExpressionSyntax *MultiplicativeExpressionSyntax::tryParseRhs(Cursor<Token*> &cursor, ExpressionSyntax *lhs)
 {
     if (!cursor.current()->isOperator()) return nullptr;
     auto op = cursor.current()->op();
-    if (op != "*" && op != "/" && op != "%") return nullptr;
+    if (op != "*"s && op != "/"s && op != "%"s) return nullptr;
 
     auto snapshot = cursor.snapshot();
     cursor.next();

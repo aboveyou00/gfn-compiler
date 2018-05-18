@@ -22,7 +22,7 @@ ExpressionSyntax *UnaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
     if (cursor.current()->isOperator())
     {
         auto op = cursor.current()->op();
-        if (op == "+" || op == "-" || op == "!")
+        if (op == "+"s || op == "-"s || op == "!"s)
         {
             auto startIndex = cursor.current()->startIndex();
             auto snapshot = cursor.snapshot();
@@ -63,7 +63,7 @@ void UnaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
         ops.push_back(new OpLdcI4(0));
         ops.push_back(new OpCeq());
     }
-    else throw std::logic_error("Invalid unary expression operation: " + this->op());
+    else throw std::logic_error("Invalid unary expression operation: "s + this->op());
 }
 
 void UnaryExpressionSyntax::repr(std::stringstream &stream) const

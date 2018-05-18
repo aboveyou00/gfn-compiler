@@ -148,6 +148,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Parser\ConditionalAndExpressionSyntax.h" />
+    <ClInclude Include="Parser\ConditionalOrExpressionSyntax.h" />
+    <ClInclude Include="Parser\EqualityExpressionSyntax.h" />
+    <ClInclude Include="Parser\RelationalExpressionSyntax.h" />
     <ClInclude Include="Eval\EvalStack.h" />
     <ClInclude Include="Emit\Opcode.h" />
     <ClInclude Include="Emit\OpAdd.h" />
@@ -182,6 +186,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Emit\Opcode.cpp" />
+    <ClCompile Include="Parser\ConditionalAndExpressionSyntax.cpp" />
+    <ClCompile Include="Parser\ConditionalOrExpressionSyntax.cpp" />
+    <ClCompile Include="Parser\EqualityExpressionSyntax.cpp" />
+    <ClCompile Include="Parser\RelationalExpressionSyntax.cpp" />
     <ClCompile Include="Eval\EvalStack.cpp" />
     <ClCompile Include="Emit\OpAdd.cpp" />
     <ClCompile Include="Eval\ExpressionEvaluator.cpp" />

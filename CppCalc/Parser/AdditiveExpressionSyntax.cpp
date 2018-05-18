@@ -35,14 +35,14 @@ void AdditiveExpressionSyntax::emit(std::vector<Opcode*> &ops) const
 
     if (this->op() == "+"s) ops.push_back(new OpAdd());
     else if (this->op() == "-"s) ops.push_back(new OpSub());
-    else throw std::logic_error("Invalid additive expression operation: " + this->op());
+    else throw std::logic_error("Invalid additive expression operation: "s + this->op());
 }
 
 AdditiveExpressionSyntax *AdditiveExpressionSyntax::tryParseRhs(Cursor<Token*> &cursor, ExpressionSyntax *lhs)
 {
     if (!cursor.current()->isOperator()) return nullptr;
     auto op = cursor.current()->op();
-    if (op != "+" && op != "-") return nullptr;
+    if (op != "+"s && op != "-"s) return nullptr;
 
     auto snapshot = cursor.snapshot();
     cursor.next();
