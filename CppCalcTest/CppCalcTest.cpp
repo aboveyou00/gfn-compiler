@@ -49,6 +49,18 @@ TEST(CppCalc_eval, UnaryPositive) {
     EXPECT_TRUE(result == 45);
 }
 
+TEST(CppCalc_eval, LogicalNot_True) {
+    CppCalc calc;
+    auto result = calc.eval("!true");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, LogicalNot_False) {
+    CppCalc calc;
+    auto result = calc.eval("!false");
+    EXPECT_TRUE(result == 1);
+}
+
 TEST(CppCalc_eval, SimpleAddition) {
     CppCalc calc;
     auto result = calc.eval("3 + 4");

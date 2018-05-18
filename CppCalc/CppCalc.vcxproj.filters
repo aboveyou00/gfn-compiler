@@ -105,6 +105,9 @@
     <ClInclude Include="Tokenizer\KeywordToken.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Emit\OpCeq.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -186,6 +189,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Tokenizer\KeywordToken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpCeq.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

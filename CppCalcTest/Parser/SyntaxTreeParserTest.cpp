@@ -35,6 +35,14 @@ TEST(SyntaxTreeParser_parse, UnaryNegativeLiteral) {
     });
 }
 
+TEST(SyntaxTreeParser_parse, UnaryLogicalNot) {
+    PARSE_SOURCE("!true"s);
+
+    EXPECT_UN_OP(expr, "!"s, {
+        EXPECT_BOOLEAN_LITERAL(expr, true);
+    });
+}
+
 TEST(SyntaxTreeParser_parse, MultipleNegations) {
     PARSE_SOURCE("---5"s);
 

@@ -6,6 +6,7 @@
 #include "Tokenizer/Token.h"
 #include "Emit/OpLdcI4.h"
 #include "Emit/OpNeg.h"
+#include "Emit/OpCeq.h"
 
 UnaryExpressionSyntax::UnaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr, const std::string op)
     : ExpressionSyntax(startIndex, length), m_expr(expr), m_op(op)
@@ -21,7 +22,7 @@ ExpressionSyntax *UnaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
     if (cursor.current()->isOperator())
     {
         auto op = cursor.current()->op();
-        if (op == "+" || op == "-")
+        if (op == "+" || op == "-" || op == "!")
         {
             auto startIndex = cursor.current()->startIndex();
             auto snapshot = cursor.snapshot();
@@ -57,6 +58,11 @@ void UnaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
 
     if (this->op() == "-"s) ops.push_back(new OpNeg());
     else if (this->op() == "+"s) { ; } //NOP
+    else if (this->op() == "!"s)
+    {
+        ops.push_back(new OpLdcI4(0));
+        ops.push_back(new OpCeq());
+    }
     else throw std::logic_error("Invalid unary expression operation: " + this->op());
 }
 

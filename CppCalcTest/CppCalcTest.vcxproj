@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCalcTest.cpp" />
-    <ClCompile Include="Eval\OpAddTest.cpp" />
+    <ClCompile Include="Eval\OpCeqTest.cpp" />
     <ClCompile Include="Eval\OpSubTest.cpp" />
     <ClCompile Include="Eval\OpMulTest.cpp" />
     <ClCompile Include="Eval\OpDivTest.cpp" />

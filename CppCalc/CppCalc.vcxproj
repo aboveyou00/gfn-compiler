@@ -158,6 +158,7 @@
     <ClInclude Include="Emit\OpMod.h" />
     <ClInclude Include="Emit\OpLdcI4.h" />
     <ClInclude Include="Emit\OpNeg.h" />
+    <ClInclude Include="Emit\OpCeq.h" />
     <ClInclude Include="Parser\AdditiveExpressionSyntax.h" />
     <ClInclude Include="Parser\BinaryExpressionSyntax.h" />
     <ClInclude Include="CppCalc.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="Emit\OpMod.cpp" />
     <ClCompile Include="Emit\OpLdcI4.cpp" />
     <ClCompile Include="Emit\OpNeg.cpp" />
+    <ClCompile Include="Emit\OpCeq.cpp" />
     <ClCompile Include="Parser\AdditiveExpressionSyntax.cpp" />
     <ClCompile Include="Parser\BinaryExpressionSyntax.cpp" />
     <ClCompile Include="CppCalc.cpp" />
