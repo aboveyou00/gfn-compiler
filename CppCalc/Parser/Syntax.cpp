@@ -25,6 +25,7 @@ uint32_t Syntax::endIndex() const
 std::string Syntax::stringify() const
 {
     thread_local static std::stringstream buffer;
+    buffer.str(std::string());
     buffer.clear();
     this->stringify(buffer);
     return buffer.str();
@@ -42,6 +43,7 @@ std::stringstream &operator<<(std::stringstream &stream, const Syntax &syntax)
 std::ostream &operator<<(std::ostream &stream, const Syntax &syntax)
 {
     thread_local static std::stringstream sstream;
+    sstream.str(std::string());
     sstream.clear();
     sstream << syntax;
     stream << sstream.str();

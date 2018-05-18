@@ -161,6 +161,7 @@
     <ClInclude Include="Parser\AdditiveExpressionSyntax.h" />
     <ClInclude Include="Parser\BinaryExpressionSyntax.h" />
     <ClInclude Include="CppCalc.h" />
+    <ClInclude Include="Tokenizer\KeywordToken.h" />
     <ClInclude Include="Util\Cursor.h" />
     <ClInclude Include="Tokenizer\EndOfFileToken.h" />
     <ClInclude Include="Parser\ExpressionSyntax.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="Tokenizer\Token.h" />
     <ClInclude Include="Tokenizer\Tokenizer.h" />
     <ClInclude Include="Parser\UnaryExpressionSyntax.h" />
+    <ClInclude Include="Tokenizer\BooleanLiteralToken.h" />
     <ClInclude Include="Util\SafeDelete.h" />
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +210,8 @@
     <ClCompile Include="Tokenizer\Token.cpp" />
     <ClCompile Include="Tokenizer\Tokenizer.cpp" />
     <ClCompile Include="Parser\UnaryExpressionSyntax.cpp" />
+    <ClCompile Include="Tokenizer\BooleanLiteralToken.cpp" />
+    <ClCompile Include="Tokenizer\KeywordToken.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Parser\Syntax.natvis" />

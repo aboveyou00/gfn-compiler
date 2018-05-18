@@ -20,5 +20,9 @@ private:
     void collectWhitespace(Cursor<char> &cursor);
     Token *tryCollectToken(Cursor<char> &cursor);
     IntegerLiteralToken *tryCollectIntegerLiteralToken(Cursor<char> &cursor);
+    Token *tryCollectIdentifierOrKeywordToken(Cursor<char> &cursor);
     OperatorToken *tryCollectOperatorToken(Cursor<char> &cursor);
+
+    bool isValidIdentifierStartChar(char chr);
+    bool isValidIdentifierChar(char chr);
 };

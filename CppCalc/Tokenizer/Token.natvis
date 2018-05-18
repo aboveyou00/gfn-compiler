@@ -4,7 +4,10 @@
     <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) (Token)</DisplayString>
   </Type>
   <Type Name="IntegerLiteralToken">
-    <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) "{m_value}"</DisplayString>
+    <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) {m_value}</DisplayString>
+  </Type>
+  <Type Name="KeywordToken">
+    <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) {m_keyword,sb}</DisplayString>
   </Type>
   <Type Name="OperatorToken">
     <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) {m_op}</DisplayString>

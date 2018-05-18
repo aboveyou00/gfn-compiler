@@ -5,6 +5,8 @@
 
 #include "Util/Cursor.h"
 #include "Tokenizer/IntegerLiteralToken.h"
+#include "Tokenizer/KeywordToken.h"
+#include "Tokenizer/BooleanLiteralToken.h"
 #include "Tokenizer/OperatorToken.h"
 #include "Tokenizer/EndOfFileToken.h"
 
@@ -59,6 +61,7 @@ Token *Tokenizer::tryCollectToken(Cursor<char> &cursor)
 
     auto nextChar = cursor.current();
     if (std::isdigit(nextChar)) return this->tryCollectIntegerLiteralToken(cursor);
+    else if (this->isValidIdentifierStartChar(nextChar)) return this->tryCollectIdentifierOrKeywordToken(cursor);
     else return this->tryCollectOperatorToken(cursor);
 }
 
@@ -68,6 +71,7 @@ IntegerLiteralToken *Tokenizer::tryCollectIntegerLiteralToken(Cursor<char> &curs
     assert(std::isdigit(cursor.current()));
 
     thread_local static std::stringstream buffer;
+    buffer.str(std::string());
     buffer.clear();
 
     auto beginIndex = cursor.snapshot();
@@ -96,6 +100,45 @@ IntegerLiteralToken *Tokenizer::tryCollectIntegerLiteralToken(Cursor<char> &curs
         throw std::logic_error("Failed to parse integer literal token: "s + str);
     }
     return new IntegerLiteralToken(beginIndex, cursor.snapshot() - beginIndex, value);
+}
+
+Token *Tokenizer::tryCollectIdentifierOrKeywordToken(Cursor<char> &cursor)
+{
+    assert(!cursor.isDone());
+    assert(this->isValidIdentifierStartChar(cursor.current()));
+
+    thread_local static std::stringstream buffer;
+    buffer.str(std::string());
+    buffer.clear();
+
+    auto beginIndex = cursor.snapshot();
+
+    auto isExplicitIdentifier = false;
+    if (cursor.current() == '@') isExplicitIdentifier = true;
+    else buffer << cursor.current();
+    cursor.next();
+
+    while (!cursor.isDone() && isValidIdentifierChar(cursor.current()))
+    {
+        buffer << cursor.current();
+        cursor.next();
+    }
+
+    auto ident = buffer.str();
+    if (ident.length() == 0)
+    {
+        cursor.reset(beginIndex);
+        return nullptr;
+    }
+
+    if (!isExplicitIdentifier)
+    {
+        if (ident == "true"s || ident == "false"s) return new BooleanLiteralToken(beginIndex, cursor.snapshot() - beginIndex, ident);
+    }
+
+    //We don't yet support identifiers
+    cursor.reset(beginIndex);
+    return nullptr;
 }
 
 OperatorToken *Tokenizer::tryCollectOperatorToken(Cursor<char> &cursor)
@@ -140,4 +183,13 @@ OperatorToken *Tokenizer::tryCollectOperatorToken(Cursor<char> &cursor)
     }
 
     return nullptr;
+}
+
+bool Tokenizer::isValidIdentifierStartChar(char chr)
+{
+    return isalpha(chr) || chr == '_' || chr == '@';
+}
+bool Tokenizer::isValidIdentifierChar(char chr)
+{
+    return this->isValidIdentifierStartChar(chr) || isdigit(chr);
 }

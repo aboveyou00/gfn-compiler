@@ -17,6 +17,12 @@ public:
     virtual bool isIntLiteral() const;
     virtual uint64_t intLiteral() const;
 
+    virtual bool isKeyword() const;
+    virtual std::string keyword() const;
+
+    virtual bool isBooleanLiteral() const;
+    virtual bool booleanLiteral() const;
+
     virtual bool isOperator() const;
     virtual const std::string &op() const;
 

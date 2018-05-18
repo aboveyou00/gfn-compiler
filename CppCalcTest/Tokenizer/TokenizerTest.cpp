@@ -45,6 +45,24 @@ TEST(Tokenizer_tokenize, WildlyInvalidIntegerLiteralUpperBound) {
     EXPECT_THROW(tokenizer.tokenize("9999999999999999"), std::logic_error);
 }
 
+TEST(Tokenizer_tokenize, IsolatedBooleanLiteral_True) {
+    TOKENIZE_SOURCE("true"s);
+
+    EXPECT_BOOLEAN_LITERAL(true);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, IsolatedBooleanLiteral_False) {
+    TOKENIZE_SOURCE("false"s);
+
+    EXPECT_BOOLEAN_LITERAL(false);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
 TEST(Tokenizer_tokenize, IsolatedPlusOperator) {
     TOKENIZE_SOURCE("+"s);
 
@@ -203,6 +221,44 @@ TEST(Tokenizer_tokenize, ComplexExpression) {
     EXPECT_OPERATOR(")"s);
     EXPECT_OPERATOR("*"s);
     EXPECT_INTEGER_LITERAL(3UL);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, ComplexRelationalEqualityExpression) {
+    TOKENIZE_SOURCE("2 < 5 && true"s);
+
+    EXPECT_INTEGER_LITERAL(2UL);
+    EXPECT_OPERATOR("<"s);
+    EXPECT_INTEGER_LITERAL(5UL);
+    EXPECT_OPERATOR("&&"s);
+    EXPECT_BOOLEAN_LITERAL(true);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, ComplexCompactRelationalEqualityExpression) {
+    TOKENIZE_SOURCE("2<5&&true"s);
+
+    EXPECT_INTEGER_LITERAL(2UL);
+    EXPECT_OPERATOR("<"s);
+    EXPECT_INTEGER_LITERAL(5UL);
+    EXPECT_OPERATOR("&&"s);
+    EXPECT_BOOLEAN_LITERAL(true);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, MultipleBooleanLiterals) {
+    TOKENIZE_SOURCE("true false true false"s);
+
+    EXPECT_BOOLEAN_LITERAL(true);
+    EXPECT_BOOLEAN_LITERAL(false);
+    EXPECT_BOOLEAN_LITERAL(true);
+    EXPECT_BOOLEAN_LITERAL(false);
 
     EXPECT_END_OF_FILE();
     EXPECT_NO_MORE_TOKENS();
