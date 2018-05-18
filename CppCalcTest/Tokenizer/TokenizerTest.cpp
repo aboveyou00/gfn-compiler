@@ -45,10 +45,37 @@ TEST(Tokenizer_tokenize, WildlyInvalidIntegerLiteralUpperBound) {
     EXPECT_THROW(tokenizer.tokenize("9999999999999999"), std::logic_error);
 }
 
-TEST(Tokenizer_tokenize, IsolatedOperator) {
+TEST(Tokenizer_tokenize, IsolatedPlusOperator) {
+    TOKENIZE_SOURCE("+"s);
+
+    EXPECT_OPERATOR("+"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, IsolatedMinusOperator) {
+    TOKENIZE_SOURCE("-"s);
+
+    EXPECT_OPERATOR("-"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, IsolatedTimesOperator) {
     TOKENIZE_SOURCE("*"s);
 
     EXPECT_OPERATOR("*"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, IsolatedDivideOperator) {
+    TOKENIZE_SOURCE("/"s);
+
+    EXPECT_OPERATOR("/"s);
 
     EXPECT_END_OF_FILE();
     EXPECT_NO_MORE_TOKENS();
@@ -61,6 +88,79 @@ TEST(Tokenizer_tokenize, IsolatedModulusOperator) {
 
     EXPECT_END_OF_FILE();
     EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, ParenthesesOperators) {
+    TOKENIZE_SOURCE("()"s);
+
+    EXPECT_OPERATOR("("s);
+    EXPECT_OPERATOR(")"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, NotOperators) {
+    TOKENIZE_SOURCE("! !="s);
+
+    EXPECT_OPERATOR("!"s);
+    EXPECT_OPERATOR("!="s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, LessThanOperators) {
+    TOKENIZE_SOURCE("< <="s);
+
+    EXPECT_OPERATOR("<"s);
+    EXPECT_OPERATOR("<="s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, GreaterThanOperators) {
+    TOKENIZE_SOURCE("> >="s);
+
+    EXPECT_OPERATOR(">"s);
+    EXPECT_OPERATOR(">="s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, IsolatedLogicalAndOperator) {
+    TOKENIZE_SOURCE("&&"s);
+
+    EXPECT_OPERATOR("&&"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, IsolatedLogicalOrOperator) {
+    TOKENIZE_SOURCE("||"s);
+
+    EXPECT_OPERATOR("||"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, InvalidSingleEquals) {
+    Tokenizer tokenizer;
+    EXPECT_THROW(tokenizer.tokenize("="), std::logic_error);
+}
+
+TEST(Tokenizer_tokenize, InvalidAmpersand) {
+    Tokenizer tokenizer;
+    EXPECT_THROW(tokenizer.tokenize("&"), std::logic_error);
+}
+
+TEST(Tokenizer_tokenize, InvalidPipe) {
+    Tokenizer tokenizer;
+    EXPECT_THROW(tokenizer.tokenize("|"), std::logic_error);
 }
 
 TEST(Tokenizer_tokenize, NegativeIntegerLiteral) {

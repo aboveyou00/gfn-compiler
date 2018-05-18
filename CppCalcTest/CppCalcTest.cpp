@@ -31,6 +31,12 @@ TEST(CppCalc_eval, SimpleNegation) {
     EXPECT_TRUE(result == -45);
 }
 
+TEST(CppCalc_eval, UnaryPositive) {
+    CppCalc calc;
+    auto result = calc.eval("+45");
+    EXPECT_TRUE(result == 45);
+}
+
 TEST(CppCalc_eval, SimpleAddition) {
     CppCalc calc;
     auto result = calc.eval("3 + 4");

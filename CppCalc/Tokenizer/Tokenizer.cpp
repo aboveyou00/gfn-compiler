@@ -116,6 +116,27 @@ OperatorToken *Tokenizer::tryCollectOperatorToken(Cursor<char> &cursor)
     case ')':
         cursor.next();
         return new OperatorToken(beginIndex, 1, std::string(&nextChar, 1));
+    case '!':
+    case '<':
+    case '>':
+        cursor.next();
+        if (!cursor.isDone() && cursor.current() == '=')
+        {
+            cursor.next();
+            return new OperatorToken(beginIndex, 2, std::string(&nextChar, 1) + "="s);
+        }
+        return new OperatorToken(beginIndex, 1, std::string(&nextChar, 1));
+    case '=':
+    case '&':
+    case '|':
+        cursor.next();
+        if (!cursor.isDone() && cursor.current() == nextChar)
+        {
+            cursor.next();
+            return new OperatorToken(beginIndex, 2, std::string(&nextChar, 1) + std::string(&nextChar, 1));
+        }
+        cursor.reset(beginIndex);
+        return nullptr;
     }
 
     return nullptr;
