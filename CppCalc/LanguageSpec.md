@@ -21,12 +21,16 @@ CompilationUnit := (WhiteSpace* Token)* WhiteSpace* (EndOfFile)
 WhiteSpace := ' ' | '\t' | '\r' | '\n'
 
 Token := IntegerLiteralToken
+       | BooleanLiteralToken
        | OperatorToken
 
 IntegerLiteralToken := DecimalDigit+
 DecimalDigit := '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
 
+BooleanLiteralToken := 'true' | 'false'
+
 OperatorToken := '+' | '-' | '*' | '/' | '%' | '(' | ')'
+               | '!' | '!=' | '==' | '&&' | '||' | '<' | '>' | '<=' | '>='
 ```
 
 ## Parsing Exceptions
@@ -80,20 +84,31 @@ CompilationUnitExpressionSyntax from the single (EndOfFile) token produced by th
 Therefore, an empty source string is not a valid compilation unit.
 
 ```cfg
-CompilationUnitExpressionSyntax := ExpressionSyntax (EndOfFileToken)
+CompilationUnitExpression := Expression (EndOfFileToken)
 
-ExpressionSyntax := AdditiveExpressionSyntax
+Expression := ConditionalOrExpression
 
-AdditiveExpressionSyntax := [AdditiveExpressionSyntax AdditiveOp] MultiplicativeExpressionSyntax
+ConditionalOrExpression := [ConditionalOrExpression '||'] ConditionalAndExpression
+
+ConditionalAndExpression := [ConditionalAndExpression '&&'] EqualityExpression
+
+EqualityExpression := [EqualityExpression EqualityOp] RelationalExpression
+EqualityOp := '==' | '!='
+
+RelationalExpression := [RelationalExpression RelationalOp] AdditiveExpression
+RelationalOp := '<' | '>' | '<=' | '>='
+
+AdditiveExpression := [AdditiveExpression AdditiveOp] MultiplicativeExpression
 AdditiveOp := '+' | '-'
 
-MultiplicativeExpressionSyntax := [MultiplicativeExpressionSyntax MultiplicativeOp] UnaryExpressionSyntax
+MultiplicativeExpression := [MultiplicativeExpression MultiplicativeOp] UnaryExpression
 MultiplicativeOp := '*' | '/' | '%'
 
-UnaryExpressionSyntax := UnaryOp UnaryExpressionSyntax
-                       | PrimaryExpressionSyntax
-UnaryOp := '+' | '-'
+UnaryExpression := UnaryOp UnaryExpression
+                 | PrimaryExpression
+UnaryOp := '+' | '-' | '!'
 
-PrimaryExpressionSyntax := (IntegerLiteralToken)
-                         | '(' ExpressionSyntax ')'
+PrimaryExpression := (IntegerLiteralToken)
+                   | (BooleanLiteralToken)
+                   | '(' Expression ')'
 ```
