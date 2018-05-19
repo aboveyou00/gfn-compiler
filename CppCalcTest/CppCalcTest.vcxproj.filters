@@ -12,8 +12,10 @@
     <ClCompile Include="Eval\OpNegTest.cpp" />
     <ClCompile Include="Eval\OpSubTest.cpp" />
     <ClCompile Include="IntegerLimitsTest.cpp" />
-    <ClCompile Include="Eval\OpAddTest.cpp" />
     <ClCompile Include="Eval\OpCeqTest.cpp" />
+    <ClCompile Include="Eval\OpAddTest.cpp" />
+    <ClCompile Include="Eval\OpCltTest.cpp" />
+    <ClCompile Include="Eval\OpCgtTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

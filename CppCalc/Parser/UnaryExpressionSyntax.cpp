@@ -56,8 +56,8 @@ void UnaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
 
     this->expr()->emit(ops);
 
-    if (this->op() == "-"s) ops.push_back(new OpNeg());
-    else if (this->op() == "+"s) { ; } //NOP
+    if (this->op() == "+"s) { ; } //NOP
+    else if (this->op() == "-"s) ops.push_back(new OpNeg());
     else if (this->op() == "!"s)
     {
         ops.push_back(new OpLdcI4(0));

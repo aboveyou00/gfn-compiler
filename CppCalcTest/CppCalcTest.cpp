@@ -108,3 +108,99 @@ TEST(CppCalc_eval, ComplexExpression) {
     auto result = calc.eval("3 + 4 * 5");
     EXPECT_TRUE(result == 23);
 }
+
+TEST(CppCalc_eval, BooleanEquality_True) {
+    CppCalc calc;
+    auto result = calc.eval("true == true");
+    EXPECT_TRUE(result == 1);
+}
+
+TEST(CppCalc_eval, BooleanEquality_False) {
+    CppCalc calc;
+    auto result = calc.eval("true == false");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, BooleanInequality) {
+    CppCalc calc;
+    auto result = calc.eval("true != true");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, Int32Equality_Complex_True) {
+    CppCalc calc;
+    auto result = calc.eval("42 == 21 * 2");
+    EXPECT_TRUE(result == 1);
+}
+
+TEST(CppCalc_eval, Int32LessThan_True) {
+    CppCalc calc;
+    auto result = calc.eval("3 < 5");
+    EXPECT_TRUE(result == 1);
+}
+
+TEST(CppCalc_eval, Int32LessThan_False) {
+    CppCalc calc;
+    auto result = calc.eval("5 < 3");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, Int32LessThan_Identity) {
+    CppCalc calc;
+    auto result = calc.eval("5 < 5");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, Int32GreaterThan_True) {
+    CppCalc calc;
+    auto result = calc.eval("5 > 3");
+    EXPECT_TRUE(result == 1);
+}
+
+TEST(CppCalc_eval, Int32GreaterThan_False) {
+    CppCalc calc;
+    auto result = calc.eval("3 > 5");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, Int32GreaterThan_Identity) {
+    CppCalc calc;
+    auto result = calc.eval("5 > 5");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, Int32LessThanEquals_True) {
+    CppCalc calc;
+    auto result = calc.eval("3 <= 5");
+    EXPECT_TRUE(result == 1);
+}
+
+TEST(CppCalc_eval, Int32LessThanEquals_False) {
+    CppCalc calc;
+    auto result = calc.eval("5 <= 3");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, Int32LessThanEquals_Identity) {
+    CppCalc calc;
+    auto result = calc.eval("5 <= 5");
+    EXPECT_TRUE(result == 1);
+}
+
+TEST(CppCalc_eval, Int32GreaterThanEquals_True) {
+    CppCalc calc;
+    auto result = calc.eval("5 >= 3");
+    EXPECT_TRUE(result == 1);
+}
+
+TEST(CppCalc_eval, Int32GreaterThanEquals_False) {
+    CppCalc calc;
+    auto result = calc.eval("3 >= 5");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, Int32GreaterThanEquals_Identity) {
+    CppCalc calc;
+    auto result = calc.eval("5 >= 5");
+    EXPECT_TRUE(result == 1);
+}

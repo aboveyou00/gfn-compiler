@@ -97,7 +97,7 @@ void PrimaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
         break;
 
     default:
-        throw std::logic_error("Can't repr primary expression syntax. Unknown primary expression type"s);
+        throw std::logic_error("Can't emit primary expression syntax. Unknown primary expression type"s);
     }
 }
 

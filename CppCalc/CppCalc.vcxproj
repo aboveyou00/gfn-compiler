@@ -148,6 +148,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Emit\OpCgt.h" />
+    <ClInclude Include="Emit\OpClt.h" />
     <ClInclude Include="Parser\ConditionalAndExpressionSyntax.h" />
     <ClInclude Include="Parser\ConditionalOrExpressionSyntax.h" />
     <ClInclude Include="Parser\EqualityExpressionSyntax.h" />
@@ -185,6 +187,8 @@
     <ClInclude Include="Util\SafeDelete.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Emit\OpCgt.cpp" />
+    <ClCompile Include="Emit\OpClt.cpp" />
     <ClCompile Include="Emit\Opcode.cpp" />
     <ClCompile Include="Parser\ConditionalAndExpressionSyntax.cpp" />
     <ClCompile Include="Parser\ConditionalOrExpressionSyntax.cpp" />
