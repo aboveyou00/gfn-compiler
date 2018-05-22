@@ -5,24 +5,6 @@
 #include "Tokenizer/Token.h"
 #include "Emit/OpLdcI4.h"
 
-PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, PrimaryExpressionType type)
-    : ExpressionSyntax(startIndex, length), m_type(type)
-{
-}
-PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, uint64_t intLiteralValue)
-    : PrimaryExpressionSyntax(startIndex, length, PrimaryExpressionType::IntegerLiteral)
-{
-    this->m_intLiteralValue = intLiteralValue;
-}
-PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, bool booleanLiteralValue)
-    : PrimaryExpressionSyntax(startIndex, length, PrimaryExpressionType::BooleanLiteral)
-{
-    this->m_intLiteralValue = booleanLiteralValue ? 1 : 0;
-}
-PrimaryExpressionSyntax::~PrimaryExpressionSyntax()
-{
-}
-
 ExpressionSyntax *PrimaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
     auto current = cursor.current();
@@ -57,6 +39,24 @@ ExpressionSyntax *PrimaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
     }
 
     return nullptr;
+}
+
+PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, PrimaryExpressionType type)
+    : ExpressionSyntax(startIndex, length), m_type(type)
+{
+}
+PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, uint64_t intLiteralValue)
+    : PrimaryExpressionSyntax(startIndex, length, PrimaryExpressionType::IntegerLiteral)
+{
+    this->m_intLiteralValue = intLiteralValue;
+}
+PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, bool booleanLiteralValue)
+    : PrimaryExpressionSyntax(startIndex, length, PrimaryExpressionType::BooleanLiteral)
+{
+    this->m_intLiteralValue = booleanLiteralValue ? 1 : 0;
+}
+PrimaryExpressionSyntax::~PrimaryExpressionSyntax()
+{
 }
 
 PrimaryExpressionType PrimaryExpressionSyntax::type() const

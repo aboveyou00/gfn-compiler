@@ -11,10 +11,11 @@ class ExpressionSyntax
     : public Syntax
 {
 public:
+    static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
+
+public:
     ExpressionSyntax(uint32_t startIndex, uint32_t length);
     ~ExpressionSyntax();
-
-    static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
 
     virtual void emit(std::vector<Opcode*> &ops) const = 0;
 };

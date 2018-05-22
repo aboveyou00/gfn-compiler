@@ -5,17 +5,6 @@
 #include "Parser/PrimaryExpressionSyntax.h"
 #include "Tokenizer/Token.h"
 #include "Emit/OpLdcI4.h"
-#include "Emit/OpNeg.h"
-#include "Emit/OpCeq.h"
-
-UnaryExpressionSyntax::UnaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr, const std::string op)
-    : ExpressionSyntax(startIndex, length), m_expr(expr), m_op(op)
-{
-}
-UnaryExpressionSyntax::~UnaryExpressionSyntax()
-{
-    SafeDelete(this->m_expr);
-}
 
 ExpressionSyntax *UnaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
@@ -34,6 +23,15 @@ ExpressionSyntax *UnaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
     }
 
     return tryParseSyntax<PrimaryExpressionSyntax>(cursor);
+}
+
+UnaryExpressionSyntax::UnaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr, const std::string op)
+    : ExpressionSyntax(startIndex, length), m_expr(expr), m_op(op)
+{
+}
+UnaryExpressionSyntax::~UnaryExpressionSyntax()
+{
+    SafeDelete(this->m_expr);
 }
 
 ExpressionSyntax *UnaryExpressionSyntax::expr() const
@@ -56,19 +54,22 @@ void UnaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
 
     this->expr()->emit(ops);
 
-    if (this->op() == "+"s) { ; } //NOP
-    else if (this->op() == "-"s) ops.push_back(new OpNeg());
-    else if (this->op() == "!"s)
-    {
-        ops.push_back(new OpLdcI4(0));
-        ops.push_back(new OpCeq());
-    }
-    else throw std::logic_error("Invalid unary expression operation: "s + this->op());
+    auto operatorMethodName = this->getOperatorMethodName();
+
+    throw std::logic_error("Not implemented"s);
 }
 
 void UnaryExpressionSyntax::repr(std::stringstream &stream) const
 {
     stream << this->op() << this->expr();
+}
+
+std::string UnaryExpressionSyntax::getOperatorMethodName() const
+{
+    if (this->op() == "+"s) return "__op_UnaryPlus"s;
+    else if (this->op() == "-"s) return "__op_UnaryNegation"s;
+    else if (this->op() == "!"s) return "__op_LogicalNegation"s;
+    else throw std::logic_error("Invalid unary expression operation: "s + this->op());
 }
 
 bool UnaryExpressionSyntax::isNegativeNumericLimit() const

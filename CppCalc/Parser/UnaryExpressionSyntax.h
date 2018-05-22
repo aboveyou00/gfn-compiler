@@ -5,10 +5,11 @@ class UnaryExpressionSyntax :
     public ExpressionSyntax
 {
 public:
+    static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
+
+public:
     UnaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr, const std::string op);
     ~UnaryExpressionSyntax();
-
-    static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
 
     ExpressionSyntax *expr() const;
     const std::string op() const;
@@ -16,6 +17,9 @@ public:
     virtual void emit(std::vector<Opcode*> &ops) const override;
 
     virtual void repr(std::stringstream &stream) const;
+
+protected:
+    virtual std::string getOperatorMethodName() const;
 
 private:
     ExpressionSyntax *m_expr;

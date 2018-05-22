@@ -4,18 +4,6 @@
 
 #include "Parser/AdditiveExpressionSyntax.h"
 #include "Tokenizer/Token.h"
-#include "Emit/OpClt.h"
-#include "Emit/OpCgt.h"
-#include "Emit/OpCeq.h"
-#include "Emit/OpLdcI4.h"
-
-RelationalExpressionSyntax::RelationalExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op)
-    : BinaryExpressionSyntax(startIndex, length, lhs, rhs, op)
-{
-}
-RelationalExpressionSyntax::~RelationalExpressionSyntax()
-{
-}
 
 ExpressionSyntax *RelationalExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
@@ -28,28 +16,6 @@ ExpressionSyntax *RelationalExpressionSyntax::tryParse(Cursor<Token*> &cursor)
         if (rhsExpr == nullptr) return expr;
         else expr = rhsExpr;
     }
-}
-
-void RelationalExpressionSyntax::emit(std::vector<Opcode*> &ops) const
-{
-    this->lhs()->emit(ops);
-    this->rhs()->emit(ops);
-
-    if (this->op() == "<"s) ops.push_back(new OpClt());
-    else if (this->op() == ">"s) ops.push_back(new OpCgt());
-    else if (this->op() == "<="s)
-    {
-        ops.push_back(new OpCgt());
-        ops.push_back(new OpLdcI4(0));
-        ops.push_back(new OpCeq());
-    }
-    else if (this->op() == ">="s)
-    {
-        ops.push_back(new OpClt());
-        ops.push_back(new OpLdcI4(0));
-        ops.push_back(new OpCeq());
-    }
-    else throw std::logic_error("Invalid relational expression operation: "s + this->op());
 }
 
 RelationalExpressionSyntax *RelationalExpressionSyntax::tryParseRhs(Cursor<Token*> &cursor, ExpressionSyntax *lhs)
@@ -69,4 +35,21 @@ RelationalExpressionSyntax *RelationalExpressionSyntax::tryParseRhs(Cursor<Token
 
     auto startIndex = lhs->startIndex();
     return new RelationalExpressionSyntax(startIndex, cursor.current()->startIndex() - startIndex, lhs, rhs, op);
+}
+
+RelationalExpressionSyntax::RelationalExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op)
+    : BinaryExpressionSyntax(startIndex, length, lhs, rhs, op)
+{
+}
+RelationalExpressionSyntax::~RelationalExpressionSyntax()
+{
+}
+
+std::string RelationalExpressionSyntax::getOperatorMethodName() const
+{
+    if (this->op() == "<"s) return "__op_LessThan";
+    else if (this->op() == ">"s) return "__op_GreaterThan";
+    else if (this->op() == "<="s) return "__op_LessThanOrEqual";
+    else if (this->op() == ">="s) return "__op_GreaterThanOrEqual";
+    else throw std::logic_error("Invalid relational expression operation: "s + this->op());
 }

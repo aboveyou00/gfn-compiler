@@ -4,16 +4,6 @@
 
 #include "Parser/MultiplicativeExpressionSyntax.h"
 #include "Tokenizer/Token.h"
-#include "Emit/OpAdd.h"
-#include "Emit/OpSub.h"
-
-AdditiveExpressionSyntax::AdditiveExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op)
-    : BinaryExpressionSyntax(startIndex, length, lhs, rhs, op)
-{
-}
-AdditiveExpressionSyntax::~AdditiveExpressionSyntax()
-{
-}
 
 ExpressionSyntax *AdditiveExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
@@ -26,16 +16,6 @@ ExpressionSyntax *AdditiveExpressionSyntax::tryParse(Cursor<Token*> &cursor)
         if (rhsExpr == nullptr) return expr;
         else expr = rhsExpr;
     }
-}
-
-void AdditiveExpressionSyntax::emit(std::vector<Opcode*> &ops) const
-{
-    this->lhs()->emit(ops);
-    this->rhs()->emit(ops);
-
-    if (this->op() == "+"s) ops.push_back(new OpAdd());
-    else if (this->op() == "-"s) ops.push_back(new OpSub());
-    else throw std::logic_error("Invalid additive expression operation: "s + this->op());
 }
 
 AdditiveExpressionSyntax *AdditiveExpressionSyntax::tryParseRhs(Cursor<Token*> &cursor, ExpressionSyntax *lhs)
@@ -55,4 +35,19 @@ AdditiveExpressionSyntax *AdditiveExpressionSyntax::tryParseRhs(Cursor<Token*> &
 
     auto startIndex = lhs->startIndex();
     return new AdditiveExpressionSyntax(startIndex, cursor.current()->startIndex() - startIndex, lhs, rhs, op);
+}
+
+AdditiveExpressionSyntax::AdditiveExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op)
+    : BinaryExpressionSyntax(startIndex, length, lhs, rhs, op)
+{
+}
+AdditiveExpressionSyntax::~AdditiveExpressionSyntax()
+{
+}
+
+std::string AdditiveExpressionSyntax::getOperatorMethodName() const
+{
+    if (this->op() == "+"s) return "__op_Addition";
+    else if (this->op() == "-"s) return "__op_Subtraction";
+    else throw std::logic_error("Invalid additive expression operation: "s + this->op());
 }

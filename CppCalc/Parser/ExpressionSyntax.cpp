@@ -2,14 +2,6 @@
 #include "Parser/ExpressionSyntax.h"
 #include "Parser/ConditionalOrExpressionSyntax.h"
 
-ExpressionSyntax::ExpressionSyntax(uint32_t startIndex, uint32_t length)
-    : Syntax(startIndex, length)
-{
-}
-ExpressionSyntax::~ExpressionSyntax()
-{
-}
-
 ExpressionSyntax *ExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
     ExpressionSyntax *expr;
@@ -18,4 +10,12 @@ ExpressionSyntax *ExpressionSyntax::tryParse(Cursor<Token*> &cursor)
     if (expr != nullptr) return expr;
 
     return nullptr;
+}
+
+ExpressionSyntax::ExpressionSyntax(uint32_t startIndex, uint32_t length)
+    : Syntax(startIndex, length)
+{
+}
+ExpressionSyntax::~ExpressionSyntax()
+{
 }

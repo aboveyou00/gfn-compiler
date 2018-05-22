@@ -4,17 +4,6 @@
 
 #include "Parser/UnaryExpressionSyntax.h"
 #include "Tokenizer/Token.h"
-#include "Emit/OpMul.h"
-#include "Emit/OpDiv.h"
-#include "Emit/OpMod.h"
-
-MultiplicativeExpressionSyntax::MultiplicativeExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op)
-    : BinaryExpressionSyntax(startIndex, length, lhs, rhs, op)
-{
-}
-MultiplicativeExpressionSyntax::~MultiplicativeExpressionSyntax()
-{
-}
 
 ExpressionSyntax *MultiplicativeExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
@@ -27,17 +16,6 @@ ExpressionSyntax *MultiplicativeExpressionSyntax::tryParse(Cursor<Token*> &curso
         if (rhsExpr == nullptr) return expr;
         else expr = rhsExpr;
     }
-}
-
-void MultiplicativeExpressionSyntax::emit(std::vector<Opcode*> &ops) const
-{
-    this->lhs()->emit(ops);
-    this->rhs()->emit(ops);
-
-    if (this->op() == "*"s) ops.push_back(new OpMul());
-    else if (this->op() == "/"s) ops.push_back(new OpDiv());
-    else if (this->op() == "%"s) ops.push_back(new OpMod());
-    else throw std::logic_error("Invalid multiplicative expression operation: "s + this->op());
 }
 
 MultiplicativeExpressionSyntax *MultiplicativeExpressionSyntax::tryParseRhs(Cursor<Token*> &cursor, ExpressionSyntax *lhs)
@@ -57,4 +35,20 @@ MultiplicativeExpressionSyntax *MultiplicativeExpressionSyntax::tryParseRhs(Curs
 
     auto startIndex = lhs->startIndex();
     return new MultiplicativeExpressionSyntax(startIndex, cursor.current()->startIndex() - startIndex, lhs, rhs, op);
+}
+
+MultiplicativeExpressionSyntax::MultiplicativeExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op)
+    : BinaryExpressionSyntax(startIndex, length, lhs, rhs, op)
+{
+}
+MultiplicativeExpressionSyntax::~MultiplicativeExpressionSyntax()
+{
+}
+
+std::string MultiplicativeExpressionSyntax::getOperatorMethodName() const
+{
+    if (this->op() == "*"s) return "__op_Multiply";
+    else if (this->op() == "/"s) return "__op_Modulus";
+    else if (this->op() == "%"s) return "__op_Division";
+    else throw std::logic_error("Invalid multiplicative expression operation: "s + this->op());
 }

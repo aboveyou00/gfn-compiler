@@ -12,7 +12,12 @@ public:
     ExpressionSyntax *rhs() const;
     const std::string op() const;
 
+    virtual void emit(std::vector<Opcode*> &ops) const override;
+
     virtual void repr(std::stringstream &stream) const;
+
+protected:
+    virtual std::string getOperatorMethodName() const = 0;
 
 private:
     ExpressionSyntax *m_lhs;

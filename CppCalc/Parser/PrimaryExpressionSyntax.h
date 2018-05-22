@@ -10,14 +10,15 @@ enum class PrimaryExpressionType
 class PrimaryExpressionSyntax :
     public ExpressionSyntax
 {
+public:
+    static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
+
 private:
     PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, PrimaryExpressionType type);
 public:
     PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, uint64_t intLiteralValue);
     PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, bool booleanLiteralValue);
     ~PrimaryExpressionSyntax();
-
-    static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
 
     PrimaryExpressionType type() const;
 
