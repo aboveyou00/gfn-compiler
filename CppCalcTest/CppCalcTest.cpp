@@ -204,3 +204,13 @@ TEST(CppCalc_eval, Int32GreaterThanEquals_Identity) {
     auto result = calc.eval("5 >= 5");
     EXPECT_TRUE(result == 1);
 }
+
+TEST(CppCalc_eval, BooleanInt32Addition) {
+    CppCalc calc;
+    EXPECT_THROW(calc.eval("true + 32"), std::logic_error);
+}
+
+TEST(CppCalc_eval, Int32BooleanAddition) {
+    CppCalc calc;
+    EXPECT_THROW(calc.eval("32 + true"), std::logic_error);
+}
