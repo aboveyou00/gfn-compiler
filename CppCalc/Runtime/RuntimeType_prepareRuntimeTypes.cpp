@@ -16,7 +16,7 @@
 
 void RuntimeType::prepareRuntimeTypes()
 {
-    if (!s_runtimeTypesPrepared) return;
+    if (s_runtimeTypesPrepared) return;
     s_runtimeTypesPrepared = true;
 
     s_int32 = new RuntimeType(true);
@@ -127,12 +127,12 @@ void RuntimeType::prepareRuntimeTypes()
     }
 }
 
-inline RuntimeType *RuntimeType::int32()
+RuntimeType *RuntimeType::int32()
 {
     if (!s_runtimeTypesPrepared) throw std::logic_error("You can't access runtime types before they are prepared! Call RuntimeType::prepareRuntimeTypes()"s);
     return s_int32;
 }
-inline RuntimeType *RuntimeType::boolean()
+RuntimeType *RuntimeType::boolean()
 {
     if (!s_runtimeTypesPrepared) throw std::logic_error("You can't access runtime types before they are prepared! Call RuntimeType::prepareRuntimeTypes()"s);
     return s_boolean;

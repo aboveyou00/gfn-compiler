@@ -16,6 +16,8 @@ public:
     ConditionalAndExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op);
     ~ConditionalAndExpressionSyntax();
 
+    virtual bool tryResolveType() override;
+
     virtual void emit(std::vector<Opcode*> &ops) const override;
 
 protected:

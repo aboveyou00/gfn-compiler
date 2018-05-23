@@ -1,6 +1,8 @@
 #pragma once
 #include "Parser/ExpressionSyntax.h"
 
+class MethodOverload;
+
 class BinaryExpressionSyntax :
     public ExpressionSyntax
 {
@@ -11,6 +13,8 @@ public:
     ExpressionSyntax *lhs() const;
     ExpressionSyntax *rhs() const;
     const std::string op() const;
+
+    virtual bool tryResolveType() override;
 
     virtual void emit(std::vector<Opcode*> &ops) const override;
 
@@ -23,4 +27,6 @@ private:
     ExpressionSyntax *m_lhs;
     ExpressionSyntax *m_rhs;
     const std::string m_op;
+
+    MethodOverload *m_selectedOperatorOverload;
 };

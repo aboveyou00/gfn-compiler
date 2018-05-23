@@ -4,6 +4,7 @@
 
 #include "Parser/EqualityExpressionSyntax.h"
 #include "Tokenizer/Token.h"
+#include "Runtime/RuntimeType.h"
 
 ExpressionSyntax *ConditionalAndExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
@@ -43,6 +44,22 @@ ConditionalAndExpressionSyntax::ConditionalAndExpressionSyntax(uint32_t startInd
 }
 ConditionalAndExpressionSyntax::~ConditionalAndExpressionSyntax()
 {
+}
+
+bool ConditionalAndExpressionSyntax::tryResolveType()
+{
+    if (this->m_resolvedType != nullptr) return true;
+
+    if (!this->lhs()->tryResolveType()) return false;
+    if (!this->rhs()->tryResolveType()) return false;
+
+    auto leftType = this->lhs()->resolvedType();
+    auto rightType = this->rhs()->resolvedType();
+
+    if (leftType != RuntimeType::boolean() || rightType != RuntimeType::boolean()) return false;
+
+    this->m_resolvedType = RuntimeType::boolean();
+    return true;
 }
 
 void ConditionalAndExpressionSyntax::emit(std::vector<Opcode*> &ops) const

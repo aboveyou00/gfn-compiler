@@ -4,6 +4,7 @@
 #include "Parser/ExpressionSyntax.h"
 #include "Tokenizer/Token.h"
 #include "Emit/OpLdcI4.h"
+#include "Runtime/RuntimeType.h"
 
 ExpressionSyntax *PrimaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
@@ -76,8 +77,29 @@ bool PrimaryExpressionSyntax::booleanLiteralValue() const
     return this->m_intLiteralValue == 1;
 }
 
+bool PrimaryExpressionSyntax::tryResolveType()
+{
+    if (this->m_resolvedType != nullptr) return true;
+    
+    switch (this->type())
+    {
+    case PrimaryExpressionType::IntegerLiteral:
+        this->m_resolvedType = RuntimeType::int32();
+        return true;
+        
+    case PrimaryExpressionType::BooleanLiteral:
+        this->m_resolvedType = RuntimeType::boolean();
+        return true;
+
+    default:
+        throw std::logic_error("Can't emit primary expression syntax. Unknown primary expression type"s);
+    }
+}
+
 void PrimaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
 {
+    this->assertTypeIsResolved();
+
     switch (this->type())
     {
     case PrimaryExpressionType::IntegerLiteral:

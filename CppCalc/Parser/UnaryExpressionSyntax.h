@@ -1,6 +1,8 @@
 #pragma once
 #include "Parser/ExpressionSyntax.h"
 
+class MethodOverload;
+
 class UnaryExpressionSyntax :
     public ExpressionSyntax
 {
@@ -14,6 +16,8 @@ public:
     ExpressionSyntax *expr() const;
     const std::string op() const;
 
+    virtual bool tryResolveType() override;
+
     virtual void emit(std::vector<Opcode*> &ops) const override;
 
     virtual void repr(std::stringstream &stream) const;
@@ -24,6 +28,8 @@ protected:
 private:
     ExpressionSyntax *m_expr;
     const std::string m_op;
+
+    MethodOverload *m_selectedOperatorOverload;
 
     bool isNegativeNumericLimit() const;
 };

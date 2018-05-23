@@ -48,7 +48,7 @@ MultiplicativeExpressionSyntax::~MultiplicativeExpressionSyntax()
 std::string MultiplicativeExpressionSyntax::getOperatorMethodName() const
 {
     if (this->op() == "*"s) return "__op_Multiply";
-    else if (this->op() == "/"s) return "__op_Modulus";
-    else if (this->op() == "%"s) return "__op_Division";
+    else if (this->op() == "/"s) return "__op_Division";
+    else if (this->op() == "%"s) return "__op_Modulus";
     else throw std::logic_error("Invalid multiplicative expression operation: "s + this->op());
 }

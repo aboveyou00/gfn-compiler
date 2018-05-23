@@ -5,6 +5,7 @@
 #include <stack>
 
 class Token;
+class RuntimeType;
 class Opcode;
 
 class ExpressionSyntax
@@ -17,7 +18,14 @@ public:
     ExpressionSyntax(uint32_t startIndex, uint32_t length);
     ~ExpressionSyntax();
 
+    virtual bool tryResolveType() = 0;
+    RuntimeType *resolvedType();
+    void assertTypeIsResolved() const;
+
     virtual void emit(std::vector<Opcode*> &ops) const = 0;
+
+protected:
+    RuntimeType *m_resolvedType;
 };
 
 template <typename T>

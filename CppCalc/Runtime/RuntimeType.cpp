@@ -11,7 +11,7 @@ RuntimeType::~RuntimeType()
 {
 }
 
-inline bool RuntimeType::isPredefined() const
+bool RuntimeType::isPredefined() const
 {
     return this->m_isPredefined;
 }

@@ -25,6 +25,8 @@ public:
     uint64_t intLiteralValue() const;
     bool booleanLiteralValue() const;
 
+    virtual bool tryResolveType() override;
+
     virtual void emit(std::vector<Opcode*> &ops) const override;
 
     virtual void repr(std::stringstream &stream) const;
