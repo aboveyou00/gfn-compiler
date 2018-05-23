@@ -19,8 +19,8 @@ void RuntimeType::prepareRuntimeTypes()
     if (s_runtimeTypesPrepared) return;
     s_runtimeTypesPrepared = true;
 
-    s_int32 = new RuntimeType(true);
-    s_boolean = new RuntimeType(true);
+    s_int32 = new RuntimeType("int"s, true);
+    s_boolean = new RuntimeType("bool", true);
 
     MethodGroup *methods;
 

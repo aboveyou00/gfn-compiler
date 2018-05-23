@@ -236,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="Parser\Syntax.natvis" />
+    <Natvis Include="Runtime\RuntimeType.natvis" />
     <Natvis Include="Tokenizer\Token.natvis" />
   </ItemGroup>
   <ItemGroup>

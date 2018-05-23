@@ -3,8 +3,8 @@
 
 #include "Runtime/MethodGroup.h"
 
-RuntimeType::RuntimeType(bool isPredefined)
-    : m_isPredefined(isPredefined)
+RuntimeType::RuntimeType(std::string displayName, bool isPredefined)
+    : m_displayName(displayName), m_isPredefined(isPredefined)
 {
 }
 RuntimeType::~RuntimeType()
@@ -14,6 +14,10 @@ RuntimeType::~RuntimeType()
 bool RuntimeType::isPredefined() const
 {
     return this->m_isPredefined;
+}
+const std::string &RuntimeType::displayName() const
+{
+    return this->m_displayName;
 }
 
 MethodGroup *RuntimeType::getStaticMethods(std::string name, bool createMethodGroup)

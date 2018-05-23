@@ -255,6 +255,7 @@
   <ItemGroup>
     <Natvis Include="Tokenizer\Token.natvis" />
     <Natvis Include="Parser\Syntax.natvis" />
+    <Natvis Include="Runtime\RuntimeType.natvis" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="LanguageSpec.md" />

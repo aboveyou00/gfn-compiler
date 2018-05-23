@@ -17,15 +17,17 @@ private:
     static RuntimeType *s_int32, *s_boolean;
 
 public:
-    RuntimeType(bool isPredefined);
+    RuntimeType(std::string displayName, bool isPredefined);
     ~RuntimeType();
 
     bool isPredefined() const;
+    const std::string &displayName() const;
 
     MethodGroup *getStaticMethods(std::string name, bool createMethodGroup = false);
     MethodGroup *getInstanceMethods(std::string name, bool createMethodGroup = false);
 
 private:
+    std::string m_displayName;
     bool m_isPredefined;
     std::unordered_map<std::string, MethodGroup*> m_static_methods;
     std::unordered_map<std::string, MethodGroup*> m_instance_methods;
