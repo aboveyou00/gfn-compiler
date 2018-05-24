@@ -148,8 +148,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Emit\BranchingOpcode.h" />
+    <ClInclude Include="Emit\MethodBuilder.h" />
+    <ClInclude Include="Emit\OpBranch.h" />
+    <ClInclude Include="Emit\OpBrFalse.h" />
     <ClInclude Include="Emit\OpCgt.h" />
     <ClInclude Include="Emit\OpClt.h" />
+    <ClInclude Include="Emit\OpcodeTag.h" />
+    <ClInclude Include="Emit\OpNop.h" />
+    <ClInclude Include="Eval\EvalContext.h" />
+    <ClInclude Include="Emit\OpBrTrue.h" />
     <ClInclude Include="Parser\ConditionalAndExpressionSyntax.h" />
     <ClInclude Include="Parser\ConditionalOrExpressionSyntax.h" />
     <ClInclude Include="Parser\EqualityExpressionSyntax.h" />
@@ -190,9 +198,17 @@
     <ClInclude Include="Util\SafeDelete.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Emit\BranchingOpcode.cpp" />
+    <ClCompile Include="Emit\MethodBuilder.cpp" />
+    <ClCompile Include="Emit\OpBranch.cpp" />
+    <ClCompile Include="Emit\OpBrFalse.cpp" />
     <ClCompile Include="Emit\OpCgt.cpp" />
     <ClCompile Include="Emit\OpClt.cpp" />
     <ClCompile Include="Emit\Opcode.cpp" />
+    <ClCompile Include="Emit\OpcodeTag.cpp" />
+    <ClCompile Include="Emit\OpNop.cpp" />
+    <ClCompile Include="Eval\EvalContext.cpp" />
+    <ClCompile Include="Emit\OpBrTrue.cpp" />
     <ClCompile Include="Runtime\MethodOverload.cpp" />
     <ClCompile Include="Runtime\RuntimeType_prepareRuntimeTypes.cpp" />
     <ClCompile Include="Runtime\MethodGroup.cpp" />

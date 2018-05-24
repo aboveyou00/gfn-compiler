@@ -3,8 +3,9 @@
 #include "Eval/ExpressionEvaluator.h"
 
 #include "Parser/ExpressionSyntax.h"
+#include "Emit/MethodBuilder.h"
 #include "Emit/Opcode.h"
-#include "Eval/EvalStack.h"
+#include "Eval/EvalContext.h"
 
 ExpressionEvaluator::ExpressionEvaluator()
 {
@@ -15,13 +16,18 @@ ExpressionEvaluator::~ExpressionEvaluator()
 
 int32_t ExpressionEvaluator::eval(ExpressionSyntax *expr)
 {
-    std::vector<Opcode*> ops;
-    expr->emit(ops);
+    MethodBuilder mb;
+    expr->emit(mb);
+    mb.finalize();
 
-    EvalStack stack;
-    for (auto it = ops.begin(); it != ops.end(); it++)
+    auto &ops = mb.ops();
+    EvalContext ctx(ops);
+
+    while (ctx.nextInstructionIndex() != ops.size())
     {
-        (*it)->eval(stack);
+        auto instr = ops.at(ctx.nextInstructionIndex()++);
+        instr->eval(ctx);
     }
-    return stack.pop();
+
+    return ctx.stack().pop();
 }

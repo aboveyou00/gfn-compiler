@@ -135,6 +135,30 @@
     <ClInclude Include="Runtime\MethodOverload.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Emit\MethodBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpcodeTag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpNop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpBranch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Eval\EvalContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpBrTrue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\BranchingOpcode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emit\OpBrFalse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -249,6 +273,30 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Runtime\MethodOverload.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\MethodBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpcodeTag.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpNop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpBranch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Eval\EvalContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpBrTrue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\BranchingOpcode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emit\OpBrFalse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

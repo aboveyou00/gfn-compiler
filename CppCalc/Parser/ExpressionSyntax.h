@@ -6,7 +6,7 @@
 
 class Token;
 class RuntimeType;
-class Opcode;
+class MethodBuilder;
 
 class ExpressionSyntax
     : public Syntax
@@ -22,7 +22,7 @@ public:
     RuntimeType *resolvedType();
     void assertTypeIsResolved() const;
 
-    virtual void emit(std::vector<Opcode*> &ops) const = 0;
+    virtual void emit(MethodBuilder &mb) const = 0;
 
 protected:
     RuntimeType *m_resolvedType;

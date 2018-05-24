@@ -214,3 +214,39 @@ TEST(CppCalc_eval, Int32BooleanAddition) {
     CppCalc calc;
     EXPECT_THROW(calc.eval("32 + true"), std::logic_error);
 }
+
+TEST(CppCalc_eval, ConditionalAnd_True) {
+    CppCalc calc;
+    auto result = calc.eval("true && true");
+    EXPECT_TRUE(result == 1);
+}
+
+TEST(CppCalc_eval, ConditionalAnd_False) {
+    CppCalc calc;
+    auto result = calc.eval("true && false");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, ConditionalAnd_False_ShortCircuit) {
+    CppCalc calc;
+    auto result = calc.eval("false && true");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, ConditionalOr_False) {
+    CppCalc calc;
+    auto result = calc.eval("false || false");
+    EXPECT_TRUE(result == 0);
+}
+
+TEST(CppCalc_eval, ConditionalOr_True) {
+    CppCalc calc;
+    auto result = calc.eval("false || true");
+    EXPECT_TRUE(result == 1);
+}
+
+TEST(CppCalc_eval, ConditionalOr_True_ShortCircuit) {
+    CppCalc calc;
+    auto result = calc.eval("true || false");
+    EXPECT_TRUE(result == 1);
+}

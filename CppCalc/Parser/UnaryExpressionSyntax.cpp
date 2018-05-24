@@ -4,8 +4,8 @@
 
 #include "Parser/PrimaryExpressionSyntax.h"
 #include "Tokenizer/Token.h"
+#include "Emit/MethodBuilder.h"
 #include "Emit/OpLdcI4.h"
-
 #include "Runtime/RuntimeType.h"
 #include "Runtime/MethodGroup.h"
 #include "Runtime/MethodOverload.h"
@@ -74,20 +74,20 @@ bool UnaryExpressionSyntax::tryResolveType()
     return true;
 }
 
-void UnaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
+void UnaryExpressionSyntax::emit(MethodBuilder &mb) const
 {
     this->assertTypeIsResolved();
 
     //Note: this top part is to handle the special case of having the minimum value for uint32_t
     if (this->isNegativeNumericLimit())
     {
-        ops.push_back(new OpLdcI4(std::numeric_limits<int32_t>::min()));
+        mb.addOpcode(new OpLdcI4(std::numeric_limits<int32_t>::min()));
         return;
     }
 
-    this->expr()->emit(ops);
+    this->expr()->emit(mb);
 
-    this->m_selectedOperatorOverload->emitInvoke(ops);
+    this->m_selectedOperatorOverload->emitInvoke(mb);
 }
 
 void UnaryExpressionSyntax::repr(std::stringstream &stream) const

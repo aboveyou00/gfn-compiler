@@ -63,14 +63,14 @@ bool BinaryExpressionSyntax::tryResolveType()
     return true;
 }
 
-void BinaryExpressionSyntax::emit(std::vector<Opcode*> &ops) const
+void BinaryExpressionSyntax::emit(MethodBuilder &mb) const
 {
     this->assertTypeIsResolved();
 
-    this->lhs()->emit(ops);
-    this->rhs()->emit(ops);
+    this->lhs()->emit(mb);
+    this->rhs()->emit(mb);
 
-    this->m_selectedOperatorOverload->emitInvoke(ops);
+    this->m_selectedOperatorOverload->emitInvoke(mb);
 }
 
 void BinaryExpressionSyntax::repr(std::stringstream &stream) const

@@ -16,7 +16,7 @@ public:
 
     virtual bool tryResolveType() override;
 
-    virtual void emit(std::vector<Opcode*> &ops) const override;
+    virtual void emit(MethodBuilder &mb) const override;
 
     virtual void repr(std::stringstream &stream) const;
 

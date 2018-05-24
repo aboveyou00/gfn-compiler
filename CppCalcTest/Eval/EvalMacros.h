@@ -24,3 +24,6 @@ inline void pushAllToStack(EvalStack&)
     EXPECT_TRUE(stack.size() == 1);\
     auto actualResult = stack.pop();\
     EXPECT_TRUE(actualResult == expectedResult);
+
+#define EXPECT_EMPTY_STACK()\
+    EXPECT_TRUE(stack.size() == 0);

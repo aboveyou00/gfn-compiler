@@ -5,6 +5,10 @@
 #include "Parser/EqualityExpressionSyntax.h"
 #include "Tokenizer/Token.h"
 #include "Runtime/RuntimeType.h"
+#include "Emit/MethodBuilder.h"
+#include "Emit/OpLdcI4.h"
+#include "Emit/OpBranch.h"
+#include "Emit/OpBrFalse.h"
 
 ExpressionSyntax *ConditionalAndExpressionSyntax::tryParse(Cursor<Token*> &cursor)
 {
@@ -62,12 +66,21 @@ bool ConditionalAndExpressionSyntax::tryResolveType()
     return true;
 }
 
-void ConditionalAndExpressionSyntax::emit(std::vector<Opcode*> &ops) const
+void ConditionalAndExpressionSyntax::emit(MethodBuilder &mb) const
 {
-    this->lhs()->emit(ops);
-    this->rhs()->emit(ops);
+    auto shortCircuitTag = mb.createAnonymousTag();
+    auto afterTag = mb.createAnonymousTag();
 
-    throw std::logic_error("Not implemented!"s);
+    this->lhs()->emit(mb);
+    mb.addOpcode(new OpBrFalse(shortCircuitTag));
+
+    this->rhs()->emit(mb);
+    mb.addOpcode(new OpBranch(afterTag));
+
+    mb.addTagToNextOpcode(shortCircuitTag);
+    mb.addOpcode(new OpLdcI4(0));
+
+    mb.addTagToNextOpcode(afterTag);
 }
 
 std::string ConditionalAndExpressionSyntax::getOperatorMethodName() const

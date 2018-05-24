@@ -18,7 +18,7 @@ public:
 
     virtual bool tryResolveType() override;
 
-    virtual void emit(std::vector<Opcode*> &ops) const override;
+    virtual void emit(MethodBuilder &mb) const override;
 
 protected:
     virtual std::string getOperatorMethodName() const override;
