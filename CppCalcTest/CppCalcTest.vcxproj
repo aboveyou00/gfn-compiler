@@ -41,6 +41,9 @@
   <ItemGroup>
     <ClCompile Include="CppCalcTest.cpp" />
     <ClCompile Include="Eval\OpAddTest.cpp" />
+    <ClCompile Include="Eval\OpBranchTest.cpp" />
+    <ClCompile Include="Eval\OpBrFalseTest.cpp" />
+    <ClCompile Include="Eval\OpBrTrueTest.cpp" />
     <ClCompile Include="Eval\OpCeqTest.cpp" />
     <ClCompile Include="Eval\OpCgtTest.cpp" />
     <ClCompile Include="Eval\OpNopTest.cpp" />

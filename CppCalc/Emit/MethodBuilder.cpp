@@ -6,6 +6,7 @@
 #include "Emit/OpcodeTag.h"
 
 MethodBuilder::MethodBuilder()
+    : m_isFinalized(false)
 {
 }
 MethodBuilder::~MethodBuilder()
