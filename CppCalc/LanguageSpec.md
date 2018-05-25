@@ -22,12 +22,18 @@ WhiteSpace := ' ' | '\t' | '\r' | '\n'
 
 Token := IntegerLiteralToken
        | BooleanLiteralToken
+       | StringLiteralToken
        | OperatorToken
 
 IntegerLiteralToken := DecimalDigit+
 DecimalDigit := '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
 
 BooleanLiteralToken := 'true' | 'false'
+
+StringLiteralToken := '"' StringLiteralCharacter* '"'
+StringLiteralCharacter := (Any character except '"', '\', '\r', or '\n')
+                        | StringLiteralEscapeSequence
+StringLiteralEscapeSequence := '\' ('"' | '\' | '\r' | '\n' | '\t')
 
 OperatorToken := '+' | '-' | '*' | '/' | '%' | '(' | ')'
                | '!' | '!=' | '==' | '&&' | '||' | '<' | '>' | '<=' | '>='
@@ -110,5 +116,6 @@ UnaryOp := '+' | '-' | '!'
 
 PrimaryExpression := (IntegerLiteralToken)
                    | (BooleanLiteralToken)
+                   | (StringLiteralToken)
                    | '(' Expression ')'
 ```
