@@ -17,7 +17,7 @@ TEST(OpBranch_eval, Simple) {
     auto &ops = mb.ops();
 
     EvalContext ctx(ops);
-    ctx.nextInstructionIndex() = ops.size();
+    ctx.nextInstructionIndex() = (uint32_t)ops.size();
 
     op->eval(ctx);
 
@@ -36,7 +36,7 @@ TEST(OpBranch_eval, InvalidTag) {
     auto &ops = mb.ops();
 
     EvalContext ctx(ops);
-    ctx.nextInstructionIndex() = ops.size();
+    ctx.nextInstructionIndex() = (uint32_t)ops.size();
 
     EXPECT_THROW(op->eval(ctx), std::logic_error);
 }

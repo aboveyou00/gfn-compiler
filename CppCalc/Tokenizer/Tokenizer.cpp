@@ -5,6 +5,7 @@
 
 #include "Util/Cursor.h"
 #include "Tokenizer/IntegerLiteralToken.h"
+#include "Tokenizer/StringLiteralToken.h"
 #include "Tokenizer/KeywordToken.h"
 #include "Tokenizer/BooleanLiteralToken.h"
 #include "Tokenizer/OperatorToken.h"
@@ -13,7 +14,6 @@
 Tokenizer::Tokenizer()
 {
 }
-
 Tokenizer::~Tokenizer()
 {
 }
@@ -61,6 +61,7 @@ Token *Tokenizer::tryCollectToken(Cursor<char> &cursor)
 
     auto nextChar = cursor.current();
     if (std::isdigit(nextChar)) return this->tryCollectIntegerLiteralToken(cursor);
+    else if (nextChar == '"') return this->tryCollectStringLiteralToken(cursor);
     else if (this->isValidIdentifierStartChar(nextChar)) return this->tryCollectIdentifierOrKeywordToken(cursor);
     else return this->tryCollectOperatorToken(cursor);
 }
@@ -100,6 +101,77 @@ IntegerLiteralToken *Tokenizer::tryCollectIntegerLiteralToken(Cursor<char> &curs
         throw std::logic_error("Failed to parse integer literal token: "s + str);
     }
     return new IntegerLiteralToken(beginIndex, cursor.snapshot() - beginIndex, value);
+}
+
+StringLiteralToken *Tokenizer::tryCollectStringLiteralToken(Cursor<char> &cursor)
+{
+    assert(!cursor.isDone());
+    assert(cursor.current() == '"');
+
+    thread_local static std::stringstream buffer;
+    buffer.str(std::string());
+    buffer.clear();
+
+    auto beginIndex = cursor.snapshot();
+    cursor.next();
+
+    bool collectedEndQuote = false;
+    while (!cursor.isDone())
+    {
+        auto nextChar = cursor.current();
+        if (nextChar == '\r' || nextChar == '\n') break;
+        cursor.next();
+        if (nextChar == '"')
+        {
+            collectedEndQuote = true;
+            break;
+        }
+        if (nextChar == '\\')
+        {
+            auto collectedEscapeSequence = false;
+            if (!cursor.isDone())
+            {
+                nextChar = cursor.current();
+                switch (nextChar)
+                {
+                case 'r':
+                    nextChar = '\r';
+                    collectedEscapeSequence = true;
+                    break;
+
+                case 'n':
+                    nextChar = '\n';
+                    collectedEscapeSequence = true;
+                    break;
+
+                case 't':
+                    nextChar = '\t';
+                    collectedEscapeSequence = true;
+                    break;
+
+                case '\\':
+                case '"':
+                    collectedEscapeSequence = true;
+                    break;
+                }
+            }
+
+            if (!collectedEscapeSequence)
+            {
+                auto str = buffer.str();
+                throw std::logic_error("Failed to parse escape sequence within string literal token. \""s + str + "\""s);
+            }
+            else cursor.next();
+        }
+        buffer << nextChar;
+    }
+
+    auto str = buffer.str();
+    if (!collectedEndQuote)
+    {
+        throw std::logic_error("Failed to parse string literal token. Unterminated string literal: \""s + str + "\""s);
+    }
+    return new StringLiteralToken(beginIndex, cursor.snapshot() - beginIndex, str);
 }
 
 Token *Tokenizer::tryCollectIdentifierOrKeywordToken(Cursor<char> &cursor)

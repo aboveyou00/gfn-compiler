@@ -6,6 +6,9 @@
   <Type Name="IntegerLiteralToken">
     <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) {m_value}</DisplayString>
   </Type>
+  <Type Name="StringLiteralToken">
+    <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) {m_value}</DisplayString>
+  </Type>
   <Type Name="KeywordToken">
     <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) {m_keyword,sb}</DisplayString>
   </Type>

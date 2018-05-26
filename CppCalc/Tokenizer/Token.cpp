@@ -32,6 +32,15 @@ uint64_t Token::intLiteral() const
     throw std::logic_error("This token is not an integer literal!");
 }
 
+bool Token::isStringLiteral() const
+{
+    return false;
+}
+std::string Token::stringLiteral() const
+{
+    throw std::logic_error("This token is not a string literal!");
+}
+
 bool Token::isKeyword() const
 {
     return false;

@@ -6,6 +6,7 @@
 
 class Token;
 class IntegerLiteralToken;
+class StringLiteralToken;
 class OperatorToken;
 
 class Tokenizer
@@ -20,6 +21,7 @@ private:
     void collectWhitespace(Cursor<char> &cursor);
     Token *tryCollectToken(Cursor<char> &cursor);
     IntegerLiteralToken *tryCollectIntegerLiteralToken(Cursor<char> &cursor);
+    StringLiteralToken *tryCollectStringLiteralToken(Cursor<char> &cursor);
     Token *tryCollectIdentifierOrKeywordToken(Cursor<char> &cursor);
     OperatorToken *tryCollectOperatorToken(Cursor<char> &cursor);
 

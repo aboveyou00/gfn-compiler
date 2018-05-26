@@ -20,7 +20,7 @@ TEST(CppCalc_eval, IntegerLimits_WildlyInvalidUpperBound) {
 TEST(CppCalc_eval, IntegerLimits_ValidLowerBound) {
     CppCalc calc;
     auto result = calc.eval("-2147483648");
-    EXPECT_TRUE(result == -2147483648);
+    EXPECT_TRUE(result == std::numeric_limits<int32_t>::min());
 }
 
 TEST(CppCalc_eval, IntegerLimits_InvalidLowerBound) {

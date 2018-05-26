@@ -45,6 +45,66 @@ TEST(Tokenizer_tokenize, WildlyInvalidIntegerLiteralUpperBound) {
     EXPECT_THROW(tokenizer.tokenize("9999999999999999"), std::logic_error);
 }
 
+TEST(Tokenizer_tokenize, EmptyStringLiteral) {
+    TOKENIZE_SOURCE("\"\""s);
+
+    EXPECT_STRING_LITERAL(""s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, SimpleStringLiteral) {
+    TOKENIZE_SOURCE("\"Hello, World!\""s);
+
+    EXPECT_STRING_LITERAL("Hello, World!"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, StringLiteral_EscapedBackslash) {
+    TOKENIZE_SOURCE("\"\\\\\""s);
+
+    EXPECT_STRING_LITERAL("\\"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, StringLiteral_EscapedDoubleQuote) {
+    TOKENIZE_SOURCE("\"\\\"\""s);
+
+    EXPECT_STRING_LITERAL("\""s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, StringLiteral_EscapedNewline) {
+    TOKENIZE_SOURCE("\"\\r\\n\""s);
+
+    EXPECT_STRING_LITERAL("\r\n"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, InvalidStringLiteral_Nonterminated) {
+    Tokenizer tokenizer;
+    EXPECT_THROW(tokenizer.tokenize("\"Hi!"), std::logic_error);
+}
+
+TEST(Tokenizer_tokenize, InvalidStringLiteral_DanglingEscapeSequence) {
+    Tokenizer tokenizer;
+    EXPECT_THROW(tokenizer.tokenize("\"\\\""), std::logic_error);
+}
+
+TEST(Tokenizer_tokenize, InvalidStringLiteral_NewlineCharacter) {
+    Tokenizer tokenizer;
+    EXPECT_THROW(tokenizer.tokenize("\"\r\n\""), std::logic_error);
+}
+
 TEST(Tokenizer_tokenize, IsolatedBooleanLiteral_True) {
     TOKENIZE_SOURCE("true"s);
 

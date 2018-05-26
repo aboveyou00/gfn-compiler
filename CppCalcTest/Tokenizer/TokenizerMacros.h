@@ -16,6 +16,31 @@
         currentTokenIdx++;\
     }
 
+#define EXPECT_ANY_INTEGER_LITERAL()\
+    {\
+        auto tok = tokens->at(currentTokenIdx);\
+        EXPECT_TRUE(tok != nullptr);\
+        EXPECT_TRUE(tok->isIntLiteral());\
+        currentTokenIdx++;\
+    }
+
+#define EXPECT_STRING_LITERAL(val)\
+    {\
+        auto tok = tokens->at(currentTokenIdx);\
+        EXPECT_TRUE(tok != nullptr);\
+        EXPECT_TRUE(tok->isStringLiteral());\
+        EXPECT_TRUE(tok->stringLiteral() == val);\
+        currentTokenIdx++;\
+    }
+
+#define EXPECT_ANY_STRING_LITERAL()\
+    {\
+        auto tok = tokens->at(currentTokenIdx);\
+        EXPECT_TRUE(tok != nullptr);\
+        EXPECT_TRUE(tok->isStringLiteral());\
+        currentTokenIdx++;\
+    }
+
 #define EXPECT_KEYWORD(val)\
     {\
         auto tok = tokens->at(currentTokenIdx);\
@@ -34,11 +59,11 @@
         currentTokenIdx++;\
     }
 
-#define EXPECT_ANY_INTEGER_LITERAL()\
+#define EXPECT_ANY_BOOLEAN_LITERAL(val)\
     {\
         auto tok = tokens->at(currentTokenIdx);\
         EXPECT_TRUE(tok != nullptr);\
-        EXPECT_TRUE(tok->isIntLiteral());\
+        EXPECT_TRUE(tok->isBooleanLiteral());\
         currentTokenIdx++;\
     }
 
