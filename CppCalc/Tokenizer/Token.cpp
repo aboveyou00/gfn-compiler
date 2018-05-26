@@ -36,7 +36,7 @@ bool Token::isStringLiteral() const
 {
     return false;
 }
-std::string Token::stringLiteral() const
+const std::string &Token::stringLiteral() const
 {
     throw std::logic_error("This token is not a string literal!");
 }

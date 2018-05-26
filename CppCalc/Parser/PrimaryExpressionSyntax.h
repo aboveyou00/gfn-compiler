@@ -4,7 +4,8 @@
 enum class PrimaryExpressionType
 {
     IntegerLiteral = 1,
-    BooleanLiteral = 2
+    StringLiteral = 2,
+    BooleanLiteral = 3
 };
 
 class PrimaryExpressionSyntax :
@@ -17,12 +18,14 @@ private:
     PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, PrimaryExpressionType type);
 public:
     PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, uint64_t intLiteralValue);
+    PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, const std::string &stringLiteralValue);
     PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, bool booleanLiteralValue);
     ~PrimaryExpressionSyntax();
 
     PrimaryExpressionType type() const;
 
     uint64_t intLiteralValue() const;
+    const std::string &stringLiteralValue() const;
     bool booleanLiteralValue() const;
 
     virtual bool tryResolveType() override;
@@ -33,5 +36,6 @@ public:
 
 private:
     PrimaryExpressionType m_type;
+    std::string m_stringLiteralValue;
     uint64_t m_intLiteralValue;
 };

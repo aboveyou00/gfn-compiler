@@ -10,11 +10,12 @@ public:
     static void prepareRuntimeTypes();
 
     static RuntimeType *int32();
+    static RuntimeType *string();
     static RuntimeType *boolean();
 
 private:
     static bool s_runtimeTypesPrepared;
-    static RuntimeType *s_int32, *s_boolean;
+    static RuntimeType *s_int32, *s_string, *s_boolean;
 
 public:
     RuntimeType(std::string displayName, bool isPredefined);

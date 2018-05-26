@@ -18,7 +18,7 @@ public:
     virtual uint64_t intLiteral() const;
 
     virtual bool isStringLiteral() const;
-    virtual std::string stringLiteral() const;
+    virtual const std::string &stringLiteral() const;
 
     virtual bool isKeyword() const;
     virtual std::string keyword() const;

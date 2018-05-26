@@ -13,7 +13,7 @@ bool StringLiteralToken::isStringLiteral() const
 {
     return true;
 }
-std::string StringLiteralToken::stringLiteral() const
+const std::string &StringLiteralToken::stringLiteral() const
 {
     return this->m_value;
 }

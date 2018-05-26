@@ -10,7 +10,7 @@ public:
     ~StringLiteralToken();
 
     virtual bool isStringLiteral() const override;
-    virtual std::string stringLiteral() const override;
+    virtual const std::string &stringLiteral() const override;
 
     virtual void repr(std::stringstream &stream) const override;
 

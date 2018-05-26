@@ -5,8 +5,9 @@
   </Type>
   <Type Name="PrimaryExpressionSyntax">
     <DisplayString Condition="m_type == 1">{m_intLiteralValue}</DisplayString>
-    <DisplayString Condition="m_type == 2 &amp;&amp; m_intLiteralValue == 1">true</DisplayString>
-    <DisplayString Condition="m_type == 2 &amp;&amp; m_intLiteralValue == 0">false</DisplayString>
+    <DisplayString Condition="m_type == 2">{m_stringLiteralValue}</DisplayString>
+    <DisplayString Condition="m_type == 3 &amp;&amp; m_intLiteralValue == 1">true</DisplayString>
+    <DisplayString Condition="m_type == 3 &amp;&amp; m_intLiteralValue == 0">false</DisplayString>
   </Type>
   <Type Name="UnaryExpressionSyntax">
     <DisplayString>{m_op,sb}{m_expr,na}</DisplayString>

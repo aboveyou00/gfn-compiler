@@ -24,6 +24,12 @@ ExpressionSyntax *PrimaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
         return new PrimaryExpressionSyntax(current->startIndex(), current->length(), current->booleanLiteral());
     }
 
+    if (current->isStringLiteral())
+    {
+        cursor.next();
+        return new PrimaryExpressionSyntax(current->startIndex(), current->length(), current->stringLiteral());
+    }
+
     if (current->isOperator() && current->op() == "("s)
     {
         cursor.next();
@@ -52,6 +58,11 @@ PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t l
 {
     this->m_intLiteralValue = intLiteralValue;
 }
+PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, const std::string &stringLiteralValue)
+    : PrimaryExpressionSyntax(startIndex, length, PrimaryExpressionType::StringLiteral)
+{
+    this->m_stringLiteralValue = stringLiteralValue;
+}
 PrimaryExpressionSyntax::PrimaryExpressionSyntax(uint32_t startIndex, uint32_t length, bool booleanLiteralValue)
     : PrimaryExpressionSyntax(startIndex, length, PrimaryExpressionType::BooleanLiteral)
 {
@@ -71,7 +82,11 @@ uint64_t PrimaryExpressionSyntax::intLiteralValue() const
     if (this->type() != PrimaryExpressionType::IntegerLiteral) throw std::logic_error("Can't get int literal value. This primary expression is not an integer literal!"s);
     return this->m_intLiteralValue;
 }
-
+const std::string &PrimaryExpressionSyntax::stringLiteralValue() const
+{
+    if (this->type() != PrimaryExpressionType::StringLiteral) throw std::logic_error("Can't get string literal value. This primary expression is not a string literal!"s);
+    return this->m_stringLiteralValue;
+}
 bool PrimaryExpressionSyntax::booleanLiteralValue() const
 {
     if (this->type() != PrimaryExpressionType::BooleanLiteral) throw std::logic_error("Can't get boolean literal value. This primary expression is not a boolean literal!"s);
@@ -86,6 +101,10 @@ bool PrimaryExpressionSyntax::tryResolveType()
     {
     case PrimaryExpressionType::IntegerLiteral:
         this->m_resolvedType = RuntimeType::int32();
+        return true;
+
+    case PrimaryExpressionType::StringLiteral:
+        this->m_resolvedType = RuntimeType::string();
         return true;
         
     case PrimaryExpressionType::BooleanLiteral:
@@ -112,6 +131,13 @@ void PrimaryExpressionSyntax::emit(MethodBuilder &mb) const
         }
         break;
         
+    case PrimaryExpressionType::StringLiteral:
+        {
+            auto &val = this->stringLiteralValue();
+            throw std::logic_error("Not implemented"s);
+        }
+        break;
+        
     case PrimaryExpressionType::BooleanLiteral:
         {
             auto val = this->booleanLiteralValue();
@@ -132,8 +158,12 @@ void PrimaryExpressionSyntax::repr(std::stringstream &stream) const
         stream << this->intLiteralValue();
         return;
 
+    case PrimaryExpressionType::StringLiteral:
+        stream << "\""s << this->stringLiteralValue() << "\""s;
+        return;
+
     case PrimaryExpressionType::BooleanLiteral:
-        stream << this->booleanLiteralValue();
+        stream << (this->booleanLiteralValue() ? "true"s : "false"s);
         return;
 
     default:

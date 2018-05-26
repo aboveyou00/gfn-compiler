@@ -7,6 +7,18 @@ TEST(SyntaxTreeParser_parse, IntegerLiteral) {
     EXPECT_INTEGER_LITERAL(expr, 42);
 }
 
+TEST(SyntaxTreeParser_parse, StringLiteral_Empty) {
+    PARSE_SOURCE("\"\""s);
+
+    EXPECT_STRING_LITERAL(expr, ""s);
+}
+
+TEST(SyntaxTreeParser_parse, StringLiteral_Simple) {
+    PARSE_SOURCE("\"Hello, World!\""s);
+
+    EXPECT_STRING_LITERAL(expr, "Hello, World!"s);
+}
+
 TEST(SyntaxTreeParser_parse, BooleanLiteral) {
     PARSE_SOURCE("true"s);
 

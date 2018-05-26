@@ -54,6 +54,21 @@
         EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::IntegerLiteral);\
     }
 
+#define EXPECT_STRING_LITERAL(expr, val)\
+    {\
+        auto __myExpr = dynamic_cast<PrimaryExpressionSyntax*>(expr);\
+        EXPECT_TRUE(__myExpr != nullptr);\
+        EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::StringLiteral);\
+        EXPECT_TRUE(__myExpr->stringLiteralValue() == val);\
+    }
+
+#define EXPECT_ANY_STRING_LITERAL(expr)\
+    {\
+        auto __myExpr = dynamic_cast<PrimaryExpressionSyntax*>(expr);\
+        EXPECT_TRUE(__myExpr != nullptr);\
+        EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::StringLiteral);\
+    }
+
 #define EXPECT_BOOLEAN_LITERAL(expr, val)\
     {\
         auto __myExpr = dynamic_cast<PrimaryExpressionSyntax*>(expr);\

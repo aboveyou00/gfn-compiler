@@ -21,6 +21,7 @@ void RuntimeType::prepareRuntimeTypes()
     s_runtimeTypesPrepared = true;
 
     s_int32 = new RuntimeType("int"s, true);
+    s_string = new RuntimeType("string", true);
     s_boolean = new RuntimeType("bool", true);
 
     MethodGroup *methods;
@@ -126,12 +127,22 @@ void RuntimeType::prepareRuntimeTypes()
             mb.addOpcode(new OpCeq());
         }));
     }
+
+    //String
+    {
+        //Nothing here yet
+    }
 }
 
 RuntimeType *RuntimeType::int32()
 {
     if (!s_runtimeTypesPrepared) throw std::logic_error("You can't access runtime types before they are prepared! Call RuntimeType::prepareRuntimeTypes()"s);
     return s_int32;
+}
+RuntimeType *RuntimeType::string()
+{
+    if (!s_runtimeTypesPrepared) throw std::logic_error("You can't access runtime types before they are prepared! Call RuntimeType::prepareRuntimeTypes()"s);
+    return s_string;
 }
 RuntimeType *RuntimeType::boolean()
 {
@@ -142,4 +153,5 @@ RuntimeType *RuntimeType::boolean()
 bool RuntimeType::s_runtimeTypesPrepared = false;
 
 RuntimeType *RuntimeType::s_int32 = nullptr;
+RuntimeType *RuntimeType::s_string = nullptr;
 RuntimeType *RuntimeType::s_boolean = nullptr;
