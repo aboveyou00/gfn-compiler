@@ -1,62 +1,62 @@
 #include "pch.h"
 #include "SyntaxTreeParserMacros.h"
 
-TEST(SyntaxTreeParser_parse, IntegerLiteral) {
-    PARSE_SOURCE("42"s);
+TEST(SyntaxTreeParser_parseExpression, IntegerLiteral) {
+    PARSE_EXPRESSION("42"s);
 
     EXPECT_INTEGER_LITERAL(expr, 42);
 }
 
-TEST(SyntaxTreeParser_parse, StringLiteral_Empty) {
-    PARSE_SOURCE("\"\""s);
+TEST(SyntaxTreeParser_parseExpression, StringLiteral_Empty) {
+    PARSE_EXPRESSION("\"\""s);
 
     EXPECT_STRING_LITERAL(expr, ""s);
 }
 
-TEST(SyntaxTreeParser_parse, StringLiteral_Simple) {
-    PARSE_SOURCE("\"Hello, World!\""s);
+TEST(SyntaxTreeParser_parseExpression, StringLiteral_Simple) {
+    PARSE_EXPRESSION("\"Hello, World!\""s);
 
     EXPECT_STRING_LITERAL(expr, "Hello, World!"s);
 }
 
-TEST(SyntaxTreeParser_parse, BooleanLiteral) {
-    PARSE_SOURCE("true"s);
+TEST(SyntaxTreeParser_parseExpression, BooleanLiteral) {
+    PARSE_EXPRESSION("true"s);
 
     EXPECT_BOOLEAN_LITERAL(expr, true);
 }
 
-TEST(SyntaxTreeParser_parse, ParenthesizedIntegerLiteral) {
-    PARSE_SOURCE("(285)"s);
+TEST(SyntaxTreeParser_parseExpression, ParenthesizedIntegerLiteral) {
+    PARSE_EXPRESSION("(285)"s);
 
     EXPECT_INTEGER_LITERAL(expr, 285);
 }
 
-TEST(SyntaxTreeParser_parse, UnaryPositiveLiteral) {
-    PARSE_SOURCE("+5"s);
+TEST(SyntaxTreeParser_parseExpression, UnaryPositiveLiteral) {
+    PARSE_EXPRESSION("+5"s);
 
     EXPECT_UN_OP(expr, "+"s, {
         EXPECT_INTEGER_LITERAL(expr, 5);
     });
 }
 
-TEST(SyntaxTreeParser_parse, UnaryNegativeLiteral) {
-    PARSE_SOURCE("-16"s);
+TEST(SyntaxTreeParser_parseExpression, UnaryNegativeLiteral) {
+    PARSE_EXPRESSION("-16"s);
 
     EXPECT_UN_OP(expr, "-"s, {
         EXPECT_INTEGER_LITERAL(expr, 16);
     });
 }
 
-TEST(SyntaxTreeParser_parse, UnaryLogicalNot) {
-    PARSE_SOURCE("!true"s);
+TEST(SyntaxTreeParser_parseExpression, UnaryLogicalNot) {
+    PARSE_EXPRESSION("!true"s);
 
     EXPECT_UN_OP(expr, "!"s, {
         EXPECT_BOOLEAN_LITERAL(expr, true);
     });
 }
 
-TEST(SyntaxTreeParser_parse, MultipleNegations) {
-    PARSE_SOURCE("---5"s);
+TEST(SyntaxTreeParser_parseExpression, MultipleNegations) {
+    PARSE_EXPRESSION("---5"s);
 
     EXPECT_UN_OP(expr, "-"s, {
         EXPECT_UN_OP(expr, "-"s, {
@@ -67,8 +67,8 @@ TEST(SyntaxTreeParser_parse, MultipleNegations) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleAddition) {
-    PARSE_SOURCE("1 + 2"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleAddition) {
+    PARSE_EXPRESSION("1 + 2"s);
 
     EXPECT_BIN_OP(expr, "+"s, {
         EXPECT_INTEGER_LITERAL(lhs, 1);
@@ -76,8 +76,8 @@ TEST(SyntaxTreeParser_parse, SimpleAddition) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, ComplexAddition) {
-    PARSE_SOURCE("1 + 2 + 3"s);
+TEST(SyntaxTreeParser_parseExpression, ComplexAddition) {
+    PARSE_EXPRESSION("1 + 2 + 3"s);
 
     EXPECT_BIN_OP(expr, "+"s, {
         EXPECT_BIN_OP(lhs, "+", {
@@ -89,8 +89,8 @@ TEST(SyntaxTreeParser_parse, ComplexAddition) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleSubtraction) {
-    PARSE_SOURCE("20 - 10"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleSubtraction) {
+    PARSE_EXPRESSION("20 - 10"s);
 
     EXPECT_BIN_OP(expr, "-"s, {
         EXPECT_INTEGER_LITERAL(lhs, 20);
@@ -98,8 +98,8 @@ TEST(SyntaxTreeParser_parse, SimpleSubtraction) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleMultiplication) {
-    PARSE_SOURCE("3 * 4"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleMultiplication) {
+    PARSE_EXPRESSION("3 * 4"s);
 
     EXPECT_BIN_OP(expr, "*"s, {
         EXPECT_INTEGER_LITERAL(lhs, 3);
@@ -107,8 +107,8 @@ TEST(SyntaxTreeParser_parse, SimpleMultiplication) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, ComplexMultiplication) {
-    PARSE_SOURCE("1 * 2 * 3"s);
+TEST(SyntaxTreeParser_parseExpression, ComplexMultiplication) {
+    PARSE_EXPRESSION("1 * 2 * 3"s);
 
     EXPECT_BIN_OP(expr, "*"s, {
         EXPECT_BIN_OP(lhs, "*", {
@@ -120,8 +120,8 @@ TEST(SyntaxTreeParser_parse, ComplexMultiplication) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleDivision) {
-    PARSE_SOURCE("200 / 25"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleDivision) {
+    PARSE_EXPRESSION("200 / 25"s);
 
     EXPECT_BIN_OP(expr, "/"s, {
         EXPECT_INTEGER_LITERAL(lhs, 200);
@@ -129,8 +129,8 @@ TEST(SyntaxTreeParser_parse, SimpleDivision) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleModulus) {
-    PARSE_SOURCE("13 % 2"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleModulus) {
+    PARSE_EXPRESSION("13 % 2"s);
 
     EXPECT_BIN_OP(expr, "%"s, {
         EXPECT_INTEGER_LITERAL(lhs, 13);
@@ -138,8 +138,8 @@ TEST(SyntaxTreeParser_parse, SimpleModulus) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, OrderOfOperations_Additive_Multiplicative) {
-    PARSE_SOURCE("5 + 2 * 3"s);
+TEST(SyntaxTreeParser_parseExpression, OrderOfOperations_Additive_Multiplicative) {
+    PARSE_EXPRESSION("5 + 2 * 3"s);
 
     EXPECT_BIN_OP(expr, "+"s, {
         EXPECT_INTEGER_LITERAL(lhs, 5);
@@ -151,8 +151,8 @@ TEST(SyntaxTreeParser_parse, OrderOfOperations_Additive_Multiplicative) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, OrderOfOperations_Additive_Multiplicative_Override) {
-    PARSE_SOURCE("(5 + 2) * 3"s);
+TEST(SyntaxTreeParser_parseExpression, OrderOfOperations_Additive_Multiplicative_Override) {
+    PARSE_EXPRESSION("(5 + 2) * 3"s);
 
     EXPECT_BIN_OP(expr, "*"s, {
         EXPECT_BIN_OP(lhs, "+", {
@@ -164,8 +164,8 @@ TEST(SyntaxTreeParser_parse, OrderOfOperations_Additive_Multiplicative_Override)
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleLessThan) {
-    PARSE_SOURCE("1 < 2"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleLessThan) {
+    PARSE_EXPRESSION("1 < 2"s);
 
     EXPECT_BIN_OP(expr, "<"s, {
         EXPECT_INTEGER_LITERAL(lhs, 1);
@@ -173,8 +173,8 @@ TEST(SyntaxTreeParser_parse, SimpleLessThan) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleGreaterThan) {
-    PARSE_SOURCE("5 > 3"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleGreaterThan) {
+    PARSE_EXPRESSION("5 > 3"s);
 
     EXPECT_BIN_OP(expr, ">"s, {
         EXPECT_INTEGER_LITERAL(lhs, 5);
@@ -182,8 +182,8 @@ TEST(SyntaxTreeParser_parse, SimpleGreaterThan) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleLessThanEquals) {
-    PARSE_SOURCE("2 <= 4"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleLessThanEquals) {
+    PARSE_EXPRESSION("2 <= 4"s);
 
     EXPECT_BIN_OP(expr, "<="s, {
         EXPECT_INTEGER_LITERAL(lhs, 2);
@@ -191,8 +191,8 @@ TEST(SyntaxTreeParser_parse, SimpleLessThanEquals) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleGreaterThanEquals) {
-    PARSE_SOURCE("15 >= 13"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleGreaterThanEquals) {
+    PARSE_EXPRESSION("15 >= 13"s);
 
     EXPECT_BIN_OP(expr, ">="s, {
         EXPECT_INTEGER_LITERAL(lhs, 15);
@@ -200,8 +200,8 @@ TEST(SyntaxTreeParser_parse, SimpleGreaterThanEquals) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, OrderOfOperations_Relational_Additive) {
-    PARSE_SOURCE("5 < 2 + 3"s);
+TEST(SyntaxTreeParser_parseExpression, OrderOfOperations_Relational_Additive) {
+    PARSE_EXPRESSION("5 < 2 + 3"s);
 
     EXPECT_BIN_OP(expr, "<"s, {
         EXPECT_INTEGER_LITERAL(lhs, 5);
@@ -213,8 +213,8 @@ TEST(SyntaxTreeParser_parse, OrderOfOperations_Relational_Additive) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, OrderOfOperations_Relational_Additive_Override) {
-    PARSE_SOURCE("(5 < 2) + 3"s);
+TEST(SyntaxTreeParser_parseExpression, OrderOfOperations_Relational_Additive_Override) {
+    PARSE_EXPRESSION("(5 < 2) + 3"s);
 
     EXPECT_BIN_OP(expr, "+"s, {
         EXPECT_BIN_OP(lhs, "<", {
@@ -226,8 +226,8 @@ TEST(SyntaxTreeParser_parse, OrderOfOperations_Relational_Additive_Override) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleEquality) {
-    PARSE_SOURCE("25 == 41"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleEquality) {
+    PARSE_EXPRESSION("25 == 41"s);
 
     EXPECT_BIN_OP(expr, "=="s, {
         EXPECT_INTEGER_LITERAL(lhs, 25);
@@ -235,8 +235,8 @@ TEST(SyntaxTreeParser_parse, SimpleEquality) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleInequality) {
-    PARSE_SOURCE("26 != 43"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleInequality) {
+    PARSE_EXPRESSION("26 != 43"s);
 
     EXPECT_BIN_OP(expr, "!="s, {
         EXPECT_INTEGER_LITERAL(lhs, 26);
@@ -244,8 +244,8 @@ TEST(SyntaxTreeParser_parse, SimpleInequality) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, OrderOfOperations_Equality_Relational) {
-    PARSE_SOURCE("5 == 2 > 3"s);
+TEST(SyntaxTreeParser_parseExpression, OrderOfOperations_Equality_Relational) {
+    PARSE_EXPRESSION("5 == 2 > 3"s);
 
     EXPECT_BIN_OP(expr, "=="s, {
         EXPECT_INTEGER_LITERAL(lhs, 5);
@@ -257,8 +257,8 @@ TEST(SyntaxTreeParser_parse, OrderOfOperations_Equality_Relational) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, OrderOfOperations_Equality_Relational_Override) {
-    PARSE_SOURCE("(5 == 2) > 3"s);
+TEST(SyntaxTreeParser_parseExpression, OrderOfOperations_Equality_Relational_Override) {
+    PARSE_EXPRESSION("(5 == 2) > 3"s);
 
     EXPECT_BIN_OP(expr, ">"s, {
         EXPECT_BIN_OP(lhs, "==", {
@@ -270,8 +270,8 @@ TEST(SyntaxTreeParser_parse, OrderOfOperations_Equality_Relational_Override) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleConditionalAnd) {
-    PARSE_SOURCE("true && false"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleConditionalAnd) {
+    PARSE_EXPRESSION("true && false"s);
 
     EXPECT_BIN_OP(expr, "&&"s, {
         EXPECT_BOOLEAN_LITERAL(lhs, true);
@@ -279,8 +279,8 @@ TEST(SyntaxTreeParser_parse, SimpleConditionalAnd) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, OrderOfOperations_ConditionalAnd_Equality) {
-    PARSE_SOURCE("true && false != true"s);
+TEST(SyntaxTreeParser_parseExpression, OrderOfOperations_ConditionalAnd_Equality) {
+    PARSE_EXPRESSION("true && false != true"s);
 
     EXPECT_BIN_OP(expr, "&&"s, {
         EXPECT_BOOLEAN_LITERAL(lhs, true);
@@ -292,8 +292,8 @@ TEST(SyntaxTreeParser_parse, OrderOfOperations_ConditionalAnd_Equality) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, OrderOfOperations_ConditionalAnd_Equality_Override) {
-    PARSE_SOURCE("(true && false) != true"s);
+TEST(SyntaxTreeParser_parseExpression, OrderOfOperations_ConditionalAnd_Equality_Override) {
+    PARSE_EXPRESSION("(true && false) != true"s);
 
     EXPECT_BIN_OP(expr, "!="s, {
         EXPECT_BIN_OP(lhs, "&&", {
@@ -305,8 +305,8 @@ TEST(SyntaxTreeParser_parse, OrderOfOperations_ConditionalAnd_Equality_Override)
     });
 }
 
-TEST(SyntaxTreeParser_parse, SimpleConditionalOr) {
-    PARSE_SOURCE("false || true"s);
+TEST(SyntaxTreeParser_parseExpression, SimpleConditionalOr) {
+    PARSE_EXPRESSION("false || true"s);
 
     EXPECT_BIN_OP(expr, "||"s, {
         EXPECT_BOOLEAN_LITERAL(lhs, false);
@@ -314,8 +314,8 @@ TEST(SyntaxTreeParser_parse, SimpleConditionalOr) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, OrderOfOperations_ConditionalOr_ConditionalAnd) {
-    PARSE_SOURCE("false || true && false"s);
+TEST(SyntaxTreeParser_parseExpression, OrderOfOperations_ConditionalOr_ConditionalAnd) {
+    PARSE_EXPRESSION("false || true && false"s);
 
     EXPECT_BIN_OP(expr, "||"s, {
         EXPECT_BOOLEAN_LITERAL(lhs, false);
@@ -327,8 +327,8 @@ TEST(SyntaxTreeParser_parse, OrderOfOperations_ConditionalOr_ConditionalAnd) {
     });
 }
 
-TEST(SyntaxTreeParser_parse, OrderOfOperations_ConditionalOr_ConditionalAnd_Override) {
-    PARSE_SOURCE("(false || true) && true"s);
+TEST(SyntaxTreeParser_parseExpression, OrderOfOperations_ConditionalOr_ConditionalAnd_Override) {
+    PARSE_EXPRESSION("(false || true) && true"s);
 
     EXPECT_BIN_OP(expr, "&&"s, {
         EXPECT_BIN_OP(lhs, "||", {

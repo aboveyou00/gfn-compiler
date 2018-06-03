@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="CppCalcTest.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Parser\SyntaxTreeParserTest.cpp" />
-    <ClCompile Include="Tokenizer\TokenizerTest.cpp" />
-    <ClCompile Include="Eval\OpDivTest.cpp" />
-    <ClCompile Include="Eval\OpLdcI4Test.cpp" />
-    <ClCompile Include="Eval\OpModTest.cpp" />
-    <ClCompile Include="Eval\OpMulTest.cpp" />
-    <ClCompile Include="Eval\OpNegTest.cpp" />
-    <ClCompile Include="Eval\OpSubTest.cpp" />
-    <ClCompile Include="IntegerLimitsTest.cpp" />
-    <ClCompile Include="Eval\OpCeqTest.cpp" />
-    <ClCompile Include="Eval\OpAddTest.cpp" />
-    <ClCompile Include="Eval\OpCltTest.cpp" />
-    <ClCompile Include="Eval\OpCgtTest.cpp" />
-    <ClCompile Include="Eval\OpNopTest.cpp" />
-    <ClCompile Include="Eval\OpBranchTest.cpp" />
-    <ClCompile Include="Eval\OpBrTrueTest.cpp" />
-    <ClCompile Include="Eval\OpBrFalseTest.cpp" />
+    <ClCompile Include="Parser\SyntaxTreeParser_parseExpression.cpp" />
+    <ClCompile Include="CppCalc_eval.cpp" />
+    <ClCompile Include="CppCalc_eval_IntegerLimits.cpp" />
+    <ClCompile Include="Tokenizer\Tokenizer_tokenize.cpp" />
+    <ClCompile Include="Eval\OpAdd_eval.cpp" />
+    <ClCompile Include="Eval\OpBranch_eval.cpp" />
+    <ClCompile Include="Eval\OpBrFalse_eval.cpp" />
+    <ClCompile Include="Eval\OpBrTrue_eval.cpp" />
+    <ClCompile Include="Eval\OpCeq_eval.cpp" />
+    <ClCompile Include="Eval\OpCgt_eval.cpp" />
+    <ClCompile Include="Eval\OpClt_eval.cpp" />
+    <ClCompile Include="Eval\OpDiv_eval.cpp" />
+    <ClCompile Include="Eval\OpLdcI4_eval.cpp" />
+    <ClCompile Include="Eval\OpMod_eval.cpp" />
+    <ClCompile Include="Eval\OpMul_eval.cpp" />
+    <ClCompile Include="Eval\OpNeg_eval.cpp" />
+    <ClCompile Include="Eval\OpNop_eval.cpp" />
+    <ClCompile Include="Eval\OpSub_eval.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

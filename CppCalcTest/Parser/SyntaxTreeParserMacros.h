@@ -7,7 +7,7 @@
 
 #pragma warning (disable: 4456)
 
-#define PARSE_SOURCE(str)\
+#define PARSE_EXPRESSION(str)\
     Tokenizer tokenizer;\
     auto tokens = tokenizer.tokenize(str);\
     SyntaxTreeParser syntaxTreeParser;\
