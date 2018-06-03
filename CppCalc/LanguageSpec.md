@@ -21,21 +21,23 @@ CompilationUnit := (WhiteSpace* Token)* WhiteSpace* (EndOfFile)
 WhiteSpace := ' ' | '\t' | '\r' | '\n'
 
 Token := IntegerLiteralToken
-       | BooleanLiteralToken
+       | IdentifierOrKeyword
        | StringLiteralToken
        | OperatorToken
 
 IntegerLiteralToken := DecimalDigit+
 DecimalDigit := '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
 
-BooleanLiteralToken := 'true' | 'false'
+IdentifierOrKeyword := (IdentifierStartChar | '@' IdentifierChar) IdentifierChar*
+IdentifierStartChar := (Any character between 'a' and 'z', or between 'A' and 'Z', or '_')
+IdentifierChar := (Any IdentifierStartChar, or any character between '0' and '9')
 
 StringLiteralToken := '"' StringLiteralCharacter* '"'
 StringLiteralCharacter := (Any character except '"', '\', '\r', or '\n')
                         | StringLiteralEscapeSequence
 StringLiteralEscapeSequence := '\' ('"' | '\' | '\r' | '\n' | '\t')
 
-OperatorToken := '+' | '-' | '*' | '/' | '%' | '(' | ')'
+OperatorToken := '+' | '-' | '*' | '/' | '%' | '(' | ')' | ';'
                | '!' | '!=' | '==' | '&&' | '||' | '<' | '>' | '<=' | '>='
 ```
 
@@ -76,21 +78,44 @@ even if the expression could potentially be interpreted in a sensible way.
 However, an implementation can defer the error to a later stage in the compiler if necessary,
 rather than failing compilation speculatively.
 
+### `IdentifierOrKeyword`
+
+An IdentifierOrKeyword is parsed as a KeywordToken if it matches one
+of the following keywords. Otherwise, it is parsed as an IdentifierToken.
+
+```
+if else puts print true false
+```
+
+Some keywords are parsed as a subclass of KeywordToken. Specifically:
+
+- `true` and `false` are parsed as a BooleanLiteralToken
+
+An IdentifierOrKeyword is always interpreted as an identifier if it starts with '@',
+even if it would otherwise be considered a keyword. The '@' symbol is not a part of
+the identifier.
+
 # Syntax:
 
 This context-free grammar can be used to describe a program that is syntactically valid.
 Further steps are necessary to ensure that the program can actually be compiled, but at the very least
 if a compilation unit can be correctly tokenized and parsed unambiguously using the
-"CompilationUnitExpressionSyntax" rule of this syntax then the compiler can move on to the type-checking phase.
+"CompilationUnit" rule of this syntax then the compiler can move on to the type-checking phase.
 
 In this CFG, the terminal symbols are the tokens outputted by the "tokenizer" phase of compilation.
 
-Note that although an empty file can be correctly tokenized, there is no way to parse a
-CompilationUnitExpressionSyntax from the single (EndOfFile) token produced by the tokenizer.
-Therefore, an empty source string is not a valid compilation unit.
-
 ```cfg
-CompilationUnitExpression := Expression (EndOfFileToken)
+CompilationUnit := Statement* (EndOfFileToken)
+
+Statement := PrintStatement
+           | IfStatement
+           | ExpressionStatement
+
+PrintStatement := ('print' | 'puts') Expression ';'
+
+IfStatement := 'if' '(' Expression ')' Statement ['else' Statement]
+
+ExpressionStatement := Expression ';'
 
 Expression := ConditionalOrExpression
 
