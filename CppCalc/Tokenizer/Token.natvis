@@ -12,6 +12,9 @@
   <Type Name="KeywordToken">
     <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) {m_keyword,sb}</DisplayString>
   </Type>
+  <Type Name="IdentifierToken">
+    <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) @{m_ident,sb}</DisplayString>
+  </Type>
   <Type Name="OperatorToken">
     <DisplayString>[{m_startIndex}, {m_startIndex + m_length}) {m_op}</DisplayString>
   </Type>

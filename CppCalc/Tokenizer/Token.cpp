@@ -50,6 +50,15 @@ std::string Token::keyword() const
     throw std::logic_error("This token is not a keyword token!");
 }
 
+bool Token::isIdentifier() const
+{
+    return false;
+}
+std::string Token::identifier() const
+{
+    throw std::logic_error("This token is not an identifier token!");
+}
+
 bool Token::isBooleanLiteral() const
 {
     return false;

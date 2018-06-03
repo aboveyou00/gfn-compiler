@@ -7,6 +7,7 @@
 #include "Tokenizer/IntegerLiteralToken.h"
 #include "Tokenizer/StringLiteralToken.h"
 #include "Tokenizer/KeywordToken.h"
+#include "Tokenizer/IdentifierToken.h"
 #include "Tokenizer/BooleanLiteralToken.h"
 #include "Tokenizer/OperatorToken.h"
 #include "Tokenizer/EndOfFileToken.h"
@@ -92,6 +93,12 @@ IntegerLiteralToken *Tokenizer::tryCollectIntegerLiteralToken(Cursor<char> &curs
     {
         buffer << cursor.current();
         cursor.next();
+    }
+
+    if (!cursor.isDone() && this->isValidIdentifierStartChar(cursor.current()))
+    {
+        cursor.reset(beginIndex);
+        return nullptr;
     }
 
     uint64_t value;
@@ -206,11 +213,10 @@ Token *Tokenizer::tryCollectIdentifierOrKeywordToken(Cursor<char> &cursor)
     if (!isExplicitIdentifier)
     {
         if (ident == "true"s || ident == "false"s) return new BooleanLiteralToken(beginIndex, cursor.snapshot() - beginIndex, ident);
+        else if (ident == "if"s || ident == "else"s || ident == "print"s || ident == "puts"s) return new KeywordToken(beginIndex, cursor.snapshot() - beginIndex, ident);
     }
 
-    //We don't yet support identifiers
-    cursor.reset(beginIndex);
-    return nullptr;
+    return new IdentifierToken(beginIndex, cursor.snapshot() - beginIndex, ident);
 }
 
 OperatorToken *Tokenizer::tryCollectOperatorToken(Cursor<char> &cursor)
@@ -229,6 +235,7 @@ OperatorToken *Tokenizer::tryCollectOperatorToken(Cursor<char> &cursor)
     case '%':
     case '(':
     case ')':
+    case ';':
         cursor.next();
         return new OperatorToken(beginIndex, 1, std::string(&nextChar, 1));
     case '!':

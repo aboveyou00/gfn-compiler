@@ -179,6 +179,7 @@
     <ClInclude Include="Runtime\MethodGroup.h" />
     <ClInclude Include="Runtime\MethodOverload.h" />
     <ClInclude Include="Runtime\RuntimeType.h" />
+    <ClInclude Include="Tokenizer\IdentifierToken.h" />
     <ClInclude Include="Tokenizer\KeywordToken.h" />
     <ClInclude Include="Tokenizer\StringLiteralToken.h" />
     <ClInclude Include="Util\Cursor.h" />
@@ -233,6 +234,7 @@
     <ClCompile Include="Runtime\RuntimeType.cpp" />
     <ClCompile Include="Tokenizer\EndOfFileToken.cpp" />
     <ClCompile Include="Parser\ExpressionSyntax.cpp" />
+    <ClCompile Include="Tokenizer\IdentifierToken.cpp" />
     <ClCompile Include="Tokenizer\IntegerLiteralToken.cpp" />
     <ClCompile Include="Parser\MultiplicativeExpressionSyntax.cpp" />
     <ClCompile Include="Tokenizer\OperatorToken.cpp" />

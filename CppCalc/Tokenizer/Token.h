@@ -23,6 +23,9 @@ public:
     virtual bool isKeyword() const;
     virtual std::string keyword() const;
 
+    virtual bool isIdentifier() const;
+    virtual std::string identifier() const;
+
     virtual bool isBooleanLiteral() const;
     virtual bool booleanLiteral() const;
 

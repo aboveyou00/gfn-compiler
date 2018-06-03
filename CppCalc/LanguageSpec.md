@@ -53,6 +53,11 @@ A few examples:
 - "01" results in a compilation error, rather than being parsed as the IntegerLiteralToken (1)
 - "10" is parsed as the IntegerLiteralToken (10)
 
+Additionally, an IntegerLiteralToken is ill-formed if the next character after the integer literal
+is a character that matches the "IdentifierStartChar" production. For example, "2b" is not parsed
+as an integer literal token followed by an identifier token; instead, it is reported as a compilation
+error.
+
 The maximum value that can be represented by an IntegerLiteralToken is 2147483647.
 An IntegerLiteralToken with a larger value is not permitted unless all of the following conditions are true:
 

@@ -323,3 +323,103 @@ TEST(Tokenizer_tokenize, MultipleBooleanLiterals) {
     EXPECT_END_OF_FILE();
     EXPECT_NO_MORE_TOKENS();
 }
+
+TEST(Tokenizer_tokenize, IsolatedKeyword) {
+    TOKENIZE_SOURCE("puts"s);
+
+    EXPECT_KEYWORD("puts"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, SimpleIfStatement) {
+    TOKENIZE_SOURCE("if (true) print \"It's true!\";"s);
+
+    EXPECT_KEYWORD("if"s);
+    EXPECT_OPERATOR("("s);
+    EXPECT_BOOLEAN_LITERAL(true);
+    EXPECT_OPERATOR(")"s);
+    EXPECT_KEYWORD("print"s);
+    EXPECT_STRING_LITERAL("It's true!"s);
+    EXPECT_OPERATOR(";"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, IsolatedIdentifier) {
+    TOKENIZE_SOURCE("fish"s);
+
+    EXPECT_IDENTIFIER("fish"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, IsolatedIdentifier_Underscore) {
+    TOKENIZE_SOURCE("_seahorse"s);
+
+    EXPECT_IDENTIFIER("_seahorse"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, IsolatedIdentifier_ToggleCase) {
+    TOKENIZE_SOURCE("ApPlEs2ApPlEs"s);
+
+    EXPECT_IDENTIFIER("ApPlEs2ApPlEs"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, IsolatedIdentifier_OnlyUnderscores) {
+    TOKENIZE_SOURCE("___"s);
+
+    EXPECT_IDENTIFIER("___"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, IsolatedIdentifier_Verbatim) {
+    TOKENIZE_SOURCE("@if"s);
+
+    EXPECT_IDENTIFIER("if"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, InvalidIdentifier_VerbatimNoCharacters) {
+    Tokenizer tokenizer;
+    EXPECT_THROW(tokenizer.tokenize("@"), std::logic_error);
+}
+
+TEST(Tokenizer_tokenize, InvalidIdentifier_NumericStartChar) {
+    Tokenizer tokenizer;
+    EXPECT_THROW(tokenizer.tokenize("2b"), std::logic_error);
+}
+
+TEST(Tokenizer_tokenize, Identifier_VerbatimNumericStartChar) {
+    TOKENIZE_SOURCE("@2b"s);
+
+    EXPECT_IDENTIFIER("2b"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}
+
+TEST(Tokenizer_tokenize, ShakespeareanQuestion) {
+    TOKENIZE_SOURCE("@2b || !@2b"s);
+
+    EXPECT_IDENTIFIER("2b"s);
+    EXPECT_OPERATOR("||"s);
+    EXPECT_OPERATOR("!"s);
+    EXPECT_IDENTIFIER("2b"s);
+
+    EXPECT_END_OF_FILE();
+    EXPECT_NO_MORE_TOKENS();
+}

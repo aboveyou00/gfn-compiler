@@ -41,6 +41,15 @@
         currentTokenIdx++;\
     }
 
+#define EXPECT_IDENTIFIER(val)\
+    {\
+        auto tok = tokens->at(currentTokenIdx);\
+        EXPECT_TRUE(tok != nullptr);\
+        EXPECT_TRUE(tok->isIdentifier());\
+        EXPECT_TRUE(tok->identifier() == val);\
+        currentTokenIdx++;\
+    }
+
 #define EXPECT_KEYWORD(val)\
     {\
         auto tok = tokens->at(currentTokenIdx);\
