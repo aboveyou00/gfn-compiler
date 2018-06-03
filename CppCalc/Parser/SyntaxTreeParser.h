@@ -4,6 +4,7 @@
 
 class Token;
 class ExpressionSyntax;
+class StatementSyntax;
 
 class SyntaxTreeParser
 {
@@ -11,5 +12,6 @@ public:
     SyntaxTreeParser();
     ~SyntaxTreeParser();
 
-    ExpressionSyntax *parse(std::vector<Token*> &tokens);
+    ExpressionSyntax *parseExpression(std::vector<Token*> &tokens);
+    std::vector<StatementSyntax*> *parseCompilationUnit(std::vector<Token*> &tokens);
 };

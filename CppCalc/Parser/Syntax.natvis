@@ -3,6 +3,9 @@
   <Type Name="Syntax">
     <DisplayString>(Syntax)</DisplayString>
   </Type>
+  <Type Name="ExpressionSyntax">
+    <DisplayString>(Expression Syntax)</DisplayString>
+  </Type>
   <Type Name="PrimaryExpressionSyntax">
     <DisplayString Condition="m_type == 1">{m_intLiteralValue}</DisplayString>
     <DisplayString Condition="m_type == 2">{m_stringLiteralValue}</DisplayString>
@@ -22,6 +25,32 @@
       <Item Name="Left">m_lhs,na</Item>
       <Item Name="Right">m_rhs,na</Item>
       <Item Name="Operator">m_op</Item>
+    </Expand>
+  </Type>
+  <Type Name="StatementSyntax">
+    <DisplayString>(Statement Syntax)</DisplayString>
+  </Type>
+  <Type Name="IfStatementSyntax">
+    <DisplayString Condition="!m_elseExpr">if ({m_condition,na}) {m_ifBody,sb}</DisplayString>
+    <DisplayString Condition="m_elseExpr">if ({m_condition,na}) {m_ifBody,sb} else {m_elseBody,sb}</DisplayString>
+    <Expand>
+      <Item Name="Condition">m_condition,na</Item>
+      <Item Name="If Body">m_ifBody,na</Item>
+      <Item Name="Else Body">m_elseBody,na</Item>
+    </Expand>
+  </Type>
+  <Type Name="PrintStatementSyntax">
+    <DisplayString Condition="m_isPuts">puts {m_expr,na};</DisplayString>
+    <DisplayString Condition="!m_isPuts">print {m_expr,na};</DisplayString>
+    <Expand>
+      <Item Name="Expression">m_expr,na</Item>
+      <Item Name="Is Puts">m_isPuts</Item>
+    </Expand>
+  </Type>
+  <Type Name="ExpressionStatementSyntax">
+    <DisplayString>{m_expr,na};</DisplayString>
+    <Expand>
+      <Item Name="Expression">m_expr,na</Item>
     </Expand>
   </Type>
 </AutoVisualizer>

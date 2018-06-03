@@ -2,8 +2,6 @@
 
 #include "Parser/Syntax.h"
 
-#include <stack>
-
 class Token;
 class RuntimeType;
 class MethodBuilder;

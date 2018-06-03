@@ -3,6 +3,7 @@
 #include "Parser/SyntaxTreeParser.h"
 
 #include "Parser/ExpressionSyntax.h"
+#include "Parser/StatementSyntax.h"
 #include "Tokenizer/Token.h"
 
 SyntaxTreeParser::SyntaxTreeParser()
@@ -12,7 +13,7 @@ SyntaxTreeParser::~SyntaxTreeParser()
 {
 }
 
-ExpressionSyntax *SyntaxTreeParser::parse(std::vector<Token*> &tokens)
+ExpressionSyntax *SyntaxTreeParser::parseExpression(std::vector<Token*> &tokens)
 {
     Cursor<Token*> cursor(tokens.data(), (uint32_t)tokens.size());
     auto expr = tryParseSyntax<ExpressionSyntax>(cursor);
@@ -24,4 +25,33 @@ ExpressionSyntax *SyntaxTreeParser::parse(std::vector<Token*> &tokens)
     cursor.next();
 
     return expr;
+}
+
+std::vector<StatementSyntax*> *SyntaxTreeParser::parseCompilationUnit(std::vector<Token*> &tokens)
+{
+    auto statements = new std::vector<StatementSyntax*>();
+
+    Cursor<Token*> cursor(tokens.data(), (uint32_t)tokens.size());
+
+    while (true)
+    {
+        if (cursor.isDone())
+        {
+            throw std::invalid_argument("Failed to parse compilation unit from tokens. Missing end of file.");
+        }
+        else if (cursor.current()->isEndOfFile())
+        {
+            cursor.next();
+            break;
+        }
+
+        auto stmt = StatementSyntax::tryParse(cursor);
+        if (!stmt)
+        {
+            throw std::invalid_argument("Failed to parse compilation unit from tokens. Missing end of file.");
+        }
+        statements->push_back(stmt);
+    }
+
+    return statements;
 }

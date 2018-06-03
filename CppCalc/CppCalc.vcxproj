@@ -161,6 +161,9 @@
     <ClInclude Include="Parser\ConditionalAndExpressionSyntax.h" />
     <ClInclude Include="Parser\ConditionalOrExpressionSyntax.h" />
     <ClInclude Include="Parser\EqualityExpressionSyntax.h" />
+    <ClInclude Include="Parser\ExpressionStatementSyntax.h" />
+    <ClInclude Include="Parser\IfStatementSyntax.h" />
+    <ClInclude Include="Parser\PrintStatementSyntax.h" />
     <ClInclude Include="Parser\RelationalExpressionSyntax.h" />
     <ClInclude Include="Eval\EvalStack.h" />
     <ClInclude Include="Emit\Opcode.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="Parser\AdditiveExpressionSyntax.h" />
     <ClInclude Include="Parser\BinaryExpressionSyntax.h" />
     <ClInclude Include="CppCalc.h" />
+    <ClInclude Include="Parser\StatementSyntax.h" />
     <ClInclude Include="Runtime\MethodGroup.h" />
     <ClInclude Include="Runtime\MethodOverload.h" />
     <ClInclude Include="Runtime\RuntimeType.h" />
@@ -211,6 +215,10 @@
     <ClCompile Include="Emit\OpNop.cpp" />
     <ClCompile Include="Eval\EvalContext.cpp" />
     <ClCompile Include="Emit\OpBrTrue.cpp" />
+    <ClCompile Include="Parser\ExpressionStatementSyntax.cpp" />
+    <ClCompile Include="Parser\IfStatementSyntax.cpp" />
+    <ClCompile Include="Parser\PrintStatementSyntax.cpp" />
+    <ClCompile Include="Parser\StatementSyntax.cpp" />
     <ClCompile Include="Runtime\MethodOverload.cpp" />
     <ClCompile Include="Runtime\RuntimeType_prepareRuntimeTypes.cpp" />
     <ClCompile Include="Runtime\MethodGroup.cpp" />

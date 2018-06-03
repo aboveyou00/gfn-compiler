@@ -11,7 +11,7 @@
     Tokenizer tokenizer;\
     auto tokens = tokenizer.tokenize(str);\
     SyntaxTreeParser syntaxTreeParser;\
-    auto expr = syntaxTreeParser.parse(*tokens);\
+    auto expr = syntaxTreeParser.parseExpression(*tokens);\
 
 #define EXPECT_NULL(expr)\
     EXPECT_TRUE(expr == nullptr);

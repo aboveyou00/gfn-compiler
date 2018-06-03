@@ -165,6 +165,18 @@
     <ClInclude Include="Tokenizer\IdentifierToken.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Parser\StatementSyntax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser\IfStatementSyntax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser\PrintStatementSyntax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser\ExpressionStatementSyntax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -309,6 +321,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Tokenizer\IdentifierToken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser\StatementSyntax.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser\IfStatementSyntax.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser\PrintStatementSyntax.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser\ExpressionStatementSyntax.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
