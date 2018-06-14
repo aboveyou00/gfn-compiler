@@ -96,7 +96,7 @@ void IfStatementSyntax::assertTypesAreResolved() const
     throw std::logic_error("Not implemented"s);
 }
 
-void IfStatementSyntax::emit(MethodBuilder &mb) const
+void IfStatementSyntax::emit(MethodBuilder&) const
 {
     throw std::logic_error("Not implemented"s);
 }

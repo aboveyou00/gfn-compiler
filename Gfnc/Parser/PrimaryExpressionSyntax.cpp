@@ -134,6 +134,7 @@ void PrimaryExpressionSyntax::emit(MethodBuilder &mb) const
     case PrimaryExpressionType::StringLiteral:
         {
             auto &val = this->stringLiteralValue();
+            val;
             throw std::logic_error("Not implemented"s);
         }
         break;

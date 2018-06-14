@@ -39,6 +39,7 @@ void Syntax::stringify(std::stringstream &stream) const
 std::stringstream &operator<<(std::stringstream &stream, const Syntax &syntax)
 {
     syntax.repr(stream);
+    return stream;
 }
 std::ostream &operator<<(std::ostream &stream, const Syntax &syntax)
 {
@@ -47,4 +48,5 @@ std::ostream &operator<<(std::ostream &stream, const Syntax &syntax)
     sstream.clear();
     sstream << syntax;
     stream << sstream.str();
+    return stream;
 }

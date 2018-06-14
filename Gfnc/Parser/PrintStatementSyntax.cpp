@@ -63,7 +63,7 @@ void PrintStatementSyntax::assertTypesAreResolved() const
     throw std::logic_error("Not implemented"s);
 }
 
-void PrintStatementSyntax::emit(MethodBuilder &mb) const
+void PrintStatementSyntax::emit(MethodBuilder&) const
 {
     throw std::logic_error("Not implemented"s);
 }

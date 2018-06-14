@@ -14,7 +14,7 @@ OpcodeTag *BranchingOpcode::tag() const
     return this->m_tag;
 }
 
-void BranchingOpcode::eval(EvalStack &stack) const
+void BranchingOpcode::eval(EvalStack&) const
 {
     throw std::logic_error("Branch instructions can't be evaluated using just the stack."s);
 }

@@ -37,8 +37,8 @@ public:
     virtual void repr(std::stringstream &stream) const = 0;
     std::string stringify() const;
     virtual void stringify(std::stringstream &stream) const;
-    static friend std::stringstream &operator<<(std::stringstream &stream, const Token &tok);
-    static friend std::ostream &operator<<(std::ostream &stream, const Token &tok);
+    friend std::stringstream &operator<<(std::stringstream &stream, const Token &tok);
+    friend std::ostream &operator<<(std::ostream &stream, const Token &tok);
 
 private:
     uint32_t m_startIndex, m_length;

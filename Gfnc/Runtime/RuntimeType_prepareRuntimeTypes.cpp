@@ -99,7 +99,7 @@ void RuntimeType::prepareRuntimeTypes()
             mb.addOpcode(new OpNeg());
         }));
         methods = s_int32->getStaticMethods("__op_UnaryPlus"s, true);
-        methods->addOverload(new MethodOverload(s_int32, { s_int32 }, [](MethodBuilder &mb) {
+        methods->addOverload(new MethodOverload(s_int32, { s_int32 }, [](MethodBuilder&) {
             //+int32
             ; //NOP
         }));

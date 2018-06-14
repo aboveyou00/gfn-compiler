@@ -53,7 +53,7 @@ void ExpressionStatementSyntax::assertTypesAreResolved() const
     throw std::logic_error("Not implemented"s);
 }
 
-void ExpressionStatementSyntax::emit(MethodBuilder &mb) const
+void ExpressionStatementSyntax::emit(MethodBuilder&) const
 {
     throw std::logic_error("Not implemented"s);
 }

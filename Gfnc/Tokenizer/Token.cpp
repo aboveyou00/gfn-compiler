@@ -100,6 +100,7 @@ void Token::stringify(std::stringstream &stream) const
 std::stringstream &operator<<(std::stringstream &stream, const Token &tok)
 {
     tok.repr(stream);
+    return stream;
 }
 std::ostream &operator<<(std::ostream &stream, const Token &tok)
 {
@@ -108,4 +109,5 @@ std::ostream &operator<<(std::ostream &stream, const Token &tok)
     sstream.clear();
     sstream << tok;
     stream << sstream.str();
+    return stream;
 }

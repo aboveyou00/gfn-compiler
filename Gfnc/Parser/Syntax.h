@@ -20,8 +20,8 @@ public:
     virtual void repr(std::stringstream &stream) const = 0;
     std::string stringify() const;
     virtual void stringify(std::stringstream &stream) const;
-    static friend std::stringstream &operator<<(std::stringstream &stream, const Syntax &syntax);
-    static friend std::ostream &operator<<(std::ostream &stream, const Syntax &syntax);
+    friend std::stringstream &operator<<(std::stringstream &stream, const Syntax &syntax);
+    friend std::ostream &operator<<(std::ostream &stream, const Syntax &syntax);
 
 private:
     uint32_t m_startIndex, m_length;
