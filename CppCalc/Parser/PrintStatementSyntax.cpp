@@ -28,6 +28,7 @@ PrintStatementSyntax *PrintStatementSyntax::tryParse(Cursor<Token*> &cursor)
         return nullptr;
     }
 
+    cursor.next();
     return new PrintStatementSyntax(startIndex, cursor.snapshot() - startIndex, expr, isPuts);
 }
 

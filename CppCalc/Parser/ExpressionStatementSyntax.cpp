@@ -23,6 +23,7 @@ ExpressionStatementSyntax *ExpressionStatementSyntax::tryParse(Cursor<Token*> &c
         return nullptr;
     }
 
+    cursor.next();
     return new ExpressionStatementSyntax(startIndex, cursor.snapshot() - startIndex, expr);
 }
 

@@ -20,6 +20,7 @@
     <ClCompile Include="Eval\OpNeg_eval.cpp" />
     <ClCompile Include="Eval\OpNop_eval.cpp" />
     <ClCompile Include="Eval\OpSub_eval.cpp" />
+    <ClCompile Include="Parser\SyntaxTreeParser_parseCompilationUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

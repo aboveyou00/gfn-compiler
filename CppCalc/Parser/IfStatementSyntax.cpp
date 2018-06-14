@@ -18,6 +18,7 @@ IfStatementSyntax *IfStatementSyntax::tryParse(Cursor<Token*> &cursor)
         cursor.reset(startIndex);
         return nullptr;
     }
+    cursor.next();
 
     ExpressionSyntax *condition = tryParseSyntax<ExpressionSyntax>(cursor);
     if (condition == nullptr)
@@ -31,6 +32,7 @@ IfStatementSyntax *IfStatementSyntax::tryParse(Cursor<Token*> &cursor)
         cursor.reset(startIndex);
         return nullptr;
     }
+    cursor.next();
 
     StatementSyntax *ifBody = StatementSyntax::tryParse(cursor);
     if (ifBody == nullptr)
