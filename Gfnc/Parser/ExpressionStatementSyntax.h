@@ -1,27 +1,30 @@
 #pragma once
 #include "Parser/StatementSyntax.h"
 
-class ExpressionSyntax;
-
-class ExpressionStatementSyntax :
-    public StatementSyntax
+namespace Gfn::Compiler::Parser
 {
-public:
-    static ExpressionStatementSyntax *tryParse(Cursor<Token*> &cursor);
+    class ExpressionSyntax;
 
-public:
-    ExpressionStatementSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr);
-    ~ExpressionStatementSyntax();
+    class ExpressionStatementSyntax :
+        public StatementSyntax
+    {
+    public:
+        static ExpressionStatementSyntax *tryParse(Cursor<Tokenizer::Token*> &cursor);
 
-    ExpressionSyntax *expr() const;
+    public:
+        ExpressionStatementSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr);
+        ~ExpressionStatementSyntax();
 
-    virtual bool tryResolveTypes() override;
-    virtual void assertTypesAreResolved() const override;
+        ExpressionSyntax *expr() const;
 
-    virtual void emit(MethodBuilder &mb) const override;
+        virtual bool tryResolveTypes() override;
+        virtual void assertTypesAreResolved() const override;
 
-    virtual void repr(std::stringstream &stream) const;
+        virtual void emit(Runtime::MethodBuilder &mb) const override;
 
-private:
-    ExpressionSyntax *m_expr;
-};
+        virtual void repr(std::stringstream &stream) const;
+
+    private:
+        ExpressionSyntax *m_expr;
+    };
+}

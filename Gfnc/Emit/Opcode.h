@@ -1,24 +1,30 @@
 #pragma once
 
-#include "Eval/EvalContext.h"
-#include "Eval/EvalStack.h"
-
-class OpcodeTag;
-
-class Opcode
+namespace Gfn::Compiler::Eval
 {
-public:
-    Opcode();
-    ~Opcode();
+    class EvalContext;
+    class EvalStack;
+}
 
-    const std::vector<OpcodeTag*> &tags() const;
-    bool hasTag(OpcodeTag *tag) const;
+namespace Gfn::Compiler::Emit
+{
+    class OpcodeTag;
 
-    void addTag(OpcodeTag *tag);
+    class Opcode
+    {
+    public:
+        Opcode();
+        ~Opcode();
 
-    virtual void eval(EvalContext &ctx) const;
-    virtual void eval(EvalStack &stack) const = 0;
+        const std::vector<OpcodeTag*> &tags() const;
+        bool hasTag(OpcodeTag *tag) const;
 
-private:
-    std::vector<OpcodeTag*> m_tags;
-};
+        void addTag(OpcodeTag *tag);
+
+        virtual void eval(Eval::EvalContext &ctx) const;
+        virtual void eval(Eval::EvalStack &stack) const = 0;
+
+    private:
+        std::vector<OpcodeTag*> m_tags;
+    };
+}

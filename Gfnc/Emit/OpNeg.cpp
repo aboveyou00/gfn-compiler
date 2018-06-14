@@ -1,15 +1,19 @@
 #include "stdafx.h"
 #include "Emit/OpNeg.h"
+#include "Eval/EvalStack.h"
 
-OpNeg::OpNeg()
+namespace Gfn::Compiler::Emit
 {
-}
-OpNeg::~OpNeg()
-{
-}
+    OpNeg::OpNeg()
+    {
+    }
+    OpNeg::~OpNeg()
+    {
+    }
 
-void OpNeg::eval(EvalStack &stack) const
-{
-    int32_t inner = stack.pop();
-    stack.push(-inner);
+    void OpNeg::eval(Eval::EvalStack &stack) const
+    {
+        int32_t inner = stack.pop();
+        stack.push(-inner);
+    }
 }

@@ -1,32 +1,38 @@
 #pragma once
 #include "Parser/ExpressionSyntax.h"
 
-class MethodOverload;
-
-class BinaryExpressionSyntax :
-    public ExpressionSyntax
+namespace Gfn::Compiler::Runtime
 {
-public:
-    BinaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op);
-    ~BinaryExpressionSyntax();
+    class MethodOverload;
+}
 
-    ExpressionSyntax *lhs() const;
-    ExpressionSyntax *rhs() const;
-    const std::string op() const;
+namespace Gfn::Compiler::Parser
+{
+    class BinaryExpressionSyntax :
+        public ExpressionSyntax
+    {
+    public:
+        BinaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op);
+        ~BinaryExpressionSyntax();
 
-    virtual bool tryResolveType() override;
+        ExpressionSyntax *lhs() const;
+        ExpressionSyntax *rhs() const;
+        const std::string op() const;
 
-    virtual void emit(MethodBuilder &mb) const override;
+        virtual bool tryResolveType() override;
 
-    virtual void repr(std::stringstream &stream) const;
+        virtual void emit(Emit::MethodBuilder &mb) const override;
 
-protected:
-    virtual std::string getOperatorMethodName() const = 0;
+        virtual void repr(std::stringstream &stream) const;
 
-private:
-    ExpressionSyntax *m_lhs;
-    ExpressionSyntax *m_rhs;
-    const std::string m_op;
+    protected:
+        virtual std::string getOperatorMethodName() const = 0;
 
-    MethodOverload *m_selectedOperatorOverload;
-};
+    private:
+        ExpressionSyntax *m_lhs;
+        ExpressionSyntax *m_rhs;
+        const std::string m_op;
+
+        Runtime::MethodOverload *m_selectedOperatorOverload;
+    };
+}

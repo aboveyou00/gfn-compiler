@@ -6,59 +6,62 @@
 #include "Parser/ExpressionSyntax.h"
 #include "Emit/MethodBuilder.h"
 
-ExpressionStatementSyntax *ExpressionStatementSyntax::tryParse(Cursor<Token*> &cursor)
+namespace Gfn::Compiler::Parser
 {
-    auto startIndex = cursor.snapshot();
-
-    ExpressionSyntax *expr = tryParseSyntax<ExpressionSyntax>(cursor);
-    if (expr == nullptr)
+    ExpressionStatementSyntax *ExpressionStatementSyntax::tryParse(Cursor<Tokenizer::Token*> &cursor)
     {
-        cursor.reset(startIndex);
-        return nullptr;
+        auto startIndex = cursor.snapshot();
+
+        ExpressionSyntax *expr = tryParseSyntax<ExpressionSyntax>(cursor);
+        if (expr == nullptr)
+        {
+            cursor.reset(startIndex);
+            return nullptr;
+        }
+
+        if (!cursor.current()->isOperator() || cursor.current()->op() != ";"s)
+        {
+            cursor.reset(startIndex);
+            return nullptr;
+        }
+
+        cursor.next();
+        return new ExpressionStatementSyntax(startIndex, cursor.snapshot() - startIndex, expr);
     }
 
-    if (!cursor.current()->isOperator() || cursor.current()->op() != ";"s)
+    ExpressionStatementSyntax::ExpressionStatementSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr)
+        : StatementSyntax(startIndex, length), m_expr(expr)
     {
-        cursor.reset(startIndex);
-        return nullptr;
+    }
+    ExpressionStatementSyntax::~ExpressionStatementSyntax()
+    {
     }
 
-    cursor.next();
-    return new ExpressionStatementSyntax(startIndex, cursor.snapshot() - startIndex, expr);
-}
+    ExpressionSyntax *ExpressionStatementSyntax::expr() const
+    {
+        return this->m_expr;
+    }
 
-ExpressionStatementSyntax::ExpressionStatementSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr)
-    : StatementSyntax(startIndex, length), m_expr(expr)
-{
-}
-ExpressionStatementSyntax::~ExpressionStatementSyntax()
-{
-}
+    bool ExpressionStatementSyntax::tryResolveTypes()
+    {
+        auto worked = true;
 
-ExpressionSyntax *ExpressionStatementSyntax::expr() const
-{
-    return this->m_expr;
-}
+        if (!this->expr()->tryResolveType()) worked = false;
 
-bool ExpressionStatementSyntax::tryResolveTypes()
-{
-    auto worked = true;
+        return worked;
+    }
+    void ExpressionStatementSyntax::assertTypesAreResolved() const
+    {
+        throw std::logic_error("Not implemented"s);
+    }
 
-    if (!this->expr()->tryResolveType()) worked = false;
+    void ExpressionStatementSyntax::emit(Runtime::MethodBuilder&) const
+    {
+        throw std::logic_error("Not implemented"s);
+    }
 
-    return worked;
-}
-void ExpressionStatementSyntax::assertTypesAreResolved() const
-{
-    throw std::logic_error("Not implemented"s);
-}
-
-void ExpressionStatementSyntax::emit(MethodBuilder&) const
-{
-    throw std::logic_error("Not implemented"s);
-}
-
-void ExpressionStatementSyntax::repr(std::stringstream &stream) const
-{
-    stream << this->expr() << ";"s;
+    void ExpressionStatementSyntax::repr(std::stringstream &stream) const
+    {
+        stream << this->expr() << ";"s;
+    }
 }

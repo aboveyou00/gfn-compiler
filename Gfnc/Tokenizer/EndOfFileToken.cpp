@@ -1,20 +1,23 @@
 #include "stdafx.h"
 #include "Tokenizer/EndOfFileToken.h"
 
-EndOfFileToken::EndOfFileToken(uint32_t startIndex)
-    : Token(startIndex, 0)
+namespace Gfn::Compiler::Tokenizer
 {
-}
-EndOfFileToken::~EndOfFileToken()
-{
-}
+    EndOfFileToken::EndOfFileToken(uint32_t startIndex)
+        : Token(startIndex, 0)
+    {
+    }
+    EndOfFileToken::~EndOfFileToken()
+    {
+    }
 
-bool EndOfFileToken::isEndOfFile() const
-{
-    return true;
-}
+    bool EndOfFileToken::isEndOfFile() const
+    {
+        return true;
+    }
 
-void EndOfFileToken::repr(std::stringstream &stream) const
-{
-    stream << "%%EOF%%";
+    void EndOfFileToken::repr(std::stringstream &stream) const
+    {
+        stream << "%%EOF%%";
+    }
 }

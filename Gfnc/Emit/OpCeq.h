@@ -2,12 +2,15 @@
 
 #include "Emit/Opcode.h"
 
-class OpCeq
-    : public Opcode
+namespace Gfn::Compiler::Emit
 {
-public:
-    OpCeq();
-    ~OpCeq();
+    class OpCeq
+        : public Opcode
+    {
+    public:
+        OpCeq();
+        ~OpCeq();
 
-    virtual void eval(EvalStack &stack) const override;
-};
+        virtual void eval(Eval::EvalStack &stack) const override;
+    };
+}

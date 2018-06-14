@@ -1,14 +1,17 @@
 #include "stdafx.h"
 #include "Emit/OpNop.h"
 
-OpNop::OpNop()
+namespace Gfn::Compiler::Emit
 {
-}
-OpNop::~OpNop()
-{
-}
+    OpNop::OpNop()
+    {
+    }
+    OpNop::~OpNop()
+    {
+    }
 
-void OpNop::eval(EvalStack&) const
-{
-    ; //NOP
+    void OpNop::eval(Eval::EvalStack&) const
+    {
+        ; //NOP
+    }
 }

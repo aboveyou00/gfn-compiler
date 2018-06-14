@@ -2,24 +2,30 @@
 
 #include "Eval/EvalStack.h"
 
-class Opcode;
-class OpcodeTag;
-
-class EvalContext
+namespace Gfn::Compiler::Emit
 {
-public:
-    EvalContext(const std::vector<Opcode*> &opcodes);
-    ~EvalContext();
+    class Opcode;
+    class OpcodeTag;
+}
 
-    const std::vector<Opcode*> &ops() const;
+namespace Gfn::Compiler::Eval
+{
+    class EvalContext
+    {
+    public:
+        EvalContext(const std::vector<Emit::Opcode*> &opcodes);
+        ~EvalContext();
 
-    EvalStack &stack();
-    uint32_t &nextInstructionIndex();
+        const std::vector<Emit::Opcode*> &ops() const;
 
-    void branchTo(OpcodeTag *tag);
+        EvalStack &stack();
+        uint32_t &nextInstructionIndex();
 
-private:
-    const std::vector<Opcode*> m_opcodes;
-    EvalStack m_stack;
-    uint32_t m_nextInstructionIndex;
-};
+        void branchTo(Emit::OpcodeTag *tag);
+
+    private:
+        const std::vector<Emit::Opcode*> m_opcodes;
+        EvalStack m_stack;
+        uint32_t m_nextInstructionIndex;
+    };
+}

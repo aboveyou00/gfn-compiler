@@ -4,39 +4,42 @@
 #include "Emit/Opcode.h"
 #include "Emit/OpcodeTag.h"
 
-EvalContext::EvalContext(const std::vector<Opcode*> &ops)
-    : m_opcodes(ops)
+namespace Gfn::Compiler::Eval
 {
-}
-EvalContext::~EvalContext()
-{
-}
-
-const std::vector<Opcode*> &EvalContext::ops() const
-{
-    return this->m_opcodes;
-}
-
-EvalStack &EvalContext::stack()
-{
-    return this->m_stack;
-}
-uint32_t &EvalContext::nextInstructionIndex()
-{
-    return this->m_nextInstructionIndex;
-}
-
-void EvalContext::branchTo(OpcodeTag *tag)
-{
-    auto &ops = this->m_opcodes;
-    for (auto q = 0u; q < ops.size(); q++)
+    EvalContext::EvalContext(const std::vector<Emit::Opcode*> &ops)
+        : m_opcodes(ops)
     {
-        auto instr = ops.at(q);
-        if (instr->hasTag(tag))
-        {
-            this->m_nextInstructionIndex = q;
-            return;
-        }
     }
-    throw std::logic_error("Can't branch to the tag \""s + tag->name() + "\". It doesn't exist!"s);
+    EvalContext::~EvalContext()
+    {
+    }
+
+    const std::vector<Emit::Opcode*> &EvalContext::ops() const
+    {
+        return this->m_opcodes;
+    }
+
+    EvalStack &EvalContext::stack()
+    {
+        return this->m_stack;
+    }
+    uint32_t &EvalContext::nextInstructionIndex()
+    {
+        return this->m_nextInstructionIndex;
+    }
+
+    void EvalContext::branchTo(Emit::OpcodeTag *tag)
+    {
+        auto &ops = this->m_opcodes;
+        for (auto q = 0u; q < ops.size(); q++)
+        {
+            auto instr = ops.at(q);
+            if (instr->hasTag(tag))
+            {
+                this->m_nextInstructionIndex = q;
+                return;
+            }
+        }
+        throw std::logic_error("Can't branch to the tag \""s + tag->name() + "\". It doesn't exist!"s);
+    }
 }

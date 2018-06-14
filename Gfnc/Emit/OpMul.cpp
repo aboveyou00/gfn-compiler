@@ -1,16 +1,20 @@
 #include "stdafx.h"
 #include "Emit/OpMul.h"
+#include "Eval/EvalStack.h"
 
-OpMul::OpMul()
+namespace Gfn::Compiler::Emit
 {
-}
-OpMul::~OpMul()
-{
-}
+    OpMul::OpMul()
+    {
+    }
+    OpMul::~OpMul()
+    {
+    }
 
-void OpMul::eval(EvalStack &stack) const
-{
-    int32_t lhs, rhs;
-    std::tie(lhs, rhs) = stack.pop2();
-    stack.push(lhs * rhs);
+    void OpMul::eval(Eval::EvalStack &stack) const
+    {
+        int32_t lhs, rhs;
+        std::tie(lhs, rhs) = stack.pop2();
+        stack.push(lhs * rhs);
+    }
 }

@@ -1,30 +1,33 @@
 #pragma once
 #include "Parser/StatementSyntax.h"
 
-class ExpressionSyntax;
-
-class IfStatementSyntax :
-    public StatementSyntax
+namespace Gfn::Compiler::Parser
 {
-public:
-    static IfStatementSyntax *tryParse(Cursor<Token*> &cursor);
+    class ExpressionSyntax;
 
-public:
-    IfStatementSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *condition, StatementSyntax *ifBody, StatementSyntax *elseBody = nullptr);
-    ~IfStatementSyntax();
+    class IfStatementSyntax :
+        public StatementSyntax
+    {
+    public:
+        static IfStatementSyntax *tryParse(Cursor<Tokenizer::Token*> &cursor);
 
-    ExpressionSyntax *condition() const;
-    StatementSyntax *ifBody() const;
-    StatementSyntax *elseBody() const;
+    public:
+        IfStatementSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *condition, StatementSyntax *ifBody, StatementSyntax *elseBody = nullptr);
+        ~IfStatementSyntax();
 
-    virtual bool tryResolveTypes() override;
-    virtual void assertTypesAreResolved() const override;
+        ExpressionSyntax *condition() const;
+        StatementSyntax *ifBody() const;
+        StatementSyntax *elseBody() const;
 
-    virtual void emit(MethodBuilder &mb) const override;
+        virtual bool tryResolveTypes() override;
+        virtual void assertTypesAreResolved() const override;
 
-    virtual void repr(std::stringstream &stream) const;
+        virtual void emit(Runtime::MethodBuilder &mb) const override;
 
-private:
-    ExpressionSyntax *m_condition;
-    StatementSyntax *m_ifBody, *m_elseBody;
-};
+        virtual void repr(std::stringstream &stream) const;
+
+    private:
+        ExpressionSyntax *m_condition;
+        StatementSyntax *m_ifBody, *m_elseBody;
+    };
+}

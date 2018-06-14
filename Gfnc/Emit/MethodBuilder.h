@@ -1,29 +1,32 @@
 #pragma once
 
-class Opcode;
-class OpcodeTag;
-
-class MethodBuilder
+namespace Gfn::Compiler::Emit
 {
-public:
-    MethodBuilder();
-    ~MethodBuilder();
+    class Opcode;
+    class OpcodeTag;
 
-    OpcodeTag *createTag(std::string name);
-    OpcodeTag *createAnonymousTag();
-    void addTagToNextOpcode(OpcodeTag *tag);
-    void addOpcode(Opcode *op);
+    class MethodBuilder
+    {
+    public:
+        MethodBuilder();
+        ~MethodBuilder();
 
-    void finalize();
-    bool isFinalized() const;
+        OpcodeTag *createTag(std::string name);
+        OpcodeTag *createAnonymousTag();
+        void addTagToNextOpcode(OpcodeTag *tag);
+        void addOpcode(Opcode *op);
 
-    const std::vector<Opcode*> &ops() const;
+        void finalize();
+        bool isFinalized() const;
 
-private:
-    std::vector<OpcodeTag*> m_pendingTags;
-    std::vector<Opcode*> m_opcodes;
-    int m_nextAnonymousIndex;
-    bool m_isFinalized;
+        const std::vector<Opcode*> &ops() const;
 
-    void assertNotFinalized() const;
-};
+    private:
+        std::vector<OpcodeTag*> m_pendingTags;
+        std::vector<Opcode*> m_opcodes;
+        int m_nextAnonymousIndex;
+        bool m_isFinalized;
+
+        void assertNotFinalized() const;
+    };
+}

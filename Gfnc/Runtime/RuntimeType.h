@@ -2,34 +2,37 @@
 
 #include <unordered_map>
 
-class MethodGroup;
-
-class RuntimeType
+namespace Gfn::Compiler::Runtime
 {
-public:
-    static void prepareRuntimeTypes();
+    class MethodGroup;
 
-    static RuntimeType *int32();
-    static RuntimeType *string();
-    static RuntimeType *boolean();
+    class RuntimeType
+    {
+    public:
+        static void prepareRuntimeTypes();
 
-private:
-    static bool s_runtimeTypesPrepared;
-    static RuntimeType *s_int32, *s_string, *s_boolean;
+        static RuntimeType *int32();
+        static RuntimeType *string();
+        static RuntimeType *boolean();
 
-public:
-    RuntimeType(std::string displayName, bool isPredefined);
-    ~RuntimeType();
+    private:
+        static bool s_runtimeTypesPrepared;
+        static RuntimeType *s_int32, *s_string, *s_boolean;
 
-    bool isPredefined() const;
-    const std::string &displayName() const;
+    public:
+        RuntimeType(std::string displayName, bool isPredefined);
+        ~RuntimeType();
 
-    MethodGroup *getStaticMethods(std::string name, bool createMethodGroup = false);
-    MethodGroup *getInstanceMethods(std::string name, bool createMethodGroup = false);
+        bool isPredefined() const;
+        const std::string &displayName() const;
 
-private:
-    std::string m_displayName;
-    bool m_isPredefined;
-    std::unordered_map<std::string, MethodGroup*> m_static_methods;
-    std::unordered_map<std::string, MethodGroup*> m_instance_methods;
-};
+        MethodGroup *getStaticMethods(std::string name, bool createMethodGroup = false);
+        MethodGroup *getInstanceMethods(std::string name, bool createMethodGroup = false);
+
+    private:
+        std::string m_displayName;
+        bool m_isPredefined;
+        std::unordered_map<std::string, MethodGroup*> m_static_methods;
+        std::unordered_map<std::string, MethodGroup*> m_instance_methods;
+    };
+}

@@ -1,15 +1,19 @@
 #include "stdafx.h"
 #include "Emit/OpBranch.h"
+#include "Eval/EvalContext.h"
 
-OpBranch::OpBranch(OpcodeTag *tag)
-    : BranchingOpcode(tag)
+namespace Gfn::Compiler::Emit
 {
-}
-OpBranch::~OpBranch()
-{
-}
+    OpBranch::OpBranch(OpcodeTag *tag)
+        : BranchingOpcode(tag)
+    {
+    }
+    OpBranch::~OpBranch()
+    {
+    }
 
-void OpBranch::eval(EvalContext &ctx) const
-{
-    ctx.branchTo(this->tag());
+    void OpBranch::eval(Eval::EvalContext &ctx) const
+    {
+        ctx.branchTo(this->tag());
+    }
 }

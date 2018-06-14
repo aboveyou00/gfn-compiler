@@ -15,143 +15,146 @@
 #include "Emit/OpMod.h"
 #include "Emit/OpNeg.h"
 
-void RuntimeType::prepareRuntimeTypes()
+namespace Gfn::Compiler::Runtime
 {
-    if (s_runtimeTypesPrepared) return;
-    s_runtimeTypesPrepared = true;
-
-    s_int32 = new RuntimeType("int"s, true);
-    s_string = new RuntimeType("string", true);
-    s_boolean = new RuntimeType("bool", true);
-
-    MethodGroup *methods;
-
-    //Int32
+    void RuntimeType::prepareRuntimeTypes()
     {
-        methods = s_int32->getStaticMethods("__op_Equality"s, true);
-        methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](MethodBuilder &mb) {
-            //int32 == int32
-            mb.addOpcode(new OpCeq());
-        }));
-        methods = s_int32->getStaticMethods("__op_Inequality"s, true);
-        methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](MethodBuilder &mb) {
-            //int32 != int32
-            mb.addOpcode(new OpCeq());
-            mb.addOpcode(new OpLdcI4(0));
-            mb.addOpcode(new OpCeq());
-        }));
+        if (s_runtimeTypesPrepared) return;
+        s_runtimeTypesPrepared = true;
 
-        methods = s_int32->getStaticMethods("__op_LessThan"s, true);
-        methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](MethodBuilder &mb) {
-            //int32 < int32
-            mb.addOpcode(new OpClt());
-        }));
-        methods = s_int32->getStaticMethods("__op_GreaterThan"s, true);
-        methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](MethodBuilder &mb) {
-            //int32 > int32
-            mb.addOpcode(new OpCgt());
-        }));
-        methods = s_int32->getStaticMethods("__op_LessThanOrEqual"s, true);
-        methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](MethodBuilder &mb) {
-            //int32 <= int32
-            mb.addOpcode(new OpCgt());
-            mb.addOpcode(new OpLdcI4(0));
-            mb.addOpcode(new OpCeq());
-        }));
-        methods = s_int32->getStaticMethods("__op_GreaterThanOrEqual"s, true);
-        methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](MethodBuilder &mb) {
-            //int32 >= int32
-            mb.addOpcode(new OpClt());
-            mb.addOpcode(new OpLdcI4(0));
-            mb.addOpcode(new OpCeq());
-        }));
+        s_int32 = new RuntimeType("int"s, true);
+        s_string = new RuntimeType("string", true);
+        s_boolean = new RuntimeType("bool", true);
 
-        methods = s_int32->getStaticMethods("__op_Addition"s, true);
-        methods->addOverload(new MethodOverload(s_int32, { s_int32, s_int32 }, [](MethodBuilder &mb) {
-            //int32 + int32
-            mb.addOpcode(new OpAdd());
-        }));
-        methods = s_int32->getStaticMethods("__op_Subtraction"s, true);
-        methods->addOverload(new MethodOverload(s_int32, { s_int32, s_int32 }, [](MethodBuilder &mb) {
-            //int32 - int32
-            mb.addOpcode(new OpSub());
-        }));
+        MethodGroup *methods;
 
-        methods = s_int32->getStaticMethods("__op_Multiply"s, true);
-        methods->addOverload(new MethodOverload(s_int32, { s_int32, s_int32 }, [](MethodBuilder &mb) {
-            //int32 * int32
-            mb.addOpcode(new OpMul());
-        }));
-        methods = s_int32->getStaticMethods("__op_Division"s, true);
-        methods->addOverload(new MethodOverload(s_int32, { s_int32, s_int32 }, [](MethodBuilder &mb) {
-            //int32 / int32
-            mb.addOpcode(new OpDiv());
-        }));
-        methods = s_int32->getStaticMethods("__op_Modulus"s, true);
-        methods->addOverload(new MethodOverload(s_int32, { s_int32, s_int32 }, [](MethodBuilder &mb) {
-            //int32 % int32
-            mb.addOpcode(new OpMod());
-        }));
+        //Int32
+        {
+            methods = s_int32->getStaticMethods("__op_Equality"s, true);
+            methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](Emit::MethodBuilder &mb) {
+                //int32 == int32
+                mb.addOpcode(new Emit::OpCeq());
+            }));
+            methods = s_int32->getStaticMethods("__op_Inequality"s, true);
+            methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](Emit::MethodBuilder &mb) {
+                //int32 != int32
+                mb.addOpcode(new Emit::OpCeq());
+                mb.addOpcode(new Emit::OpLdcI4(0));
+                mb.addOpcode(new Emit::OpCeq());
+            }));
 
-        methods = s_int32->getStaticMethods("__op_UnaryNegation"s, true);
-        methods->addOverload(new MethodOverload(s_int32, { s_int32 }, [](MethodBuilder &mb) {
-            //-int32
-            mb.addOpcode(new OpNeg());
-        }));
-        methods = s_int32->getStaticMethods("__op_UnaryPlus"s, true);
-        methods->addOverload(new MethodOverload(s_int32, { s_int32 }, [](MethodBuilder&) {
-            //+int32
-            ; //NOP
-        }));
+            methods = s_int32->getStaticMethods("__op_LessThan"s, true);
+            methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](Emit::MethodBuilder &mb) {
+                //int32 < int32
+                mb.addOpcode(new Emit::OpClt());
+            }));
+            methods = s_int32->getStaticMethods("__op_GreaterThan"s, true);
+            methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](Emit::MethodBuilder &mb) {
+                //int32 > int32
+                mb.addOpcode(new Emit::OpCgt());
+            }));
+            methods = s_int32->getStaticMethods("__op_LessThanOrEqual"s, true);
+            methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](Emit::MethodBuilder &mb) {
+                //int32 <= int32
+                mb.addOpcode(new Emit::OpCgt());
+                mb.addOpcode(new Emit::OpLdcI4(0));
+                mb.addOpcode(new Emit::OpCeq());
+            }));
+            methods = s_int32->getStaticMethods("__op_GreaterThanOrEqual"s, true);
+            methods->addOverload(new MethodOverload(s_boolean, { s_int32, s_int32 }, [](Emit::MethodBuilder &mb) {
+                //int32 >= int32
+                mb.addOpcode(new Emit::OpClt());
+                mb.addOpcode(new Emit::OpLdcI4(0));
+                mb.addOpcode(new Emit::OpCeq());
+            }));
+
+            methods = s_int32->getStaticMethods("__op_Addition"s, true);
+            methods->addOverload(new MethodOverload(s_int32, { s_int32, s_int32 }, [](Emit::MethodBuilder &mb) {
+                //int32 + int32
+                mb.addOpcode(new Emit::OpAdd());
+            }));
+            methods = s_int32->getStaticMethods("__op_Subtraction"s, true);
+            methods->addOverload(new MethodOverload(s_int32, { s_int32, s_int32 }, [](Emit::MethodBuilder &mb) {
+                //int32 - int32
+                mb.addOpcode(new Emit::OpSub());
+            }));
+
+            methods = s_int32->getStaticMethods("__op_Multiply"s, true);
+            methods->addOverload(new MethodOverload(s_int32, { s_int32, s_int32 }, [](Emit::MethodBuilder &mb) {
+                //int32 * int32
+                mb.addOpcode(new Emit::OpMul());
+            }));
+            methods = s_int32->getStaticMethods("__op_Division"s, true);
+            methods->addOverload(new MethodOverload(s_int32, { s_int32, s_int32 }, [](Emit::MethodBuilder &mb) {
+                //int32 / int32
+                mb.addOpcode(new Emit::OpDiv());
+            }));
+            methods = s_int32->getStaticMethods("__op_Modulus"s, true);
+            methods->addOverload(new MethodOverload(s_int32, { s_int32, s_int32 }, [](Emit::MethodBuilder &mb) {
+                //int32 % int32
+                mb.addOpcode(new Emit::OpMod());
+            }));
+
+            methods = s_int32->getStaticMethods("__op_UnaryNegation"s, true);
+            methods->addOverload(new MethodOverload(s_int32, { s_int32 }, [](Emit::MethodBuilder &mb) {
+                //-int32
+                mb.addOpcode(new Emit::OpNeg());
+            }));
+            methods = s_int32->getStaticMethods("__op_UnaryPlus"s, true);
+            methods->addOverload(new MethodOverload(s_int32, { s_int32 }, [](Emit::MethodBuilder&) {
+                //+int32
+                ; //NOP
+            }));
+        }
+
+        //Boolean
+        {
+            methods = s_boolean->getStaticMethods("__op_Equality"s, true);
+            methods->addOverload(new MethodOverload(s_boolean, { s_boolean, s_boolean }, [](Emit::MethodBuilder &mb) {
+                //boolean == boolean
+                mb.addOpcode(new Emit::OpCeq());
+            }));
+            methods = s_boolean->getStaticMethods("__op_Inequality"s, true);
+            methods->addOverload(new MethodOverload(s_boolean, { s_boolean, s_boolean }, [](Emit::MethodBuilder &mb) {
+                //boolean != boolean
+                mb.addOpcode(new Emit::OpCeq());
+                mb.addOpcode(new Emit::OpLdcI4(0));
+                mb.addOpcode(new Emit::OpCeq());
+            }));
+
+            methods = s_boolean->getStaticMethods("__op_LogicalNot"s, true);
+            methods->addOverload(new MethodOverload(s_boolean, { s_boolean }, [](Emit::MethodBuilder &mb) {
+                //!boolean
+                mb.addOpcode(new Emit::OpLdcI4(0));
+                mb.addOpcode(new Emit::OpCeq());
+            }));
+        }
+
+        //String
+        {
+            //Nothing here yet
+        }
     }
 
-    //Boolean
+    RuntimeType *RuntimeType::int32()
     {
-        methods = s_boolean->getStaticMethods("__op_Equality"s, true);
-        methods->addOverload(new MethodOverload(s_boolean, { s_boolean, s_boolean }, [](MethodBuilder &mb) {
-            //boolean == boolean
-            mb.addOpcode(new OpCeq());
-        }));
-        methods = s_boolean->getStaticMethods("__op_Inequality"s, true);
-        methods->addOverload(new MethodOverload(s_boolean, { s_boolean, s_boolean }, [](MethodBuilder &mb) {
-            //boolean != boolean
-            mb.addOpcode(new OpCeq());
-            mb.addOpcode(new OpLdcI4(0));
-            mb.addOpcode(new OpCeq());
-        }));
-
-        methods = s_boolean->getStaticMethods("__op_LogicalNot"s, true);
-        methods->addOverload(new MethodOverload(s_boolean, { s_boolean }, [](MethodBuilder &mb) {
-            //!boolean
-            mb.addOpcode(new OpLdcI4(0));
-            mb.addOpcode(new OpCeq());
-        }));
+        if (!s_runtimeTypesPrepared) throw std::logic_error("You can't access runtime types before they are prepared! Call RuntimeType::prepareRuntimeTypes()"s);
+        return s_int32;
+    }
+    RuntimeType *RuntimeType::string()
+    {
+        if (!s_runtimeTypesPrepared) throw std::logic_error("You can't access runtime types before they are prepared! Call RuntimeType::prepareRuntimeTypes()"s);
+        return s_string;
+    }
+    RuntimeType *RuntimeType::boolean()
+    {
+        if (!s_runtimeTypesPrepared) throw std::logic_error("You can't access runtime types before they are prepared! Call RuntimeType::prepareRuntimeTypes()"s);
+        return s_boolean;
     }
 
-    //String
-    {
-        //Nothing here yet
-    }
-}
+    bool RuntimeType::s_runtimeTypesPrepared = false;
 
-RuntimeType *RuntimeType::int32()
-{
-    if (!s_runtimeTypesPrepared) throw std::logic_error("You can't access runtime types before they are prepared! Call RuntimeType::prepareRuntimeTypes()"s);
-    return s_int32;
+    RuntimeType *RuntimeType::s_int32 = nullptr;
+    RuntimeType *RuntimeType::s_string = nullptr;
+    RuntimeType *RuntimeType::s_boolean = nullptr;
 }
-RuntimeType *RuntimeType::string()
-{
-    if (!s_runtimeTypesPrepared) throw std::logic_error("You can't access runtime types before they are prepared! Call RuntimeType::prepareRuntimeTypes()"s);
-    return s_string;
-}
-RuntimeType *RuntimeType::boolean()
-{
-    if (!s_runtimeTypesPrepared) throw std::logic_error("You can't access runtime types before they are prepared! Call RuntimeType::prepareRuntimeTypes()"s);
-    return s_boolean;
-}
-
-bool RuntimeType::s_runtimeTypesPrepared = false;
-
-RuntimeType *RuntimeType::s_int32 = nullptr;
-RuntimeType *RuntimeType::s_string = nullptr;
-RuntimeType *RuntimeType::s_boolean = nullptr;

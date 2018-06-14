@@ -5,7 +5,7 @@
 TEST(OpNop_eval, EmptyStack) {
     PREPARE_STACK();
 
-    OpNop op;
+    Emit::OpNop op;
     op.eval(stack);
 
     EXPECT_EMPTY_STACK();
@@ -14,7 +14,7 @@ TEST(OpNop_eval, EmptyStack) {
 TEST(OpNop_eval, UnmodifiedStack) {
     PREPARE_STACK(25);
 
-    OpNop op;
+    Emit::OpNop op;
     op.eval(stack);
 
     EXPECT_STACK_RESULT(25);

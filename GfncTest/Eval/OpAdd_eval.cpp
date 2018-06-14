@@ -5,7 +5,7 @@
 TEST(OpAdd_eval, Simple) {
     PREPARE_STACK(2, 3);
 
-    OpAdd op;
+    Emit::OpAdd op;
     op.eval(stack);
 
     EXPECT_STACK_RESULT(5);

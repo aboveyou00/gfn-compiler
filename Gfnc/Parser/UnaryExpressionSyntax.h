@@ -1,35 +1,41 @@
 #pragma once
 #include "Parser/ExpressionSyntax.h"
 
-class MethodOverload;
-
-class UnaryExpressionSyntax :
-    public ExpressionSyntax
+namespace Gfn::Compiler::Runtime
 {
-public:
-    static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
+    class MethodOverload;
+}
 
-public:
-    UnaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr, const std::string op);
-    ~UnaryExpressionSyntax();
+namespace Gfn::Compiler::Parser
+{
+    class UnaryExpressionSyntax :
+        public ExpressionSyntax
+    {
+    public:
+        static ExpressionSyntax *tryParse(Cursor<Tokenizer::Token*> &cursor);
 
-    ExpressionSyntax *expr() const;
-    const std::string op() const;
+    public:
+        UnaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr, const std::string op);
+        ~UnaryExpressionSyntax();
 
-    virtual bool tryResolveType() override;
+        ExpressionSyntax *expr() const;
+        const std::string op() const;
 
-    virtual void emit(MethodBuilder &mb) const override;
+        virtual bool tryResolveType() override;
 
-    virtual void repr(std::stringstream &stream) const;
+        virtual void emit(Emit::MethodBuilder &mb) const override;
 
-protected:
-    virtual std::string getOperatorMethodName() const;
+        virtual void repr(std::stringstream &stream) const;
 
-private:
-    ExpressionSyntax *m_expr;
-    const std::string m_op;
+    protected:
+        virtual std::string getOperatorMethodName() const;
 
-    MethodOverload *m_selectedOperatorOverload;
+    private:
+        ExpressionSyntax *m_expr;
+        const std::string m_op;
 
-    bool isNegativeNumericLimit() const;
-};
+        Runtime::MethodOverload *m_selectedOperatorOverload;
+
+        bool isNegativeNumericLimit() const;
+    };
+}

@@ -5,7 +5,7 @@
 TEST(OpNeg_eval, Simple) {
     PREPARE_STACK(13);
 
-    OpNeg op;
+    Emit::OpNeg op;
     op.eval(stack);
 
     EXPECT_STACK_RESULT(-13);

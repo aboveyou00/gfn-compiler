@@ -4,27 +4,30 @@
 
 #include "Util/Cursor.h"
 
-class Token;
-class IntegerLiteralToken;
-class StringLiteralToken;
-class OperatorToken;
-
-class Tokenizer
+namespace Gfn::Compiler::Tokenizer
 {
-public:
-    Tokenizer();
-    ~Tokenizer();
+    class Token;
+    class IntegerLiteralToken;
+    class StringLiteralToken;
+    class OperatorToken;
 
-    std::vector<Token*> *tokenize(const std::string &src);
+    class Tokenizer
+    {
+    public:
+        Tokenizer();
+        ~Tokenizer();
 
-private:
-    void collectWhitespace(Cursor<char> &cursor);
-    Token *tryCollectToken(Cursor<char> &cursor);
-    IntegerLiteralToken *tryCollectIntegerLiteralToken(Cursor<char> &cursor);
-    StringLiteralToken *tryCollectStringLiteralToken(Cursor<char> &cursor);
-    Token *tryCollectIdentifierOrKeywordToken(Cursor<char> &cursor);
-    OperatorToken *tryCollectOperatorToken(Cursor<char> &cursor);
+        std::vector<Token*> *tokenize(const std::string &src);
 
-    bool isValidIdentifierStartChar(char chr);
-    bool isValidIdentifierChar(char chr);
-};
+    private:
+        void collectWhitespace(Cursor<char> &cursor);
+        Token *tryCollectToken(Cursor<char> &cursor);
+        IntegerLiteralToken *tryCollectIntegerLiteralToken(Cursor<char> &cursor);
+        StringLiteralToken *tryCollectStringLiteralToken(Cursor<char> &cursor);
+        Token *tryCollectIdentifierOrKeywordToken(Cursor<char> &cursor);
+        OperatorToken *tryCollectOperatorToken(Cursor<char> &cursor);
+
+        bool isValidIdentifierStartChar(char chr);
+        bool isValidIdentifierChar(char chr);
+    };
+}

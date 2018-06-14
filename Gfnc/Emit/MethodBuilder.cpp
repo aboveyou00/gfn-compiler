@@ -5,69 +5,72 @@
 #include "Emit/OpNop.h"
 #include "Emit/OpcodeTag.h"
 
-MethodBuilder::MethodBuilder()
-    : m_isFinalized(false)
+namespace Gfn::Compiler::Emit
 {
-}
-MethodBuilder::~MethodBuilder()
-{
-    for (auto it = this->m_pendingTags.begin(); it != this->m_pendingTags.end(); it++)
+    MethodBuilder::MethodBuilder()
+        : m_isFinalized(false)
     {
-        delete *it;
     }
-    this->m_pendingTags.clear();
-
-    for (auto it = this->m_opcodes.begin(); it != this->m_opcodes.end(); it++)
+    MethodBuilder::~MethodBuilder()
     {
-        delete *it;
+        for (auto it = this->m_pendingTags.begin(); it != this->m_pendingTags.end(); it++)
+        {
+            delete *it;
+        }
+        this->m_pendingTags.clear();
+
+        for (auto it = this->m_opcodes.begin(); it != this->m_opcodes.end(); it++)
+        {
+            delete *it;
+        }
+        this->m_opcodes.clear();
     }
-    this->m_opcodes.clear();
-}
 
-OpcodeTag *MethodBuilder::createTag(std::string name)
-{
-    this->assertNotFinalized();
-    return new OpcodeTag(name);
-}
-OpcodeTag *MethodBuilder::createAnonymousTag()
-{
-    return this->createTag("target"s + std::to_string(++this->m_nextAnonymousIndex));
-}
-
-void MethodBuilder::addTagToNextOpcode(OpcodeTag *tag)
-{
-    this->assertNotFinalized();
-    this->m_pendingTags.push_back(tag);
-}
-void MethodBuilder::addOpcode(Opcode *op)
-{
-    this->assertNotFinalized();
-    for (auto it = this->m_pendingTags.begin(); it != this->m_pendingTags.end(); it++)
+    OpcodeTag *MethodBuilder::createTag(std::string name)
     {
-        op->addTag(*it);
+        this->assertNotFinalized();
+        return new OpcodeTag(name);
     }
-    this->m_pendingTags.clear();
-    this->m_opcodes.push_back(op);
-}
+    OpcodeTag *MethodBuilder::createAnonymousTag()
+    {
+        return this->createTag("target"s + std::to_string(++this->m_nextAnonymousIndex));
+    }
 
-void MethodBuilder::finalize()
-{
-    if (this->m_isFinalized) return;
-    if (this->m_pendingTags.size() > 0) this->addOpcode(new OpNop());
-    this->m_isFinalized = true;
-}
-bool MethodBuilder::isFinalized() const
-{
-    return this->m_isFinalized;
-}
+    void MethodBuilder::addTagToNextOpcode(OpcodeTag *tag)
+    {
+        this->assertNotFinalized();
+        this->m_pendingTags.push_back(tag);
+    }
+    void MethodBuilder::addOpcode(Opcode *op)
+    {
+        this->assertNotFinalized();
+        for (auto it = this->m_pendingTags.begin(); it != this->m_pendingTags.end(); it++)
+        {
+            op->addTag(*it);
+        }
+        this->m_pendingTags.clear();
+        this->m_opcodes.push_back(op);
+    }
 
-const std::vector<Opcode*> &MethodBuilder::ops() const
-{
-    if (!this->m_isFinalized) throw std::logic_error("You can't get a MethodBuilder's opcodes before it has been finalized. Call mb.finalize()"s);
-    return this->m_opcodes;
-}
+    void MethodBuilder::finalize()
+    {
+        if (this->m_isFinalized) return;
+        if (this->m_pendingTags.size() > 0) this->addOpcode(new OpNop());
+        this->m_isFinalized = true;
+    }
+    bool MethodBuilder::isFinalized() const
+    {
+        return this->m_isFinalized;
+    }
 
-void MethodBuilder::assertNotFinalized() const
-{
-    if (this->isFinalized()) throw std::logic_error("You can't make changes to a MethodBuilder after it has been finalized"s);
+    const std::vector<Opcode*> &MethodBuilder::ops() const
+    {
+        if (!this->m_isFinalized) throw std::logic_error("You can't get a MethodBuilder's opcodes before it has been finalized. Call mb.finalize()"s);
+        return this->m_opcodes;
+    }
+
+    void MethodBuilder::assertNotFinalized() const
+    {
+        if (this->isFinalized()) throw std::logic_error("You can't make changes to a MethodBuilder after it has been finalized"s);
+    }
 }

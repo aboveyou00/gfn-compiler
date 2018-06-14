@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "GfnCompiler.h"
 
+using namespace Gfn::Compiler;
+
 TEST(GfnCompiler_eval, IntegerLimits_ValidUpperBound) {
     GfnCompiler calc;
     auto result = calc.eval("2147483647");

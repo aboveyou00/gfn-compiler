@@ -2,13 +2,19 @@
 
 #include <cstdint>
 
-class ExpressionSyntax;
-
-class ExpressionEvaluator
+namespace Gfn::Compiler::Parser
 {
-public:
-    ExpressionEvaluator();
-    ~ExpressionEvaluator();
+    class ExpressionSyntax;
+}
 
-    int32_t eval(ExpressionSyntax *expr);
-};
+namespace Gfn::Compiler::Eval
+{
+    class ExpressionEvaluator
+    {
+    public:
+        ExpressionEvaluator();
+        ~ExpressionEvaluator();
+
+        int32_t eval(Parser::ExpressionSyntax *expr);
+    };
+}

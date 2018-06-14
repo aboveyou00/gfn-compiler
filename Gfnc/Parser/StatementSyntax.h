@@ -2,21 +2,31 @@
 
 #include "Parser/Syntax.h"
 
-class Token;
-class MethodBuilder;
-
-class StatementSyntax
-    : public Syntax
+namespace Gfn::Compiler::Tokenizer
 {
-public:
-    static StatementSyntax *tryParse(Cursor<Token*> &cursor);
+    class Token;
+}
 
-public:
-    StatementSyntax(uint32_t startIndex, uint32_t length);
-    ~StatementSyntax();
+namespace Gfn::Compiler::Runtime
+{
+    class MethodBuilder;
+}
 
-    virtual bool tryResolveTypes() = 0;
-    virtual void assertTypesAreResolved() const = 0;
+namespace Gfn::Compiler::Parser
+{
+    class StatementSyntax
+        : public Syntax
+    {
+    public:
+        static StatementSyntax *tryParse(Cursor<Tokenizer::Token*> &cursor);
 
-    virtual void emit(MethodBuilder &mb) const = 0;
-};
+    public:
+        StatementSyntax(uint32_t startIndex, uint32_t length);
+        ~StatementSyntax();
+
+        virtual bool tryResolveTypes() = 0;
+        virtual void assertTypesAreResolved() const = 0;
+
+        virtual void emit(Runtime::MethodBuilder &mb) const = 0;
+    };
+}

@@ -8,12 +8,14 @@
 #include "Parser/PrintStatementSyntax.h"
 #include "Parser/IfStatementSyntax.h"
 
+using namespace Gfn::Compiler;
+
 #pragma warning (disable: 4456)
 
 #define PARSE_EXPRESSION(str)\
-    Tokenizer tokenizer;\
+    Tokenizer::Tokenizer tokenizer;\
     auto tokens = tokenizer.tokenize(str);\
-    SyntaxTreeParser syntaxTreeParser;\
+    Parser::SyntaxTreeParser syntaxTreeParser;\
     auto expr = syntaxTreeParser.parseExpression(*tokens);
 
 #define EXPECT_NULL(expr)\
@@ -21,7 +23,7 @@
 
 #define EXPECT_BIN_OP(expr, expectedOp, assertions)\
     {\
-        auto __myExpr = dynamic_cast<BinaryExpressionSyntax*>(expr);\
+        auto __myExpr = dynamic_cast<Parser::BinaryExpressionSyntax*>(expr);\
         EXPECT_TRUE(__myExpr != nullptr);\
         EXPECT_TRUE(__myExpr->op() == expectedOp);\
         auto lhs = __myExpr->lhs();\
@@ -33,7 +35,7 @@
 
 #define EXPECT_UN_OP(expr, expectedOp, assertions)\
     {\
-        auto __myExpr = dynamic_cast<UnaryExpressionSyntax*>(expr);\
+        auto __myExpr = dynamic_cast<Parser::UnaryExpressionSyntax*>(expr);\
         EXPECT_TRUE(__myExpr != nullptr);\
         EXPECT_TRUE(__myExpr->op() == expectedOp);\
         auto expr = __myExpr->expr();\
@@ -44,59 +46,59 @@
 
 #define EXPECT_INTEGER_LITERAL(expr, val)\
     {\
-        auto __myExpr = dynamic_cast<PrimaryExpressionSyntax*>(expr);\
+        auto __myExpr = dynamic_cast<Parser::PrimaryExpressionSyntax*>(expr);\
         EXPECT_TRUE(__myExpr != nullptr);\
-        EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::IntegerLiteral);\
+        EXPECT_TRUE(__myExpr->type() == Parser::PrimaryExpressionType::IntegerLiteral);\
         EXPECT_TRUE(__myExpr->intLiteralValue() == val);\
     }
 
 #define EXPECT_ANY_INTEGER_LITERAL(expr)\
     {\
-        auto __myExpr = dynamic_cast<PrimaryExpressionSyntax*>(expr);\
+        auto __myExpr = dynamic_cast<Parser::PrimaryExpressionSyntax*>(expr);\
         EXPECT_TRUE(__myExpr != nullptr);\
-        EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::IntegerLiteral);\
+        EXPECT_TRUE(__myExpr->type() == Parser::PrimaryExpressionType::IntegerLiteral);\
     }
 
 #define EXPECT_STRING_LITERAL(expr, val)\
     {\
-        auto __myExpr = dynamic_cast<PrimaryExpressionSyntax*>(expr);\
+        auto __myExpr = dynamic_cast<Parser::PrimaryExpressionSyntax*>(expr);\
         EXPECT_TRUE(__myExpr != nullptr);\
-        EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::StringLiteral);\
+        EXPECT_TRUE(__myExpr->type() == Parser::PrimaryExpressionType::StringLiteral);\
         EXPECT_TRUE(__myExpr->stringLiteralValue() == val);\
     }
 
 #define EXPECT_ANY_STRING_LITERAL(expr)\
     {\
-        auto __myExpr = dynamic_cast<PrimaryExpressionSyntax*>(expr);\
+        auto __myExpr = dynamic_cast<Parser::PrimaryExpressionSyntax*>(expr);\
         EXPECT_TRUE(__myExpr != nullptr);\
-        EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::StringLiteral);\
+        EXPECT_TRUE(__myExpr->type() == Parser::PrimaryExpressionType::StringLiteral);\
     }
 
 #define EXPECT_BOOLEAN_LITERAL(expr, val)\
     {\
-        auto __myExpr = dynamic_cast<PrimaryExpressionSyntax*>(expr);\
+        auto __myExpr = dynamic_cast<Parser::PrimaryExpressionSyntax*>(expr);\
         EXPECT_TRUE(__myExpr != nullptr);\
-        EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::BooleanLiteral);\
+        EXPECT_TRUE(__myExpr->type() == Parser::PrimaryExpressionType::BooleanLiteral);\
         EXPECT_TRUE(__myExpr->booleanLiteralValue() == val);\
     }
 
 #define EXPECT_ANY_BOOLEAN_LITERAL(expr)\
     {\
-        auto __myExpr = dynamic_cast<PrimaryExpressionSyntax*>(expr);\
+        auto __myExpr = dynamic_cast<Parser::PrimaryExpressionSyntax*>(expr);\
         EXPECT_TRUE(__myExpr != nullptr);\
-        EXPECT_TRUE(__myExpr->type() == PrimaryExpressionType::BooleanLiteral);\
+        EXPECT_TRUE(__myExpr->type() == Parser::PrimaryExpressionType::BooleanLiteral);\
     }
 
 #define PARSE_COMPILATION_UNIT(str)\
-    Tokenizer tokenizer;\
+    Tokenizer::Tokenizer tokenizer;\
     auto tokens = tokenizer.tokenize(str);\
-    SyntaxTreeParser syntaxTreeParser;\
+    Parser::SyntaxTreeParser syntaxTreeParser;\
     auto block = syntaxTreeParser.parseCompilationUnit(*tokens);\
     auto currentStatementIdx = 0u;
 
 #define EXPECT_EXPRESSION_STATEMENT(expr, assertions)\
     {\
-        auto __myStmt = dynamic_cast<ExpressionStatementSyntax*>(block->at(currentStatementIdx));\
+        auto __myStmt = dynamic_cast<Parser::ExpressionStatementSyntax*>(block->at(currentStatementIdx));\
         EXPECT_TRUE(__myStmt != nullptr);\
         auto expr = __myStmt->expr();\
         {\
@@ -107,7 +109,7 @@
 
 #define EXPECT_PRINT_STATEMENT(stmtIsPuts, expr, assertions)\
     {\
-        auto __myStmt = dynamic_cast<PrintStatementSyntax*>(block->at(currentStatementIdx));\
+        auto __myStmt = dynamic_cast<Parser::PrintStatementSyntax*>(block->at(currentStatementIdx));\
         EXPECT_TRUE(__myStmt != nullptr);\
         EXPECT_TRUE(__myStmt->isPuts() == stmtIsPuts);\
         auto expr = __myStmt->expr();\
@@ -119,7 +121,7 @@
 
 #define EXPECT_IF_STATEMENT(expr, exprAssertions, stmtAssertions)\
     {\
-        auto __myStmt = dynamic_cast<IfStatementSyntax*>(block->at(currentStatementIdx));\
+        auto __myStmt = dynamic_cast<Parser::IfStatementSyntax*>(block->at(currentStatementIdx));\
         EXPECT_TRUE(__myStmt != nullptr);\
         auto expr = __myStmt->condition();\
         {\
@@ -127,7 +129,7 @@
         }\
         auto ifStmt = __myStmt->ifBody();\
         {\
-            std::vector<StatementSyntax*> __myBlock { ifStmt };\
+            std::vector<Parser::StatementSyntax*> __myBlock { ifStmt };\
             auto block = &__myBlock;\
             auto currentStatementIdx = 0u;\
             stmtAssertions\
@@ -139,7 +141,7 @@
 
 #define EXPECT_IF_ELSE_STATEMENT(expr, exprAssertions, ifStmtAssertions, elseStmtAssertions)\
     {\
-        auto __myStmt = dynamic_cast<IfStatementSyntax*>(block->at(currentStatementIdx));\
+        auto __myStmt = dynamic_cast<Parser::IfStatementSyntax*>(block->at(currentStatementIdx));\
         EXPECT_TRUE(__myStmt != nullptr);\
         auto expr = __myStmt->condition();\
         {\
@@ -147,7 +149,7 @@
         }\
         auto ifStmt = __myStmt->ifBody();\
         {\
-            std::vector<StatementSyntax*> __myBlock { ifStmt };\
+            std::vector<Parser::StatementSyntax*> __myBlock { ifStmt };\
             auto block = &__myBlock;\
             auto currentStatementIdx = 0u;\
             ifStmtAssertions\
@@ -155,7 +157,7 @@
         auto elseStmt = __myStmt->elseBody();\
         EXPECT_TRUE(elseStmt != nullptr);\
         {\
-            std::vector<StatementSyntax*> __myBlock { elseStmt };\
+            std::vector<Parser::StatementSyntax*> __myBlock { elseStmt };\
             auto block = &__myBlock;\
             auto currentStatementIdx = 0u;\
             elseStmtAssertions\

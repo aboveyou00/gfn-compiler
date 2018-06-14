@@ -10,105 +10,108 @@
 #include "Runtime/MethodGroup.h"
 #include "Runtime/MethodOverload.h"
 
-ExpressionSyntax *UnaryExpressionSyntax::tryParse(Cursor<Token*> &cursor)
+namespace Gfn::Compiler::Parser
 {
-    if (cursor.current()->isOperator())
+    ExpressionSyntax *UnaryExpressionSyntax::tryParse(Cursor<Tokenizer::Token*> &cursor)
     {
-        auto op = cursor.current()->op();
-        if (op == "+"s || op == "-"s || op == "!"s)
+        if (cursor.current()->isOperator())
         {
-            auto startIndex = cursor.current()->startIndex();
-            auto snapshot = cursor.snapshot();
-            cursor.next();
-            ExpressionSyntax *rhs = tryParseSyntax<UnaryExpressionSyntax>(cursor);
-            if (rhs == nullptr) cursor.reset(snapshot);
-            else return new UnaryExpressionSyntax(startIndex, cursor.current()->startIndex() - startIndex, rhs, op);
+            auto op = cursor.current()->op();
+            if (op == "+"s || op == "-"s || op == "!"s)
+            {
+                auto startIndex = cursor.current()->startIndex();
+                auto snapshot = cursor.snapshot();
+                cursor.next();
+                ExpressionSyntax *rhs = tryParseSyntax<UnaryExpressionSyntax>(cursor);
+                if (rhs == nullptr) cursor.reset(snapshot);
+                else return new UnaryExpressionSyntax(startIndex, cursor.current()->startIndex() - startIndex, rhs, op);
+            }
         }
+
+        return tryParseSyntax<PrimaryExpressionSyntax>(cursor);
     }
 
-    return tryParseSyntax<PrimaryExpressionSyntax>(cursor);
-}
-
-UnaryExpressionSyntax::UnaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr, const std::string op)
-    : ExpressionSyntax(startIndex, length), m_expr(expr), m_op(op), m_selectedOperatorOverload(nullptr)
-{
-}
-UnaryExpressionSyntax::~UnaryExpressionSyntax()
-{
-    SafeDelete(this->m_expr);
-}
-
-ExpressionSyntax *UnaryExpressionSyntax::expr() const
-{
-    return this->m_expr;
-}
-const std::string UnaryExpressionSyntax::op() const
-{
-    return this->m_op;
-}
-
-bool UnaryExpressionSyntax::tryResolveType()
-{
-    if (this->m_resolvedType != nullptr) return true;
-
-    //Note: this top part is to handle the special case of having the minimum value for uint32_t
-    if (this->isNegativeNumericLimit())
+    UnaryExpressionSyntax::UnaryExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *expr, const std::string op)
+        : ExpressionSyntax(startIndex, length), m_expr(expr), m_op(op), m_selectedOperatorOverload(nullptr)
     {
-        this->m_resolvedType = RuntimeType::int32();
+    }
+    UnaryExpressionSyntax::~UnaryExpressionSyntax()
+    {
+        SafeDelete(this->m_expr);
+    }
+
+    ExpressionSyntax *UnaryExpressionSyntax::expr() const
+    {
+        return this->m_expr;
+    }
+    const std::string UnaryExpressionSyntax::op() const
+    {
+        return this->m_op;
+    }
+
+    bool UnaryExpressionSyntax::tryResolveType()
+    {
+        if (this->m_resolvedType != nullptr) return true;
+
+        //Note: this top part is to handle the special case of having the minimum value for uint32_t
+        if (this->isNegativeNumericLimit())
+        {
+            this->m_resolvedType = Runtime::RuntimeType::int32();
+            return true;
+        }
+
+        if (!this->expr()->tryResolveType()) return false;
+
+        auto exprType = this->expr()->resolvedType();
+
+        auto operatorMethodName = this->getOperatorMethodName();
+        auto methods = exprType->getStaticMethods(operatorMethodName);
+        if (methods != nullptr)
+        {
+            this->m_selectedOperatorOverload = methods->findOverload({ exprType });
+        }
+
+        if (this->m_selectedOperatorOverload == nullptr) return false;
+        this->m_resolvedType = this->m_selectedOperatorOverload->returnType();
         return true;
     }
 
-    if (!this->expr()->tryResolveType()) return false;
-
-    auto exprType = this->expr()->resolvedType();
-
-    auto operatorMethodName = this->getOperatorMethodName();
-    auto methods = exprType->getStaticMethods(operatorMethodName);
-    if (methods != nullptr)
+    void UnaryExpressionSyntax::emit(Emit::MethodBuilder &mb) const
     {
-        this->m_selectedOperatorOverload = methods->findOverload({ exprType });
+        this->assertTypeIsResolved();
+
+        //Note: this top part is to handle the special case of having the minimum value for uint32_t
+        if (this->isNegativeNumericLimit())
+        {
+            mb.addOpcode(new Emit::OpLdcI4(std::numeric_limits<int32_t>::min()));
+            return;
+        }
+
+        this->expr()->emit(mb);
+
+        this->m_selectedOperatorOverload->emitInvoke(mb);
     }
 
-    if (this->m_selectedOperatorOverload == nullptr) return false;
-    this->m_resolvedType = this->m_selectedOperatorOverload->returnType();
-    return true;
-}
-
-void UnaryExpressionSyntax::emit(MethodBuilder &mb) const
-{
-    this->assertTypeIsResolved();
-
-    //Note: this top part is to handle the special case of having the minimum value for uint32_t
-    if (this->isNegativeNumericLimit())
+    void UnaryExpressionSyntax::repr(std::stringstream &stream) const
     {
-        mb.addOpcode(new OpLdcI4(std::numeric_limits<int32_t>::min()));
-        return;
+        stream << this->op() << this->expr();
     }
 
-    this->expr()->emit(mb);
+    std::string UnaryExpressionSyntax::getOperatorMethodName() const
+    {
+        if (this->op() == "+"s) return "__op_UnaryPlus"s;
+        else if (this->op() == "-"s) return "__op_UnaryNegation"s;
+        else if (this->op() == "!"s) return "__op_LogicalNot"s;
+        else throw std::logic_error("Invalid unary expression operation: "s + this->op());
+    }
 
-    this->m_selectedOperatorOverload->emitInvoke(mb);
-}
-
-void UnaryExpressionSyntax::repr(std::stringstream &stream) const
-{
-    stream << this->op() << this->expr();
-}
-
-std::string UnaryExpressionSyntax::getOperatorMethodName() const
-{
-    if (this->op() == "+"s) return "__op_UnaryPlus"s;
-    else if (this->op() == "-"s) return "__op_UnaryNegation"s;
-    else if (this->op() == "!"s) return "__op_LogicalNot"s;
-    else throw std::logic_error("Invalid unary expression operation: "s + this->op());
-}
-
-bool UnaryExpressionSyntax::isNegativeNumericLimit() const
-{
-    if (this->op() != "-"s) return false;
-    auto primaryExpr = dynamic_cast<PrimaryExpressionSyntax*>(this->expr());
-    if (primaryExpr == nullptr) return false;
-    if (primaryExpr->type() != PrimaryExpressionType::IntegerLiteral || primaryExpr->intLiteralValue() != (uint64_t)-(int64_t)std::numeric_limits<int32_t>::min()) return false;
-    if (primaryExpr->startIndex() != this->startIndex() + 1) return false;
-    return true;
+    bool UnaryExpressionSyntax::isNegativeNumericLimit() const
+    {
+        if (this->op() != "-"s) return false;
+        auto primaryExpr = dynamic_cast<PrimaryExpressionSyntax*>(this->expr());
+        if (primaryExpr == nullptr) return false;
+        if (primaryExpr->type() != PrimaryExpressionType::IntegerLiteral || primaryExpr->intLiteralValue() != (uint64_t)-(int64_t)std::numeric_limits<int32_t>::min()) return false;
+        if (primaryExpr->startIndex() != this->startIndex() + 1) return false;
+        return true;
+    }
 }

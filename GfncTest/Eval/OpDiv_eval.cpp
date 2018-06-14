@@ -5,7 +5,7 @@
 TEST(OpDiv_eval, Simple) {
     PREPARE_STACK(20, 5);
 
-    OpDiv op;
+    Emit::OpDiv op;
     op.eval(stack);
 
     EXPECT_STACK_RESULT(4);
@@ -14,7 +14,7 @@ TEST(OpDiv_eval, Simple) {
 TEST(OpDiv_eval, IntegerDivision) {
     PREPARE_STACK(3, 2);
 
-    OpDiv op;
+    Emit::OpDiv op;
     op.eval(stack);
 
     EXPECT_STACK_RESULT(1);

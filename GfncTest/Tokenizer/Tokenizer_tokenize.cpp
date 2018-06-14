@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "TokenizerMacros.h"
 
+using namespace Gfn::Compiler;
+
 TEST(Tokenizer_tokenize, EmptyString) {
     TOKENIZE_SOURCE(""s);
 
@@ -27,7 +29,7 @@ TEST(Tokenizer_tokenize, IsolatedIntegerLiteral_0) {
 }
 
 TEST(Tokenizer_tokenize, InvalidIntegerLiteral) {
-    Tokenizer tokenizer;
+    Tokenizer::Tokenizer tokenizer;
     EXPECT_THROW(tokenizer.tokenize("01"), std::logic_error);
 }
 
@@ -41,7 +43,7 @@ TEST(Tokenizer_tokenize, MildlyInvalidIntegerLiteralUpperBound) {
 }
 
 TEST(Tokenizer_tokenize, WildlyInvalidIntegerLiteralUpperBound) {
-    Tokenizer tokenizer;
+    Tokenizer::Tokenizer tokenizer;
     EXPECT_THROW(tokenizer.tokenize("9999999999999999"), std::logic_error);
 }
 
@@ -91,17 +93,17 @@ TEST(Tokenizer_tokenize, StringLiteral_EscapedNewline) {
 }
 
 TEST(Tokenizer_tokenize, InvalidStringLiteral_Nonterminated) {
-    Tokenizer tokenizer;
+    Tokenizer::Tokenizer tokenizer;
     EXPECT_THROW(tokenizer.tokenize("\"Hi!"), std::logic_error);
 }
 
 TEST(Tokenizer_tokenize, InvalidStringLiteral_DanglingEscapeSequence) {
-    Tokenizer tokenizer;
+    Tokenizer::Tokenizer tokenizer;
     EXPECT_THROW(tokenizer.tokenize("\"\\\""), std::logic_error);
 }
 
 TEST(Tokenizer_tokenize, InvalidStringLiteral_NewlineCharacter) {
-    Tokenizer tokenizer;
+    Tokenizer::Tokenizer tokenizer;
     EXPECT_THROW(tokenizer.tokenize("\"\r\n\""), std::logic_error);
 }
 
@@ -227,17 +229,17 @@ TEST(Tokenizer_tokenize, IsolatedLogicalOrOperator) {
 }
 
 TEST(Tokenizer_tokenize, InvalidSingleEquals) {
-    Tokenizer tokenizer;
+    Tokenizer::Tokenizer tokenizer;
     EXPECT_THROW(tokenizer.tokenize("="), std::logic_error);
 }
 
 TEST(Tokenizer_tokenize, InvalidAmpersand) {
-    Tokenizer tokenizer;
+    Tokenizer::Tokenizer tokenizer;
     EXPECT_THROW(tokenizer.tokenize("&"), std::logic_error);
 }
 
 TEST(Tokenizer_tokenize, InvalidPipe) {
-    Tokenizer tokenizer;
+    Tokenizer::Tokenizer tokenizer;
     EXPECT_THROW(tokenizer.tokenize("|"), std::logic_error);
 }
 
@@ -394,12 +396,12 @@ TEST(Tokenizer_tokenize, IsolatedIdentifier_Verbatim) {
 }
 
 TEST(Tokenizer_tokenize, InvalidIdentifier_VerbatimNoCharacters) {
-    Tokenizer tokenizer;
+    Tokenizer::Tokenizer tokenizer;
     EXPECT_THROW(tokenizer.tokenize("@"), std::logic_error);
 }
 
 TEST(Tokenizer_tokenize, InvalidIdentifier_NumericStartChar) {
-    Tokenizer tokenizer;
+    Tokenizer::Tokenizer tokenizer;
     EXPECT_THROW(tokenizer.tokenize("2b"), std::logic_error);
 }
 

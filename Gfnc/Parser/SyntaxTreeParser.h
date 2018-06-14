@@ -2,16 +2,23 @@
 
 #include <vector>
 
-class Token;
-class ExpressionSyntax;
-class StatementSyntax;
-
-class SyntaxTreeParser
+namespace Gfn::Compiler::Tokenizer
 {
-public:
-    SyntaxTreeParser();
-    ~SyntaxTreeParser();
+    class Token;
+}
 
-    ExpressionSyntax *parseExpression(std::vector<Token*> &tokens);
-    std::vector<StatementSyntax*> *parseCompilationUnit(std::vector<Token*> &tokens);
-};
+namespace Gfn::Compiler::Parser
+{
+    class ExpressionSyntax;
+    class StatementSyntax;
+
+    class SyntaxTreeParser
+    {
+    public:
+        SyntaxTreeParser();
+        ~SyntaxTreeParser();
+
+        ExpressionSyntax *parseExpression(std::vector<Tokenizer::Token*> &tokens);
+        std::vector<StatementSyntax*> *parseCompilationUnit(std::vector<Tokenizer::Token*> &tokens);
+    };
+}

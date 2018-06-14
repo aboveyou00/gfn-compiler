@@ -1,14 +1,17 @@
 #pragma once
 #include "Tokenizer/Token.h"
 
-class EndOfFileToken :
-    public Token
+namespace Gfn::Compiler::Tokenizer
 {
-public:
-    EndOfFileToken(uint32_t startIndex);
-    ~EndOfFileToken();
+    class EndOfFileToken :
+        public Token
+    {
+    public:
+        EndOfFileToken(uint32_t startIndex);
+        ~EndOfFileToken();
 
-    virtual bool isEndOfFile() const override;
+        virtual bool isEndOfFile() const override;
 
-    virtual void repr(std::stringstream &stream) const override;
-};
+        virtual void repr(std::stringstream &stream) const override;
+    };
+}

@@ -3,23 +3,26 @@
 
 #include <vector>
 
-class ConditionalAndExpressionSyntax :
-    public BinaryExpressionSyntax
+namespace Gfn::Compiler::Parser
 {
-public:
-    static ExpressionSyntax *tryParse(Cursor<Token*> &cursor);
+    class ConditionalAndExpressionSyntax :
+        public BinaryExpressionSyntax
+    {
+    public:
+        static ExpressionSyntax *tryParse(Cursor<Tokenizer::Token*> &cursor);
 
-private:
-    static ConditionalAndExpressionSyntax *tryParseRhs(Cursor<Token*> &cursor, ExpressionSyntax *lhs);
+    private:
+        static ConditionalAndExpressionSyntax *tryParseRhs(Cursor<Tokenizer::Token*> &cursor, ExpressionSyntax *lhs);
 
-public:
-    ConditionalAndExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op);
-    ~ConditionalAndExpressionSyntax();
+    public:
+        ConditionalAndExpressionSyntax(uint32_t startIndex, uint32_t length, ExpressionSyntax *lhs, ExpressionSyntax *rhs, const std::string op);
+        ~ConditionalAndExpressionSyntax();
 
-    virtual bool tryResolveType() override;
+        virtual bool tryResolveType() override;
 
-    virtual void emit(MethodBuilder &mb) const override;
+        virtual void emit(Emit::MethodBuilder &mb) const override;
 
-protected:
-    virtual std::string getOperatorMethodName() const override;
-};
+    protected:
+        virtual std::string getOperatorMethodName() const override;
+    };
+}

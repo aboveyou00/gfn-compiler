@@ -6,17 +6,17 @@
 #include "Emit/OpBranch.h"
 
 TEST(OpBranch_eval, Simple) {
-    MethodBuilder mb;
+    Emit::MethodBuilder mb;
     auto tag = mb.createAnonymousTag();
     mb.addTagToNextOpcode(tag);
-    mb.addOpcode(new OpNop());
-    auto op = new OpBranch(tag);
+    mb.addOpcode(new Emit::OpNop());
+    auto op = new Emit::OpBranch(tag);
     mb.addOpcode(op);
 
     mb.finalize();
     auto &ops = mb.ops();
 
-    EvalContext ctx(ops);
+    Eval::EvalContext ctx(ops);
     ctx.nextInstructionIndex() = (uint32_t)ops.size();
 
     op->eval(ctx);
@@ -26,16 +26,16 @@ TEST(OpBranch_eval, Simple) {
 }
 
 TEST(OpBranch_eval, InvalidTag) {
-    MethodBuilder mb;
+    Emit::MethodBuilder mb;
     auto tag = mb.createAnonymousTag();
-    mb.addOpcode(new OpNop());
-    auto op = new OpBranch(tag);
+    mb.addOpcode(new Emit::OpNop());
+    auto op = new Emit::OpBranch(tag);
     mb.addOpcode(op);
 
     mb.finalize();
     auto &ops = mb.ops();
 
-    EvalContext ctx(ops);
+    Eval::EvalContext ctx(ops);
     ctx.nextInstructionIndex() = (uint32_t)ops.size();
 
     EXPECT_THROW(op->eval(ctx), std::logic_error);

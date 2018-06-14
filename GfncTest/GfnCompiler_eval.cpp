@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "GfnCompiler.h"
 
+using namespace Gfn::Compiler;
+
 TEST(GfnCompiler_eval, IntegerLiteral) {
     GfnCompiler calc;
     auto result = calc.eval("25");

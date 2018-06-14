@@ -2,12 +2,15 @@
 
 #include "Emit/BranchingOpcode.h"
 
-class OpBrFalse
-    : public BranchingOpcode
+namespace Gfn::Compiler::Emit
 {
-public:
-    OpBrFalse(OpcodeTag *tag);
-    ~OpBrFalse();
+    class OpBrFalse
+        : public BranchingOpcode
+    {
+    public:
+        OpBrFalse(OpcodeTag *tag);
+        ~OpBrFalse();
 
-    virtual void eval(EvalContext &ctx) const override;
-};
+        virtual void eval(Eval::EvalContext &ctx) const override;
+    };
+}

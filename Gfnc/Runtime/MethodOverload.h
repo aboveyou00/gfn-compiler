@@ -3,25 +3,32 @@
 #include <vector>
 #include <functional>
 
-class RuntimeType;
-class MethodBuilder;
-
-class MethodOverload
+namespace Gfn::Compiler::Emit
 {
-protected:
-    MethodOverload(RuntimeType *returnType, std::vector<RuntimeType*> argTypes);
+    class MethodBuilder;
+}
 
-public:
-    MethodOverload(RuntimeType *returnType, std::vector<RuntimeType*> argTypes, std::function<void(MethodBuilder &mb)> emitInvoke);
-    MethodOverload();
-    ~MethodOverload();
+namespace Gfn::Compiler::Runtime
+{
+    class RuntimeType;
 
-    RuntimeType *returnType() const;
-    const std::vector<RuntimeType*> &argTypes() const;
-    virtual void emitInvoke(MethodBuilder &mb) const;
+    class MethodOverload
+    {
+    protected:
+        MethodOverload(RuntimeType *returnType, std::vector<RuntimeType*> argTypes);
 
-private:
-    RuntimeType *m_returnType;
-    std::vector<RuntimeType*> m_argTypes;
-    std::function<void(MethodBuilder &mb)> m_emitInvoke;
-};
+    public:
+        MethodOverload(RuntimeType *returnType, std::vector<RuntimeType*> argTypes, std::function<void(Emit::MethodBuilder &mb)> emitInvoke);
+        MethodOverload();
+        ~MethodOverload();
+
+        RuntimeType *returnType() const;
+        const std::vector<RuntimeType*> &argTypes() const;
+        virtual void emitInvoke(Emit::MethodBuilder &mb) const;
+
+    private:
+        RuntimeType *m_returnType;
+        std::vector<RuntimeType*> m_argTypes;
+        std::function<void(Emit::MethodBuilder &mb)> m_emitInvoke;
+    };
+}

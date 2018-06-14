@@ -1,23 +1,25 @@
 #pragma once
 #include "Eval/EvalStack.h"
 
+using namespace Gfn::Compiler;
+
 template <typename TArg, typename... TArgs>
-inline void pushAllToStack(EvalStack &stack, TArg arg, TArgs... args)
+inline void pushAllToStack(Eval::EvalStack &stack, TArg arg, TArgs... args)
 {
     pushAllToStack(stack, arg);
     pushAllToStack(stack, args...);
 }
 template <typename TArg>
-inline void pushAllToStack(EvalStack &stack, TArg arg)
+inline void pushAllToStack(Eval::EvalStack &stack, TArg arg)
 {
     stack.push(arg);
 }
-inline void pushAllToStack(EvalStack&)
+inline void pushAllToStack(Eval::EvalStack&)
 {
 }
 
 #define PREPARE_STACK(...)\
-    EvalStack stack;\
+    Eval::EvalStack stack;\
     pushAllToStack(stack, __VA_ARGS__);
 
 #define EXPECT_STACK_RESULT(expectedResult)\

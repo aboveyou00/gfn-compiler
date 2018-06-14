@@ -2,18 +2,21 @@
 
 #include <vector>
 
-class RuntimeType;
-class MethodOverload;
-
-class MethodGroup
+namespace Gfn::Compiler::Runtime
 {
-public:
-    MethodGroup();
-    ~MethodGroup();
+    class RuntimeType;
+    class MethodOverload;
 
-    void addOverload(MethodOverload *overload);
-    MethodOverload *findOverload(const std::vector<RuntimeType*> &args) const;
+    class MethodGroup
+    {
+    public:
+        MethodGroup();
+        ~MethodGroup();
 
-private:
-    std::vector<MethodOverload*> m_overloads;
-};
+        void addOverload(MethodOverload *overload);
+        MethodOverload *findOverload(const std::vector<RuntimeType*> &args) const;
+
+    private:
+        std::vector<MethodOverload*> m_overloads;
+    };
+}

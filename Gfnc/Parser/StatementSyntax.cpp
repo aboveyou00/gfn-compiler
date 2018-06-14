@@ -4,24 +4,27 @@
 #include "Parser/PrintStatementSyntax.h"
 #include "Parser/ExpressionStatementSyntax.h"
 
-StatementSyntax *StatementSyntax::tryParse(Cursor<Token*> &cursor)
+namespace Gfn::Compiler::Parser
 {
-    StatementSyntax *expr;
+    StatementSyntax *StatementSyntax::tryParse(Cursor<Tokenizer::Token*> &cursor)
+    {
+        StatementSyntax *expr;
 
-    expr = IfStatementSyntax::tryParse(cursor);
-    if (expr != nullptr) return expr;
-    expr = PrintStatementSyntax::tryParse(cursor);
-    if (expr != nullptr) return expr;
-    expr = ExpressionStatementSyntax::tryParse(cursor);
-    if (expr != nullptr) return expr;
+        expr = IfStatementSyntax::tryParse(cursor);
+        if (expr != nullptr) return expr;
+        expr = PrintStatementSyntax::tryParse(cursor);
+        if (expr != nullptr) return expr;
+        expr = ExpressionStatementSyntax::tryParse(cursor);
+        if (expr != nullptr) return expr;
 
-    return nullptr;
-}
+        return nullptr;
+    }
 
-StatementSyntax::StatementSyntax(uint32_t startIndex, uint32_t length)
-    : Syntax(startIndex, length)
-{
-}
-StatementSyntax::~StatementSyntax()
-{
+    StatementSyntax::StatementSyntax(uint32_t startIndex, uint32_t length)
+        : Syntax(startIndex, length)
+    {
+    }
+    StatementSyntax::~StatementSyntax()
+    {
+    }
 }

@@ -6,17 +6,17 @@
 #include "Emit/OpBrTrue.h"
 
 TEST(OpBrTrue_eval, Simple_True) {
-    MethodBuilder mb;
+    Emit::MethodBuilder mb;
     auto tag = mb.createAnonymousTag();
     mb.addTagToNextOpcode(tag);
-    mb.addOpcode(new OpNop());
-    auto op = new OpBrTrue(tag);
+    mb.addOpcode(new Emit::OpNop());
+    auto op = new Emit::OpBrTrue(tag);
     mb.addOpcode(op);
 
     mb.finalize();
     auto &ops = mb.ops();
 
-    EvalContext ctx(ops);
+    Eval::EvalContext ctx(ops);
     ctx.nextInstructionIndex() = (uint32_t)ops.size();
     pushAllToStack(ctx.stack(), 1);
 
@@ -27,17 +27,17 @@ TEST(OpBrTrue_eval, Simple_True) {
 }
 
 TEST(OpBrTrue_eval, Simple_False) {
-    MethodBuilder mb;
+    Emit::MethodBuilder mb;
     auto tag = mb.createAnonymousTag();
     mb.addTagToNextOpcode(tag);
-    mb.addOpcode(new OpNop());
-    auto op = new OpBrTrue(tag);
+    mb.addOpcode(new Emit::OpNop());
+    auto op = new Emit::OpBrTrue(tag);
     mb.addOpcode(op);
 
     mb.finalize();
     auto &ops = mb.ops();
 
-    EvalContext ctx(ops);
+    Eval::EvalContext ctx(ops);
     ctx.nextInstructionIndex() = (uint32_t)ops.size();
     pushAllToStack(ctx.stack(), 0);
 
@@ -48,16 +48,16 @@ TEST(OpBrTrue_eval, Simple_False) {
 }
 
 TEST(OpBrTrue_eval, InvalidTag) {
-    MethodBuilder mb;
+    Emit::MethodBuilder mb;
     auto tag = mb.createAnonymousTag();
-    mb.addOpcode(new OpNop());
-    auto op = new OpBrTrue(tag);
+    mb.addOpcode(new Emit::OpNop());
+    auto op = new Emit::OpBrTrue(tag);
     mb.addOpcode(op);
 
     mb.finalize();
     auto &ops = mb.ops();
 
-    EvalContext ctx(ops);
+    Eval::EvalContext ctx(ops);
     ctx.nextInstructionIndex() = (uint32_t)ops.size();
     pushAllToStack(ctx.stack(), 1);
 
@@ -65,17 +65,17 @@ TEST(OpBrTrue_eval, InvalidTag) {
 }
 
 TEST(OpBrTrue_eval, InvalidStack) {
-    MethodBuilder mb;
+    Emit::MethodBuilder mb;
     auto tag = mb.createAnonymousTag();
     mb.addTagToNextOpcode(tag);
-    mb.addOpcode(new OpNop());
-    auto op = new OpBrTrue(tag);
+    mb.addOpcode(new Emit::OpNop());
+    auto op = new Emit::OpBrTrue(tag);
     mb.addOpcode(op);
 
     mb.finalize();
     auto &ops = mb.ops();
 
-    EvalContext ctx(ops);
+    Eval::EvalContext ctx(ops);
     ctx.nextInstructionIndex() = (uint32_t)ops.size();
 
     EXPECT_THROW(op->eval(ctx), std::logic_error);

@@ -2,18 +2,21 @@
 
 #include "Emit/Opcode.h"
 
-class BranchingOpcode
-    : public Opcode
+namespace Gfn::Compiler::Emit
 {
-public:
-    BranchingOpcode(OpcodeTag *tag);
-    ~BranchingOpcode();
+    class BranchingOpcode
+        : public Opcode
+    {
+    public:
+        BranchingOpcode(OpcodeTag *tag);
+        ~BranchingOpcode();
 
-    OpcodeTag *tag() const;
+        OpcodeTag *tag() const;
 
-    virtual void eval(EvalContext &ctx) const = 0;
-    virtual void eval(EvalStack &stack) const override;
+        virtual void eval(Eval::EvalContext &ctx) const = 0;
+        virtual void eval(Eval::EvalStack &stack) const override;
 
-private:
-    OpcodeTag *m_tag;
-};
+    private:
+        OpcodeTag * m_tag;
+    };
+}

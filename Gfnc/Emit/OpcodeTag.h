@@ -1,13 +1,16 @@
 #pragma once
 
-class OpcodeTag
+namespace Gfn::Compiler::Emit
 {
-public:
-    OpcodeTag(std::string name);
-    ~OpcodeTag();
+    class OpcodeTag
+    {
+    public:
+        OpcodeTag(std::string name);
+        ~OpcodeTag();
 
-    const std::string &name();
+        const std::string &name();
 
-private:
-    std::string m_name;
-};
+    private:
+        std::string m_name;
+    };
+}

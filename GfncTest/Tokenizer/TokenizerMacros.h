@@ -2,8 +2,10 @@
 #include "Tokenizer/Tokenizer.h"
 #include "Tokenizer/Token.h"
 
+using namespace Gfn::Compiler;
+
 #define TOKENIZE_SOURCE(str)\
-    Tokenizer tokenizer;\
+    Tokenizer::Tokenizer tokenizer;\
     auto tokens = tokenizer.tokenize(str);\
     auto currentTokenIdx = 0u;
 

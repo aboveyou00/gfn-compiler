@@ -7,27 +7,30 @@
 #include "Emit/Opcode.h"
 #include "Eval/EvalContext.h"
 
-ExpressionEvaluator::ExpressionEvaluator()
+namespace Gfn::Compiler::Eval
 {
-}
-ExpressionEvaluator::~ExpressionEvaluator()
-{
-}
-
-int32_t ExpressionEvaluator::eval(ExpressionSyntax *expr)
-{
-    MethodBuilder mb;
-    expr->emit(mb);
-    mb.finalize();
-
-    auto &ops = mb.ops();
-    EvalContext ctx(ops);
-
-    while (ctx.nextInstructionIndex() != ops.size())
+    ExpressionEvaluator::ExpressionEvaluator()
     {
-        auto instr = ops.at(ctx.nextInstructionIndex()++);
-        instr->eval(ctx);
+    }
+    ExpressionEvaluator::~ExpressionEvaluator()
+    {
     }
 
-    return ctx.stack().pop();
+    int32_t ExpressionEvaluator::eval(Parser::ExpressionSyntax *expr)
+    {
+        Emit::MethodBuilder mb;
+        expr->emit(mb);
+        mb.finalize();
+
+        auto &ops = mb.ops();
+        EvalContext ctx(ops);
+
+        while (ctx.nextInstructionIndex() != ops.size())
+        {
+            auto instr = ops.at(ctx.nextInstructionIndex()++);
+            instr->eval(ctx);
+        }
+
+        return ctx.stack().pop();
+    }
 }
