@@ -3,8 +3,8 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Parser\SyntaxTreeParser_parseExpression.cpp" />
-    <ClCompile Include="CppCalc_eval.cpp" />
-    <ClCompile Include="CppCalc_eval_IntegerLimits.cpp" />
+    <ClCompile Include="GfnCompiler_eval.cpp" />
+    <ClCompile Include="GfnCompiler_eval_IntegerLimits.cpp" />
     <ClCompile Include="Tokenizer\Tokenizer_tokenize.cpp" />
     <ClCompile Include="Eval\OpAdd_eval.cpp" />
     <ClCompile Include="Eval\OpBranch_eval.cpp" />

@@ -24,6 +24,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CppCalc</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>Gfnc</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -104,7 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)CppCalc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Gfnc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,6 +159,7 @@
     <ClInclude Include="Emit\OpNop.h" />
     <ClInclude Include="Eval\EvalContext.h" />
     <ClInclude Include="Emit\OpBrTrue.h" />
+    <ClInclude Include="GfnCompiler.h" />
     <ClInclude Include="Parser\ConditionalAndExpressionSyntax.h" />
     <ClInclude Include="Parser\ConditionalOrExpressionSyntax.h" />
     <ClInclude Include="Parser\EqualityExpressionSyntax.h" />
@@ -178,7 +180,6 @@
     <ClInclude Include="Emit\OpCeq.h" />
     <ClInclude Include="Parser\AdditiveExpressionSyntax.h" />
     <ClInclude Include="Parser\BinaryExpressionSyntax.h" />
-    <ClInclude Include="CppCalc.h" />
     <ClInclude Include="Parser\StatementSyntax.h" />
     <ClInclude Include="Runtime\MethodGroup.h" />
     <ClInclude Include="Runtime\MethodOverload.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="Emit\OpNop.cpp" />
     <ClCompile Include="Eval\EvalContext.cpp" />
     <ClCompile Include="Emit\OpBrTrue.cpp" />
+    <ClCompile Include="GfnCompiler.cpp" />
     <ClCompile Include="Parser\ExpressionStatementSyntax.cpp" />
     <ClCompile Include="Parser\IfStatementSyntax.cpp" />
     <ClCompile Include="Parser\PrintStatementSyntax.cpp" />
@@ -238,7 +240,6 @@
     <ClCompile Include="Emit\OpCeq.cpp" />
     <ClCompile Include="Parser\AdditiveExpressionSyntax.cpp" />
     <ClCompile Include="Parser\BinaryExpressionSyntax.cpp" />
-    <ClCompile Include="CppCalc.cpp" />
     <ClCompile Include="Runtime\RuntimeType.cpp" />
     <ClCompile Include="Tokenizer\EndOfFileToken.cpp" />
     <ClCompile Include="Parser\ExpressionSyntax.cpp" />

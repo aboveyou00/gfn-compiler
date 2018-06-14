@@ -25,6 +25,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <ProjectName>GfncTest</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -39,7 +40,7 @@
     <ClInclude Include="Tokenizer\TokenizerMacros.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CppCalc_eval.cpp" />
+    <ClCompile Include="GfnCompiler_eval.cpp" />
     <ClCompile Include="Eval\OpAdd_eval.cpp" />
     <ClCompile Include="Eval\OpBranch_eval.cpp" />
     <ClCompile Include="Eval\OpBrFalse_eval.cpp" />
@@ -53,7 +54,7 @@
     <ClCompile Include="Eval\OpMod_eval.cpp" />
     <ClCompile Include="Eval\OpNeg_eval.cpp" />
     <ClCompile Include="Eval\OpLdcI4_eval.cpp" />
-    <ClCompile Include="CppCalc_eval_IntegerLimits.cpp" />
+    <ClCompile Include="GfnCompiler_eval_IntegerLimits.cpp" />
     <ClCompile Include="Eval\OpClt_eval.cpp" />
     <ClCompile Include="Parser\SyntaxTreeParser_parseExpression.cpp" />
     <ClCompile Include="Parser\SyntaxTreeParser_parseCompilationUnit.cpp" />
@@ -66,7 +67,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CppCalc\CppCalc.vcxproj">
+    <ProjectReference Include="..\Gfnc\Gfnc.vcxproj">
       <Project>{4fea9e4f-816c-4fd2-859c-774b87eb2044}</Project>
     </ProjectReference>
   </ItemGroup>
@@ -104,7 +105,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalIncludeDirectories>$(SolutionDir)CppCalc\;$(SolutionDir)CppCalcTest\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Gfnc\;$(SolutionDir)GfncTest\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

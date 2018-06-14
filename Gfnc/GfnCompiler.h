@@ -3,11 +3,11 @@
 #include <cstdint>
 #include <string>
 
-class CppCalc
+class GfnCompiler
 {
 public:
-    CppCalc();
-    ~CppCalc();
+    GfnCompiler();
+    ~GfnCompiler();
 
     int32_t eval(const std::string &src);
 };

@@ -15,7 +15,7 @@ namespace VisualStudioGfnEditor
     internal class GfnFileAndContentTypeDefinitions
     {
         // This disables "The field is never used" compiler's warning. Justification: the field is used by MEF.
-#pragma warning disable 169
+#pragma warning disable 0649
 
         [Export(typeof(ContentTypeDefinition))]
         [Name("gfn")]
@@ -27,6 +27,6 @@ namespace VisualStudioGfnEditor
         [ContentType("gfn")]
         internal static FileExtensionToContentTypeDefinition fileExtensionToContentTypeDefinition;
 
-#pragma warning restore 169
+#pragma warning restore 0649
     }
 }

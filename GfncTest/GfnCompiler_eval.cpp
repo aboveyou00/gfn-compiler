@@ -1,252 +1,252 @@
 #include "pch.h"
-#include "CppCalc.h"
+#include "GfnCompiler.h"
 
-TEST(CppCalc_eval, IntegerLiteral) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, IntegerLiteral) {
+    GfnCompiler calc;
     auto result = calc.eval("25");
     EXPECT_TRUE(result == 25);
 }
 
-TEST(CppCalc_eval, MaxIntegerLiteral) {
+TEST(GfnCompiler_eval, MaxIntegerLiteral) {
     std::stringstream stream;
     stream << std::numeric_limits<int32_t>::max();
 
-    CppCalc calc;
+    GfnCompiler calc;
     auto result = calc.eval(stream.str());
     EXPECT_TRUE(result == std::numeric_limits<int32_t>::max());
 }
 
-TEST(CppCalc_eval, MinIntegerLiteral) {
+TEST(GfnCompiler_eval, MinIntegerLiteral) {
     std::stringstream stream;
     stream << std::numeric_limits<int32_t>::min();
 
-    CppCalc calc;
+    GfnCompiler calc;
     auto result = calc.eval(stream.str());
     EXPECT_TRUE(result == std::numeric_limits<int32_t>::min());
 }
 
-TEST(CppCalc_eval, BooleanLiteral_True) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, BooleanLiteral_True) {
+    GfnCompiler calc;
     auto result = calc.eval("true");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, BooleanLiteral_False) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, BooleanLiteral_False) {
+    GfnCompiler calc;
     auto result = calc.eval("false");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, SimpleNegation) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, SimpleNegation) {
+    GfnCompiler calc;
     auto result = calc.eval("-45");
     EXPECT_TRUE(result == -45);
 }
 
-TEST(CppCalc_eval, UnaryPositive) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, UnaryPositive) {
+    GfnCompiler calc;
     auto result = calc.eval("+45");
     EXPECT_TRUE(result == 45);
 }
 
-TEST(CppCalc_eval, LogicalNot_True) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, LogicalNot_True) {
+    GfnCompiler calc;
     auto result = calc.eval("!true");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, LogicalNot_False) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, LogicalNot_False) {
+    GfnCompiler calc;
     auto result = calc.eval("!false");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, SimpleAddition) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, SimpleAddition) {
+    GfnCompiler calc;
     auto result = calc.eval("3 + 4");
     EXPECT_TRUE(result == 7);
 }
 
-TEST(CppCalc_eval, ComplexAddition) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, ComplexAddition) {
+    GfnCompiler calc;
     auto result = calc.eval("1 + 2 + 3 + 4 + 5");
     EXPECT_TRUE(result == 15);
 }
 
-TEST(CppCalc_eval, SimpleSubtraction) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, SimpleSubtraction) {
+    GfnCompiler calc;
     auto result = calc.eval("20 - 16");
     EXPECT_TRUE(result == 4);
 }
 
-TEST(CppCalc_eval, SimpleMultiplication) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, SimpleMultiplication) {
+    GfnCompiler calc;
     auto result = calc.eval("5 * 4");
     EXPECT_TRUE(result == 20);
 }
 
-TEST(CppCalc_eval, SimpleDivision) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, SimpleDivision) {
+    GfnCompiler calc;
     auto result = calc.eval("360 / 36");
     EXPECT_TRUE(result == 10);
 }
 
-TEST(CppCalc_eval, SimpleIntegerDivision) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, SimpleIntegerDivision) {
+    GfnCompiler calc;
     auto result = calc.eval("5 / 2");
     EXPECT_TRUE(result == 2);
 }
 
-TEST(CppCalc_eval, SimpleModulus) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, SimpleModulus) {
+    GfnCompiler calc;
     auto result = calc.eval("13 % 2");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, ComplexExpression) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, ComplexExpression) {
+    GfnCompiler calc;
     auto result = calc.eval("3 + 4 * 5");
     EXPECT_TRUE(result == 23);
 }
 
-TEST(CppCalc_eval, BooleanEquality_True) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, BooleanEquality_True) {
+    GfnCompiler calc;
     auto result = calc.eval("true == true");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, BooleanEquality_False) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, BooleanEquality_False) {
+    GfnCompiler calc;
     auto result = calc.eval("true == false");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, BooleanInequality) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, BooleanInequality) {
+    GfnCompiler calc;
     auto result = calc.eval("true != true");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, Int32Equality_Complex_True) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32Equality_Complex_True) {
+    GfnCompiler calc;
     auto result = calc.eval("42 == 21 * 2");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, Int32LessThan_True) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32LessThan_True) {
+    GfnCompiler calc;
     auto result = calc.eval("3 < 5");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, Int32LessThan_False) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32LessThan_False) {
+    GfnCompiler calc;
     auto result = calc.eval("5 < 3");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, Int32LessThan_Identity) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32LessThan_Identity) {
+    GfnCompiler calc;
     auto result = calc.eval("5 < 5");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, Int32GreaterThan_True) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32GreaterThan_True) {
+    GfnCompiler calc;
     auto result = calc.eval("5 > 3");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, Int32GreaterThan_False) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32GreaterThan_False) {
+    GfnCompiler calc;
     auto result = calc.eval("3 > 5");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, Int32GreaterThan_Identity) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32GreaterThan_Identity) {
+    GfnCompiler calc;
     auto result = calc.eval("5 > 5");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, Int32LessThanEquals_True) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32LessThanEquals_True) {
+    GfnCompiler calc;
     auto result = calc.eval("3 <= 5");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, Int32LessThanEquals_False) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32LessThanEquals_False) {
+    GfnCompiler calc;
     auto result = calc.eval("5 <= 3");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, Int32LessThanEquals_Identity) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32LessThanEquals_Identity) {
+    GfnCompiler calc;
     auto result = calc.eval("5 <= 5");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, Int32GreaterThanEquals_True) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32GreaterThanEquals_True) {
+    GfnCompiler calc;
     auto result = calc.eval("5 >= 3");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, Int32GreaterThanEquals_False) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32GreaterThanEquals_False) {
+    GfnCompiler calc;
     auto result = calc.eval("3 >= 5");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, Int32GreaterThanEquals_Identity) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32GreaterThanEquals_Identity) {
+    GfnCompiler calc;
     auto result = calc.eval("5 >= 5");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, BooleanInt32Addition) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, BooleanInt32Addition) {
+    GfnCompiler calc;
     EXPECT_THROW(calc.eval("true + 32"), std::logic_error);
 }
 
-TEST(CppCalc_eval, Int32BooleanAddition) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, Int32BooleanAddition) {
+    GfnCompiler calc;
     EXPECT_THROW(calc.eval("32 + true"), std::logic_error);
 }
 
-TEST(CppCalc_eval, ConditionalAnd_True) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, ConditionalAnd_True) {
+    GfnCompiler calc;
     auto result = calc.eval("true && true");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, ConditionalAnd_False) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, ConditionalAnd_False) {
+    GfnCompiler calc;
     auto result = calc.eval("true && false");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, ConditionalAnd_False_ShortCircuit) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, ConditionalAnd_False_ShortCircuit) {
+    GfnCompiler calc;
     auto result = calc.eval("false && true");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, ConditionalOr_False) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, ConditionalOr_False) {
+    GfnCompiler calc;
     auto result = calc.eval("false || false");
     EXPECT_TRUE(result == 0);
 }
 
-TEST(CppCalc_eval, ConditionalOr_True) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, ConditionalOr_True) {
+    GfnCompiler calc;
     auto result = calc.eval("false || true");
     EXPECT_TRUE(result == 1);
 }
 
-TEST(CppCalc_eval, ConditionalOr_True_ShortCircuit) {
-    CppCalc calc;
+TEST(GfnCompiler_eval, ConditionalOr_True_ShortCircuit) {
+    GfnCompiler calc;
     auto result = calc.eval("true || false");
     EXPECT_TRUE(result == 1);
 }
