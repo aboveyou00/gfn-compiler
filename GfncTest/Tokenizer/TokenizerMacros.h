@@ -5,7 +5,7 @@
 #define TOKENIZE_SOURCE(str)\
     Tokenizer tokenizer;\
     auto tokens = tokenizer.tokenize(str);\
-    auto currentTokenIdx = 0;
+    auto currentTokenIdx = 0u;
 
 #define EXPECT_INTEGER_LITERAL(val)\
     {\

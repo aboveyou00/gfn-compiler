@@ -92,7 +92,7 @@
     auto tokens = tokenizer.tokenize(str);\
     SyntaxTreeParser syntaxTreeParser;\
     auto block = syntaxTreeParser.parseCompilationUnit(*tokens);\
-    auto currentStatementIdx = 0;
+    auto currentStatementIdx = 0u;
 
 #define EXPECT_EXPRESSION_STATEMENT(expr, assertions)\
     {\
@@ -129,7 +129,7 @@
         {\
             std::vector<StatementSyntax*> __myBlock { ifStmt };\
             auto block = &__myBlock;\
-            auto currentStatementIdx = 0;\
+            auto currentStatementIdx = 0u;\
             stmtAssertions\
         }\
         auto elseStmt = __myStmt->elseBody();\
@@ -149,7 +149,7 @@
         {\
             std::vector<StatementSyntax*> __myBlock { ifStmt };\
             auto block = &__myBlock;\
-            auto currentStatementIdx = 0;\
+            auto currentStatementIdx = 0u;\
             ifStmtAssertions\
         }\
         auto elseStmt = __myStmt->elseBody();\
@@ -157,7 +157,7 @@
         {\
             std::vector<StatementSyntax*> __myBlock { elseStmt };\
             auto block = &__myBlock;\
-            auto currentStatementIdx = 0;\
+            auto currentStatementIdx = 0u;\
             elseStmtAssertions\
         }\
         currentStatementIdx++;\

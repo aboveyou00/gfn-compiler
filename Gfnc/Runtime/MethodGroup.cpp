@@ -24,7 +24,7 @@ MethodOverload *MethodGroup::findOverload(const std::vector<RuntimeType*> &args)
         auto overloadArgs = overload->argTypes();
         if (overloadArgs.size() != args.size()) continue;
         auto isSame = true;
-        for (auto q = 0; q < overloadArgs.size(); q++)
+        for (auto q = 0u; q < overloadArgs.size(); q++)
         {
             if (overloadArgs.at(q) != args.at(q))
             {

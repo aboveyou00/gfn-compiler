@@ -29,7 +29,7 @@ uint32_t &EvalContext::nextInstructionIndex()
 void EvalContext::branchTo(OpcodeTag *tag)
 {
     auto &ops = this->m_opcodes;
-    for (auto q = 0; q < ops.size(); q++)
+    for (auto q = 0u; q < ops.size(); q++)
     {
         auto instr = ops.at(q);
         if (instr->hasTag(tag))
