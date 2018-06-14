@@ -1,0 +1,7 @@
+
+
+puts "This is the GFN Programming Language";
+puts "The extension is .gfn";
+puts "GFN is short for \"Good For Nothing\"";
+
+puts "Yay";
